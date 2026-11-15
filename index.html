@@ -100,6 +100,31 @@ a.pc2{display:block;text-decoration:none}a.pc2:hover{border-color:var(--ac)}a.pc
 #home .hero .img img{height:auto;max-height:520px;object-fit:cover}
 }
 
+
+/* polished academy header */
+header{background:rgba(12,17,29,.96);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.1);box-shadow:0 8px 28px rgba(0,0,0,.16)}
+header>.w{max-width:none;width:100%;padding:0 clamp(20px,4.5vw,76px)}
+header nav{min-height:88px;height:auto;gap:clamp(4px,.7vw,12px);flex-wrap:nowrap}
+header .brand{gap:13px;margin-right:auto;flex-shrink:0;font-size:1.32rem;letter-spacing:-.025em;color:#fff}
+header .brand img{width:54px;height:54px;object-fit:contain;flex:0 0 54px;padding:4px;border-radius:13px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12)}
+header .brand small{margin-top:2px;color:#aeb8ca;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase}
+header nav a.l{padding:10px 13px;border-radius:9px;color:#b6c0d1;font-size:.91rem;white-space:nowrap;transition:background .2s,color .2s}
+header nav a.l.on,header nav a.l:hover{color:#fff;background:rgba(255,255,255,.09)}
+header nav a.btn{margin-left:8px;padding:13px 19px;border-radius:10px;white-space:nowrap;box-shadow:0 7px 20px rgba(255,90,31,.2)}
+@media(max-width:1050px){
+header nav{min-height:76px;flex-wrap:wrap;padding:12px 0}
+header .brand{width:100%;margin:0 0 4px}
+header nav a.l{font-size:.86rem;padding:8px 10px}
+header nav a.btn{margin-left:auto}
+}
+@media(max-width:620px){
+header>.w{padding:0 16px}
+header nav{gap:4px}
+header .brand img{width:46px;height:46px;flex-basis:46px}
+header nav a.l{font-size:.78rem;padding:7px 8px}
+header nav a.btn{font-size:.82rem;padding:9px 12px}
+}
+
 </style></head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
 <div class="top"><div class="w"><span>Chess AnyTime Academy · Coach Shubham</span><span id="tl"><a href="#login">Student Login</a></span></div></div>
