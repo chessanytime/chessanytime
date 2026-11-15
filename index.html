@@ -167,6 +167,29 @@ header nav a.btn{font-size:.82rem;padding:9px 12px}
 #post .body h2{padding-top:8px}
 #blog .pc2:hover{transform:translateY(-3px);border-color:var(--ac);transition:transform .2s,border-color .2s}
 
+
+/* Give long-form articles a spacious desktop reading layout */
+#post>.w{width:min(100% - 64px,1500px);max-width:1500px;padding-left:0;padding-right:0}
+#post .art{width:100%;max-width:1400px;margin:0 auto}
+#post .body{width:100%;max-width:1280px;margin:34px auto 0;font-size:1.16rem;line-height:1.9}
+#post .body .post-cover{max-width:100%;margin:28px 0 32px}
+#post .body .post-tags{margin:22px 0 30px}
+#post .body .post-lead{max-width:1100px;font-size:1.25rem;line-height:1.85}
+#post .body h2{max-width:1200px;font-size:clamp(1.7rem,2.5vw,2.15rem);margin:52px 0 16px}
+#post .body h3{font-size:1.45rem;margin:36px 0 12px}
+#post .body ul{max-width:1220px;padding-left:28px}
+#post .body p{max-width:1220px}
+#post .game-embed{max-width:1000px}
+@media(max-width:900px){
+ #post>.w{width:100%;padding-left:22px;padding-right:22px}
+ #post .art{max-width:100%}
+ #post .body{max-width:100%;font-size:1.06rem;line-height:1.8}
+ #post .body .post-lead{font-size:1.12rem}
+}
+@media(min-width:1500px){
+ #post .body{max-width:1320px}
+}
+
 </style></head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
 <div class="top"><div class="w"><span>Chess AnyTime Academy · Coach Shubham</span><span id="tl"><a href="#login">Student Login</a></span></div></div>
