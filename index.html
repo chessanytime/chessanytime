@@ -173,7 +173,7 @@ const GL={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
 const pages=['home','blog','post','about','programs','community','puzzles','demo','contact','login','portal'];let me=null,solved={};
 function route(){let h=location.hash.slice(1);let slug=null;if(h.startsWith('blog-')){slug=h.slice(5);h='post'}if(!pages.includes(h))h='home';if(h==='login'&&me)h='portal';if(h==='portal'&&!me)h='login';renderMe();if(h==='blog')renderBlog();if(h==='post')renderPost(slug);pages.forEach(p=>$('#'+p).classList.toggle('on',p===h));document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.dataset.p===(h==='post'?'blog':h)));if(h==='puzzles'&&!g)load(today())}
 addEventListener('hashchange',route);
-let g,cur,idx,sel,last,flip,done,failed,hintSq;let boardMarks=[],pointerStart=null;
+let g,cur,idx,sel,last,flip,done,failed,hintSq;let boardMarks=[],activeGesture=null;
 const localDate=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
 function load(i){cur=PUZZLES[i];g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;boardMarks=[];flip=g.turn()==='b';
@@ -186,14 +186,17 @@ if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');if(sel===sq)d.clas
 if(pc){const s=document.createElement('img');s.className='pc';s.alt='';s.draggable=false;s.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(s)}
 if(v%8===7){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
 if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
-d.addEventListener('pointerdown',e=>{if(e.button===2){e.preventDefault();pointerStart={sq,button:2,pointerId:e.pointerId};return}if(e.button!==0)return;pointerStart={sq,button:0,pointerId:e.pointerId};if(pc&&pc.color===g.turn()&&pc.color===cur.side0&&!done){sel=sq;d.classList.add('dragging')}});
-d.addEventListener('pointerup',e=>{if(!pointerStart||pointerStart.pointerId!==e.pointerId)return;const from=pointerStart.sq,button=pointerStart.button;pointerStart=null;d.classList.remove('dragging');if(button===2){if(from===sq){const k=boardMarks.findIndex(m=>m.from===sq&&m.to===sq);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from:sq,to:sq})}else{const k=boardMarks.findIndex(m=>m.from===from&&m.to===sq);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from,to:sq})}draw();return}if(from!==sq){if(sel&&g.moves({square:from,verbose:true}).some(m=>m.to===sq))play(from,sq);else if(!done)click(sq)}else click(sq)});
-d.addEventListener('pointercancel',()=>{pointerStart=null;d.classList.remove('dragging')});
-d.addEventListener('contextmenu',e=>e.preventDefault());
 bd.appendChild(d)}
 const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg');svg.setAttribute('class','marks');svg.setAttribute('viewBox','0 0 8 8');svg.innerHTML='<defs><marker id="puzzle-arrow" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L4 2 L0 4 Z" fill="rgba(72,142,55,.9)"/></marker></defs>';
 const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
 boardMarks.forEach(m=>{const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to);if(m.from===m.to){const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');svg.appendChild(c)}else{const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);svg.appendChild(l)}});bd.appendChild(svg)}
+// Board-level pointer handling keeps drag/drop reliable even when the board is redrawn during selection.
+const puzzleBoard=$('#bd');
+function squareAtPoint(e){const r=puzzleBoard.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;if(x<0||y<0||x>=r.width||y>=r.height)return null;let file=Math.min(7,Math.floor(x/r.width*8)),rank=Math.min(7,Math.floor(y/r.height*8));if(flip){file=7-file;rank=7-rank}return 'abcdefgh'[file]+(8-rank)}
+puzzleBoard.addEventListener('pointerdown',e=>{const sq=squareAtPoint(e);if(!sq)return;if(e.button!==0&&e.button!==2)return;e.preventDefault();activeGesture={from:sq,button:e.button,pointerId:e.pointerId};try{puzzleBoard.setPointerCapture(e.pointerId)}catch(_){}if(e.button===0){const p=g&&g.get(sq);if(p&&p.color===g.turn()&&p.color===cur.side0&&!done){sel=sq;draw()}}});
+puzzleBoard.addEventListener('pointerup',e=>{if(!activeGesture||activeGesture.pointerId!==e.pointerId)return;e.preventDefault();const gesture=activeGesture;activeGesture=null;const to=squareAtPoint(e);if(!to)return;if(gesture.button===2){const k=boardMarks.findIndex(m=>m.from===gesture.from&&m.to===to);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from:gesture.from,to});draw();return}if(done)return;if(gesture.from!==to&&sel===gesture.from&&g.moves({square:gesture.from,verbose:true}).some(m=>m.to===to)){play(gesture.from,to);return}click(to)});
+puzzleBoard.addEventListener('pointercancel',()=>{activeGesture=null});
+puzzleBoard.addEventListener('contextmenu',e=>e.preventDefault());
 function click(sq){if(done)return;const p=g.get(sq);hintSq=null;
 if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){play(sel,sq);return}
 sel=(p&&p.color===g.turn()&&p.color===cur.side0)?sq:null;draw()}
