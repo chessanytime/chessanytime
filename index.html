@@ -42,7 +42,14 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 /* puzzle */
 .pz{display:grid;grid-template-columns:minmax(0,664px) 1fr;gap:28px;align-items:start}
 .board-frame{width:100%;box-sizing:border-box;background:#262421;border-radius:22px;padding:32px 0;box-shadow:0 8px 30px rgba(0,0,0,.35);overflow:hidden}
-#bd{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;width:100%;overflow:hidden;user-select:none;touch-action:manipulation}
+#bd{position:relative;display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;width:100%;overflow:hidden;user-select:none;touch-action:none}
+#bd .sq{touch-action:none}
+#bd .pc{pointer-events:none}
+#bd .sq.dragging .pc{opacity:.35}
+#bd .marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible}
+#bd .marks line{stroke:rgba(72,142,55,.78);stroke-width:.19;stroke-linecap:round;marker-end:url(#puzzle-arrow)}
+#bd .marks circle{fill:rgba(72,142,55,.38);stroke:rgba(72,142,55,.78);stroke-width:.08}
+.board-help{font-size:.82rem;color:var(--mut);margin-top:9px}
 .sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;container-type:size}
 .sq.l{background:#f0d9b5}.sq.d{background:#b58863}
 .sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0;background:rgba(205,210,106,.78)}.sq.sel::before{background:rgba(246,246,105,.72)}
@@ -130,7 +137,7 @@ a.pc2{display:block;text-decoration:none}a.pc2:hover{border-color:var(--ac)}a.pc
 </div></div></section>
 
 <section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">One new puzzle every day. Tap a piece, then tap where it should go.</p>
-<div class="pz"><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div>
+<div class="pz"><div><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div><div class="board-help">Drag pieces to move · Right-drag to draw arrows · Right-click a square to mark it</div></div>
 <div class="side"><div id="st"></div><div class="meta" id="mt"></div>
 <div class="row"><button class="btn g" id="bh">Hint</button><button class="btn g" id="bs">Solution</button><button class="btn" id="br">Retry</button></div>
 <div class="meta">Puzzle archive</div><div class="arch" id="ar"></div></div></div></div></section>
@@ -166,10 +173,10 @@ const GL={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
 const pages=['home','blog','post','about','programs','community','puzzles','demo','contact','login','portal'];let me=null,solved={};
 function route(){let h=location.hash.slice(1);let slug=null;if(h.startsWith('blog-')){slug=h.slice(5);h='post'}if(!pages.includes(h))h='home';if(h==='login'&&me)h='portal';if(h==='portal'&&!me)h='login';renderMe();if(h==='blog')renderBlog();if(h==='post')renderPost(slug);pages.forEach(p=>$('#'+p).classList.toggle('on',p===h));document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.dataset.p===(h==='post'?'blog':h)));if(h==='puzzles'&&!g)load(today())}
 addEventListener('hashchange',route);
-let g,cur,idx,sel,last,flip,done,failed,hintSq;
+let g,cur,idx,sel,last,flip,done,failed,hintSq;let boardMarks=[],pointerStart=null;
 const localDate=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
-function load(i){cur=PUZZLES[i];g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;flip=g.turn()==='b';
+function load(i){cur=PUZZLES[i];g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;boardMarks=[];flip=g.turn()==='b';
 $('#st').className='';$('#st').textContent='Your turn';$('#mt').textContent='Find the best move for '+(g.turn()==='w'?'white':'black')+' · Rating '+cur.rating+' · '+cur.theme;draw();arch(i)}
 function arch(i){$('#ar').innerHTML='';const t=PUZZLES.length;PUZZLES.forEach((p,k)=>{if(k>today())return;const b=document.createElement('button');b.textContent=p.date+' · '+p.theme;b.className=k===i?'on':'';b.onclick=()=>load(k);$('#ar').prepend(b)})}
 function draw(){const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};if(sel)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
@@ -179,7 +186,14 @@ if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');if(sel===sq)d.clas
 if(pc){const s=document.createElement('img');s.className='pc';s.alt='';s.draggable=false;s.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(s)}
 if(v%8===7){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
 if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
-d.onclick=()=>click(sq);bd.appendChild(d)}}
+d.addEventListener('pointerdown',e=>{if(e.button===2){e.preventDefault();pointerStart={sq,button:2,pointerId:e.pointerId};return}if(e.button!==0)return;pointerStart={sq,button:0,pointerId:e.pointerId};if(pc&&pc.color===g.turn()&&pc.color===cur.side0&&!done){sel=sq;d.classList.add('dragging')}});
+d.addEventListener('pointerup',e=>{if(!pointerStart||pointerStart.pointerId!==e.pointerId)return;const from=pointerStart.sq,button=pointerStart.button;pointerStart=null;d.classList.remove('dragging');if(button===2){if(from===sq){const k=boardMarks.findIndex(m=>m.from===sq&&m.to===sq);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from:sq,to:sq})}else{const k=boardMarks.findIndex(m=>m.from===from&&m.to===sq);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from,to:sq})}draw();return}if(from!==sq){if(sel&&g.moves({square:from,verbose:true}).some(m=>m.to===sq))play(from,sq);else if(!done)click(sq)}else click(sq)});
+d.addEventListener('pointercancel',()=>{pointerStart=null;d.classList.remove('dragging')});
+d.addEventListener('contextmenu',e=>e.preventDefault());
+bd.appendChild(d)}
+const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg');svg.setAttribute('class','marks');svg.setAttribute('viewBox','0 0 8 8');svg.innerHTML='<defs><marker id="puzzle-arrow" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L4 2 L0 4 Z" fill="rgba(72,142,55,.9)"/></marker></defs>';
+const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
+boardMarks.forEach(m=>{const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to);if(m.from===m.to){const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');svg.appendChild(c)}else{const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);svg.appendChild(l)}});bd.appendChild(svg)}
 function click(sq){if(done)return;const p=g.get(sq);hintSq=null;
 if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){play(sel,sq);return}
 sel=(p&&p.color===g.turn()&&p.color===cur.side0)?sq:null;draw()}
