@@ -38,18 +38,18 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 .card.pop{border-color:var(--ac)}.card h3{font-size:1.3rem}.card .m{color:var(--mut);font-size:.88rem;margin:4px 0 14px}
 .card ul{padding-left:18px;margin:0 0 16px;color:var(--mut);font-size:.93rem}.price{font:800 1.15rem 'Bricolage Grotesque'}
 .band{margin-top:56px;padding:30px;border-radius:16px;background:var(--bg2);border:1px solid var(--ln);display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+/* Puzzle pieces use Lichess's default Cburnett SVG set (Colin M. L. Burnett); board squares match Lichess default brown theme. Source: https://github.com/lichess-org/lila/tree/master/public/piece/cburnett */
 /* puzzle */
 .pz{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:start}
 #bd{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;width:100%;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.35);user-select:none;touch-action:manipulation}
 .sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;container-type:size}
-.sq.l{background:var(--sq-l)}.sq.d{background:var(--sq-d)}
-.sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0;background:rgba(155,199,0,.41)}.sq.sel::before{background:rgba(20,85,30,.5)}
-.sq.hint::before{content:"";position:absolute;inset:0;background:rgba(0,156,224,.45)}
-.sq.dot::after{content:"";position:absolute;width:32%;height:32%;border-radius:50%;background:rgba(20,85,30,.5)}
-.sq.cap::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(transparent 0,transparent 66%,rgba(20,85,30,.5) 67%)}
-.pc{position:relative;z-index:1;font-size:78cqh;line-height:1}
-.pc.w{color:#fff;-webkit-text-stroke:2px #222;text-shadow:0 2px 2px rgba(0,0,0,.35)}.pc.b{color:#262626;-webkit-text-stroke:1px #000}
-.co{position:absolute;font:700 .62rem Figtree;z-index:2;pointer-events:none}.sq.l .co{color:var(--sq-d)}.sq.d .co{color:var(--sq-l)}.co.r{top:2px;left:3px}.co.f{bottom:1px;right:3px}
+.sq.l{background:#f0d9b5}.sq.d{background:#b58863}
+.sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0;background:rgba(205,210,106,.78)}.sq.sel::before{background:rgba(246,246,105,.72)}
+.sq.hint::before{content:"";position:absolute;inset:0;background:rgba(0,156,224,.38)}
+.sq.dot::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(20,20,20,.22)}
+.sq.cap::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(transparent 0,transparent 69%,rgba(20,20,20,.28) 70%)}
+.pc{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
+.co{position:absolute;font:700 .62rem Figtree;z-index:2;pointer-events:none}.sq.l .co{color:#946f51}.sq.d .co{color:#f0d9b5}.co.r{top:2px;left:3px}.co.f{bottom:1px;right:3px}
 .side{background:var(--bg2);border:1px solid var(--ln);border-radius:14px;padding:22px}
 #st{font:800 1.5rem 'Bricolage Grotesque';margin-bottom:4px}#st.ok{color:#6cc04a}#st.no{color:#e5534b}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.meta{color:var(--mut);font-size:.9rem}
@@ -175,7 +175,7 @@ function draw(){const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};
 for(let v=0;v<64;v++){let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}const sq='abcdefgh'[f]+(8-r),pc=bo[r][f];
 const d=document.createElement('div');d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
 if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
-if(pc){const s=document.createElement('span');s.className='pc '+pc.color;s.textContent=GL[pc.type]+'\uFE0E';d.appendChild(s)}
+if(pc){const s=document.createElement('img');s.className='pc';s.alt='';s.draggable=false;s.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(s)}
 if(v%8===0){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
 if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
 d.onclick=()=>click(sq);bd.appendChild(d)}}
