@@ -40,8 +40,9 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 .band{margin-top:56px;padding:30px;border-radius:16px;background:var(--bg2);border:1px solid var(--ln);display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}
 /* Puzzle pieces use Lichess's default Cburnett SVG set (Colin M. L. Burnett); board squares match Lichess default brown theme. Source: https://github.com/lichess-org/lila/tree/master/public/piece/cburnett */
 /* puzzle */
-.pz{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:28px;align-items:start}
-#bd{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;width:100%;border-radius:3px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.35);user-select:none;touch-action:manipulation}
+.pz{display:grid;grid-template-columns:minmax(0,664px) 1fr;gap:28px;align-items:start}
+.board-frame{width:100%;box-sizing:border-box;background:#262421;border-radius:22px;padding:32px 0;box-shadow:0 8px 30px rgba(0,0,0,.35);overflow:hidden}
+#bd{display:grid;grid-template-columns:repeat(8,1fr);aspect-ratio:1;width:100%;overflow:hidden;user-select:none;touch-action:manipulation}
 .sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;container-type:size}
 .sq.l{background:#f0d9b5}.sq.d{background:#b58863}
 .sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0;background:rgba(205,210,106,.78)}.sq.sel::before{background:rgba(246,246,105,.72)}
@@ -49,7 +50,7 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 .sq.dot::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(20,20,20,.22)}
 .sq.cap::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(transparent 0,transparent 69%,rgba(20,20,20,.28) 70%)}
 .pc{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
-.co{position:absolute;font:700 .62rem Figtree;z-index:2;pointer-events:none}.sq.l .co{color:#946f51}.sq.d .co{color:#f0d9b5}.co.r{top:2px;left:3px}.co.f{bottom:1px;right:3px}
+.co{position:absolute;font:700 .9rem Figtree;z-index:2;pointer-events:none}.sq.l .co{color:#946f51}.sq.d .co{color:#f0d9b5}.co.r{top:5px;right:6px}.co.f{bottom:4px;left:6px}
 .side{background:var(--bg2);border:1px solid var(--ln);border-radius:14px;padding:22px}
 #st{font:800 1.5rem 'Bricolage Grotesque';margin-bottom:4px}#st.ok{color:#6cc04a}#st.no{color:#e5534b}
 .row{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.meta{color:var(--mut);font-size:.9rem}
@@ -129,7 +130,7 @@ a.pc2{display:block;text-decoration:none}a.pc2:hover{border-color:var(--ac)}a.pc
 </div></div></section>
 
 <section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">One new puzzle every day. Tap a piece, then tap where it should go.</p>
-<div class="pz"><div id="bd" aria-label="Chess board"></div>
+<div class="pz"><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div>
 <div class="side"><div id="st"></div><div class="meta" id="mt"></div>
 <div class="row"><button class="btn g" id="bh">Hint</button><button class="btn g" id="bs">Solution</button><button class="btn" id="br">Retry</button></div>
 <div class="meta">Puzzle archive</div><div class="arch" id="ar"></div></div></div></div></section>
@@ -176,7 +177,7 @@ for(let v=0;v<64;v++){let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}const sq=
 const d=document.createElement('div');d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
 if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
 if(pc){const s=document.createElement('img');s.className='pc';s.alt='';s.draggable=false;s.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(s)}
-if(v%8===0){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
+if(v%8===7){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
 if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
 d.onclick=()=>click(sq);bd.appendChild(d)}}
 function click(sq){if(done)return;const p=g.get(sq);hintSq=null;
