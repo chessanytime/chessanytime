@@ -410,12 +410,12 @@ puzzleBoard.addEventListener('pointerdown',e=>{
  if(p&&p.color===g.turn()&&p.color===cur.side0){
   sel=sq;hintSq=null;
   activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false};
+  draw();
   const im=puzzleBoard.querySelector('.sq[data-s="'+sq+'"] .pc');
   if(im){
    dragGhost=document.createElement('div');dragGhost.className='drag-ghost';
    const clone=document.createElement('img');clone.src=im.src;clone.alt='';dragGhost.appendChild(clone);puzzleBoard.appendChild(dragGhost);moveGhost(e);
   }
-  draw();
  }else{
   activeGesture={mode:'click',from:sq,to:sq,pointerId:e.pointerId};
  }
