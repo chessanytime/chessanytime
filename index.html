@@ -69,8 +69,8 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 form{display:grid;gap:12px;max-width:460px}input,select{padding:12px;border-radius:9px;border:1px solid var(--ln);background:var(--bg2);color:var(--tx);font:inherit}
 footer{border-top:1px solid var(--ln);padding:26px 0;color:var(--mut);font-size:.88rem;text-align:center}
 @media (max-width:800px){.hero,.pz{grid-template-columns:1fr}.badge{left:10px}nav{height:auto;padding:8px 0}}
-.ph{padding:0;display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border-radius:18px;border:1px solid var(--ln);background:radial-gradient(circle at 50% 40%,rgba(255,90,31,.22),var(--bg2) 70%)}.ph img{height:62%;width:auto;border:0;border-radius:0}.art{max-width:720px}.art h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:14px 0 8px}.back{color:var(--mut);text-decoration:none;font-size:.9rem}.back:hover{color:var(--ac)}
-.body{margin-top:22px;font-size:1.05rem;line-height:1.75}.body h2{font-size:1.5rem;margin:30px 0 8px}.body h3{font-size:1.2rem;margin:24px 0 6px}.body p{margin:0 0 16px}.body ul,.body ol{padding-left:22px;margin:0 0 16px}.body img{max-width:100%;border-radius:12px}
+.ph{padding:0;display:flex;align-items:center;justify-content:center;aspect-ratio:4/3;border-radius:18px;border:1px solid var(--ln);background:radial-gradient(circle at 50% 40%,rgba(255,90,31,.22),var(--bg2) 70%)}.ph img{height:62%;width:auto;border:0;border-radius:0}.art{max-width:1040px}.art h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:14px 0 8px}.back{color:var(--mut);text-decoration:none;font-size:.9rem}.back:hover{color:var(--ac)}
+.body{margin:30px auto 0;max-width:900px;font-size:1.12rem;line-height:1.85}.body h2{font-size:clamp(1.55rem,3vw,2rem);margin:48px 0 14px;letter-spacing:-.02em}.body h3{font-size:1.35rem;margin:34px 0 10px}.body p{margin:0 0 20px}.body li{padding-left:5px;margin:8px 0}.body ul{margin:0 0 24px}.body a{color:#70b7ff;text-underline-offset:3px}.body hr{border:0;border-top:1px solid var(--ln);margin:42px 0}.body ul,.body ol{padding-left:22px;margin:0 0 16px}.body img{max-width:100%;border-radius:12px}
 a.pc2{display:block;text-decoration:none}a.pc2:hover{border-color:var(--ac)}a.pc2 h3{font-size:1.25rem}a.pc2 .meta{margin:4px 0 10px}a.pc2 p{margin:0 0 10px;color:var(--mut);font-size:.93rem}a.pc2 b{color:var(--ac);font-size:.9rem}
 
 /* ---- Chess AnyTime welcome intro ---- */
@@ -137,10 +137,27 @@ header nav a.btn{font-size:.82rem;padding:9px 12px}
 .post-tags{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 24px}
 .post-tags span,.post-tags a{font-size:.78rem;padding:5px 10px;border:1px solid var(--ln);border-radius:999px;text-decoration:none;color:var(--mut)}
 .post-lead{font-size:1.08rem;line-height:1.75}
-.game-embed{position:relative;width:100%;aspect-ratio:600/397;max-width:720px;margin:18px 0;border:1px solid var(--ln);border-radius:12px;overflow:hidden;background:#111}
+.game-embed{position:relative;width:100%;aspect-ratio:600/397;max-width:900px;margin:18px 0;border:1px solid var(--ln);border-radius:12px;overflow:hidden;background:#111}
 .game-embed iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .post-question{font-size:1.08rem}
 @media(max-width:560px){.post-cover{min-height:175px}.post-cover .cover-mark{font-size:3.5rem}}
+
+
+/* Refined blog layout: generous reading width, clear hierarchy and image-led previews */
+#post>.w{max-width:1180px}
+#post .art{max-width:1040px;margin:0 auto}
+#post .art>h1{font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;letter-spacing:-.04em;margin:22px 0 12px}
+#post #pd{font-size:.95rem;color:var(--mut);padding-bottom:20px;border-bottom:1px solid var(--ln)}
+#post .body{max-width:920px}
+#blog>.w{max-width:1440px}
+#blog .grid{grid-template-columns:repeat(auto-fit,minmax(280px,380px));gap:24px}
+#blog .pc2{padding:0;overflow:hidden;display:flex;flex-direction:column;gap:0;border-radius:16px}
+#blog .pc2 .blog-thumb{width:100%;aspect-ratio:16/9;display:block;object-fit:cover;background:#0a1424}
+#blog .pc2 h3{padding:18px 20px 20px;font-size:1.2rem;line-height:1.3}
+#blog .pc2 .meta,#blog .pc2 p,#blog .pc2 b{display:none}
+.blog-thumb-fallback{aspect-ratio:16/9;display:grid;place-items:center;background:linear-gradient(135deg,#111d31,#070d18);color:#fff;font:800 clamp(1.7rem,4vw,2.8rem)/1 'Bricolage Grotesque',sans-serif;text-align:left;padding:28px;letter-spacing:-.03em}
+.blog-thumb-fallback span{display:block;color:#f4d48d;font-size:.72rem;letter-spacing:.12em;margin-top:12px}
+@media(max-width:700px){#post .art>h1{font-size:2.35rem}#post .body{font-size:1.03rem;line-height:1.8}#post .body h2{margin-top:38px}}
 
 </style></head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
@@ -309,19 +326,11 @@ body:`<p class="post-author"><a href="https://lichess.org/@/Shubham-Singh" targe
 <h2>10. Psychology: Believe You're the Bullet Boss</h2>
 <ul><li>Visualise yourself reaching your aim. Believe it's just <b>a matter of time</b>.</li><li>Trash-talk the clock in your head: <i>“You're not faster than me; you're just a ticking spectator.”</i></li><li><i>“If you think like a king and move like a rook, nothing can stop your promotion!”</i></li></ul>
 <hr>
-<p class="post-question"><b>What's your current bullet rating?</b> Drop your biggest struggle below. I'll reply with one specific tip to help you improve. Let's climb together!</p>`},
-{slug:'how-to-review-your-own-games',date:'2026-11-14',title:'How to Review Your Own Chess Games (SAMPLE - replace me)',
-summary:'A simple 3-step routine to learn from every game you play.',
-body:`<p>The fastest way to improve is to learn from your own games. Here is a simple routine you can follow after every game.</p>
-<h2>1. Replay it without the engine</h2><p>First, go through the game yourself and mark the moments where you felt unsure. Write down what you were thinking.</p>
-<h2>2. Find the critical moment</h2><p>Most games turn on one or two decisions. Find them and ask: what did I miss, and why?</p>
-<h2>3. Check with the engine</h2><p>Only now use the engine. Compare it with your notes and write one lesson to remember for next time.</p>
-<p><b>Tip:</b> keep a notebook of these lessons and re-read it before your next tournament.</p>`}
-];
+<p class="post-question"><b>What's your current bullet rating?</b> Drop your biggest struggle below. I'll reply with one specific tip to help you improve. Let's climb together!</p>`},\n];
 const fmt=d=>new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
 const livePosts=()=>{const t=localDate();return POSTS.filter(x=>x.date<=t).sort((a,b)=>b.date.localeCompare(a.date))};
 function renderBlog(){document.title='Blog | Chess AnyTime';const l=$('#bl');l.innerHTML='';const ps=livePosts();if(!ps.length){l.textContent='New articles coming soon.';return}
-ps.forEach(x=>{const a=document.createElement('a');a.className='card pc2';a.href='#blog-'+x.slug;const h=document.createElement('h3');h.textContent=x.title;const m=document.createElement('div');m.className='meta';m.textContent=fmt(x.date);const p=document.createElement('p');p.textContent=x.summary;const r=document.createElement('b');r.textContent='Read article \u2192';a.append(h,m,p,r);l.appendChild(a)})}
+ps.forEach(x=>{const a=document.createElement('a');a.className='card pc2';a.href='#blog-'+x.slug;const img=document.createElement('div');img.className='blog-thumb-fallback';img.innerHTML='BULLET CHESS GUIDE<span>HOW TO PLAY FAST AND WIN</span>';const h3=document.createElement('h3');h3.textContent=x.title;a.append(img,h3);l.appendChild(a)})
 function renderPost(slug){const x=livePosts().find(y=>y.slug===slug);if(!x){location.hash='#blog';return}document.title=x.title+' | Chess AnyTime';$('#pt').textContent=x.title;$('#pd').textContent=fmt(x.date)+' \u00b7 By Coach Shubham';$('#pb').innerHTML=x.body;scrollTo(0,0)}
 route();
 </script></body></html>
