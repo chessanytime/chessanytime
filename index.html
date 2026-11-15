@@ -61,7 +61,8 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 .sq.last::before,.sq.sel::before{content:"";position:absolute;inset:0;background:rgba(205,210,106,.78)}.sq.sel::before{background:rgba(246,246,105,.72)}
 .sq.hint::before{content:"";position:absolute;inset:0;background:rgba(0,156,224,.38)}
 .sq.dot::after{content:"";position:absolute;width:28%;height:28%;border-radius:50%;background:rgba(20,20,20,.22)}
-.sq.cap::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(transparent 0,transparent 69%,rgba(20,20,20,.28) 70%)}
+/* Capture destinations are intentionally not ring-highlighted. */
+ .daily-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;background:var(--bg2);border:1px solid var(--ln);border-radius:12px;padding:14px 18px;margin:-10px 0 22px}
 .pc{position:relative;z-index:1;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none}
 .co{position:absolute;font:700 .9rem Figtree;z-index:2;pointer-events:none}.sq.l .co{color:#946f51}.sq.d .co{color:#f0d9b5}.co.r{top:5px;right:6px}.co.f{bottom:4px;left:6px}
 .side{background:var(--bg2);border:1px solid var(--ln);border-radius:14px;padding:22px}
@@ -272,7 +273,7 @@ header .resources-menu summary span{font-size:.72em;margin-left:4px}
 <div class="card"><h3>Championship Masterclass</h3><div class="m">For players up to 2100</div><ul><li>Deep opening repertoire</li><li>Advanced endgame strategy</li><li>Calculation and candidate moves</li><li>1-on-1 personal feedback</li></ul><div class="price">Contact us for fees</div></div>
 </div></div></section>
 
-<section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">One new puzzle every day. Tap a piece, then tap where it should go.</p>
+<section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">Solve the Lichess puzzle of the day, or practise from the Chess AnyTime archive. Tap a piece, then tap where it should go.</p><div class="daily-bar"><div><strong>Lichess Daily Puzzle</strong><div class="meta" id="daily-info">Loading today’s puzzle…</div></div><button class="btn" id="daily-load" type="button">Load daily puzzle</button></div>
 <div class="pz"><div><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div><div class="board-help">Drag or tap pieces to move · Right-drag to draw arrows · Right-click to mark a square · Shift red, Ctrl blue, Alt yellow</div></div>
 <div class="side"><div id="st"></div><div class="meta" id="mt"></div>
 <div class="row"><button class="btn g" id="bh">Hint</button><button class="btn g" id="bs">Solution</button><button class="btn" id="br">Retry</button></div>
@@ -307,15 +308,17 @@ const PUZZLES=[
 const $=s=>document.querySelector(s),G={w:'♚♛♜♝♞♟'};
 const GL={k:'♚',q:'♛',r:'♜',b:'♝',n:'♞',p:'♟'};
 const pages=['home','blog','post','about','programs','community','puzzles','demo','contact','login','portal'];let me=null,solved={};
-function route(){let h=location.hash.slice(1);let slug=null;if(h.startsWith('blog-')){slug=h.slice(5);h='post'}if(!pages.includes(h))h='home';if(h==='login'&&me)h='portal';if(h==='portal'&&!me)h='login';renderMe();if(h==='blog')renderBlog();if(h==='post')renderPost(slug);pages.forEach(p=>$('#'+p).classList.toggle('on',p===h));document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.dataset.p===(h==='post'?'blog':h)));if(h==='puzzles'&&!g)load(today())}
+function route(){let h=location.hash.slice(1);let slug=null;if(h.startsWith('blog-')){slug=h.slice(5);h='post'}if(!pages.includes(h))h='home';if(h==='login'&&me)h='portal';if(h==='portal'&&!me)h='login';renderMe();if(h==='blog')renderBlog();if(h==='post')renderPost(slug);pages.forEach(p=>$('#'+p).classList.toggle('on',p===h));document.querySelectorAll('nav a.l').forEach(a=>a.classList.toggle('on',a.dataset.p===(h==='post'?'blog':h)));if(h==='puzzles'&&!g)loadDaily()}
 addEventListener('hashchange',route);
 let g,cur,idx,sel,last,flip,done,failed,hintSq;let boardMarks=[],activeGesture=null;
 const localDate=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
-function load(i){cur=PUZZLES[i];g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;boardMarks=[];flip=g.turn()==='b';
-$('#st').className='';$('#st').textContent='Your turn';$('#mt').textContent='Find the best move for '+(g.turn()==='w'?'white':'black')+' · Rating '+cur.rating+' · '+cur.theme;draw();arch(i)}
+function startPuzzle(i){g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;boardMarks=[];activeGesture=null;clearGhost();flip=g.turn()==='b';
+$('#st').className='';$('#st').textContent='Your turn';$('#mt').textContent='Find the best move for '+(g.turn()==='w'?'white':'black')+' · Rating '+cur.rating+' · '+cur.theme;draw();if(i>=0)arch(i);else arch(-1)}
+function load(i){cur=PUZZLES[i];startPuzzle(i)}
+async function loadDaily(){const info=$('#daily-info'),button=$('#daily-load');if(info)info.textContent='Loading today’s Lichess puzzle…';if(button)button.disabled=true;try{const res=await fetch('https://lichess.org/api/puzzle/daily',{headers:{Accept:'application/json'},cache:'no-store'});if(!res.ok)throw new Error('Lichess returned '+res.status);const data=await res.json(),p=data.puzzle;if(!p||!p.fen||!Array.isArray(p.moves)||p.moves.length<2)throw new Error('Unexpected daily puzzle data');const position=new Chess(p.fen),first=p.moves[0];if(!position.move({from:first.slice(0,2),to:first.slice(2,4),promotion:first.length>4?first[4]:'q'}))throw new Error('Could not set up the puzzle');cur={date:localDate(),fen:position.fen(),moves:p.moves.slice(1),rating:p.rating||'Daily',theme:(p.themes||[]).slice(0,3).join(', ')||'Lichess Daily',side0:position.turn(),daily:true,id:p.id};startPuzzle(-1);if(info)info.textContent='Today’s puzzle · Rating '+(p.rating||'—')+' · '+((p.themes||[]).slice(0,3).join(', ')||'Daily challenge')}catch(err){if(info)info.textContent='Could not load Lichess right now. Showing a Chess AnyTime puzzle instead.';cur=PUZZLES[today()];startPuzzle(today())}finally{if(button)button.disabled=false}}
 function arch(i){$('#ar').innerHTML='';const t=PUZZLES.length;PUZZLES.forEach((p,k)=>{if(k>today())return;const b=document.createElement('button');b.textContent=p.date+' · '+p.theme;b.className=k===i?'on':'';b.onclick=()=>load(k);$('#ar').prepend(b)})}
-function draw(){const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};if(sel)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
+function draw(){const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};if(sel)g.moves({square:sel,verbose:true}).forEach(m=>{if(!m.captured)targets[m.to]='dot'});
 for(let v=0;v<64;v++){let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}const sq='abcdefgh'[f]+(8-r),pc=bo[r][f];
 const d=document.createElement('div');d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
 if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
@@ -458,13 +461,14 @@ function click(sq){
  sel=null;draw();
 }
 function play(a,b){const m=g.move({from:a,to:b,promotion:'q'});sel=null;if(!m)return;last=[a,b];const uci=a+b,exp=cur.moves[idx];
-if(uci===exp||g.in_checkmate()){idx++;if(idx>=cur.moves.length||g.in_checkmate()){done=true;if(!failed)solved[PUZZLES.indexOf(cur)]=1;say('Success!','ok',failed?'Solved with help':'Puzzle complete')}else{say('Best move!','ok','Keep going');draw();setTimeout(()=>{const o=cur.moves[idx++];g.move({from:o.slice(0,2),to:o.slice(2,4),promotion:'q'});last=[o.slice(0,2),o.slice(2,4)];say('Your turn','','Find the best move');draw()},450);return}}
+if(uci===exp||g.in_checkmate()){idx++;if(idx>=cur.moves.length||g.in_checkmate()){done=true;const puzzleIndex=PUZZLES.indexOf(cur);if(!failed&&puzzleIndex>=0)solved[puzzleIndex]=1;say('Success!','ok',failed?'Solved with help':'Puzzle complete')}else{say('Best move!','ok','Keep going');draw();setTimeout(()=>{const o=cur.moves[idx++];g.move({from:o.slice(0,2),to:o.slice(2,4),promotion:'q'});last=[o.slice(0,2),o.slice(2,4)];say('Your turn','','Find the best move');draw()},450);return}}
 else{g.undo();failed=true;say('That’s not the move!','no','Try something else');$('#bd').classList.remove('shake');void $('#bd').offsetWidth;$('#bd').classList.add('shake');last=null}
 draw()}
 function say(t,c,m){$('#st').textContent=t;$('#st').className=c;$('#mt').textContent=m}
 $('#bh').onclick=()=>{if(done)return;hintSq=cur.moves[idx].slice(0,2);draw()};
 $('#bs').onclick=()=>{if(done)return;failed=true;let i=idx;const step=()=>{if(i>=cur.moves.length){done=true;say('Solution shown','no','Try the next puzzle');draw();return}const o=cur.moves[i++];g.move({from:o.slice(0,2),to:o.slice(2,4),promotion:'q'});last=[o.slice(0,2),o.slice(2,4)];draw();setTimeout(step,700)};step()};
-$('#br').onclick=()=>load(PUZZLES.indexOf(cur));
+$('#br').onclick=()=>{if(cur&&cur.daily)loadDaily();else load(PUZZLES.indexOf(cur))};
+$('#daily-load').onclick=loadDaily;
 PUZZLES.forEach(p=>p.side0=new Chess(p.fen).turn());
 $('#df').onsubmit=e=>{e.preventDefault();const m='Hello Chess AnyTime, I would like to book a demo class.\nParent: '+$('#dp').value+'\nChild: '+$('#dk').value+'\nPhone: '+$('#dn').value;$('#dm').textContent='Thank you, '+$('#dp').value+'. WhatsApp is opening so you can send your request. We will confirm the demo class time shortly.';open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(m),'_blank')};
 const WA_NUMBER='919911966706';
