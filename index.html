@@ -48,8 +48,8 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 #bd .sq.dragging .pc{opacity:.35}
 #bd .marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible}
 #bd .marks{z-index:5}
-#bd .marks line{stroke-width:.19;stroke-linecap:round;marker-end:url(#puzzle-arrow)}
-#bd .marks circle{stroke-width:.08}
+#bd .marks line{stroke-width:.105;stroke-linecap:round;stroke-linejoin:round}
+#bd .marks circle{stroke-width:.075}
 #bd .drag-ghost{position:absolute;z-index:8;width:12.5%;height:12.5%;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
 #bd .drag-ghost img{width:100%;height:100%;object-fit:contain}
 #bd .sq.drag-source .pc{opacity:.28}
@@ -354,9 +354,9 @@ function paintMarks(){
  const defs=document.createElementNS(svgNS,'defs');
  Object.entries(markColours).forEach(([key,color])=>{
   const marker=document.createElementNS(svgNS,'marker');
-  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','4');marker.setAttribute('markerHeight','4');
-  marker.setAttribute('refX','3');marker.setAttribute('refY','2');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
-  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L4 2 L0 4 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
+  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','.34');marker.setAttribute('markerHeight','.34');
+  marker.setAttribute('refX','.31');marker.setAttribute('refY','.17');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
+  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L.34 .17 L0 .34 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
  });
  svg.appendChild(defs);
  const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
@@ -366,7 +366,10 @@ function paintMarks(){
    const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');
    c.setAttribute('fill',color.replace(/\.9[025]?\)/,',.28)'));c.setAttribute('stroke',color);svg.appendChild(c);
   }else{
-   const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+   const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
+   const l=document.createElementNS(svgNS,'line');
+   l.setAttribute('x1',x1);l.setAttribute('y1',y1);
+   l.setAttribute('x2',x2-ux*.22);l.setAttribute('y2',y2-uy*.22);
    l.setAttribute('stroke',color);l.setAttribute('marker-end','url(#puzzle-arrow-'+(m.col||'g')+')');svg.appendChild(l);
   }
  });
