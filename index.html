@@ -47,8 +47,14 @@ h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:800;margin-bottom:8px}.sub{col
 #bd .pc{pointer-events:none}
 #bd .sq.dragging .pc{opacity:.35}
 #bd .marks{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:4;overflow:visible}
-#bd .marks line{stroke:rgba(72,142,55,.78);stroke-width:.19;stroke-linecap:round;marker-end:url(#puzzle-arrow)}
-#bd .marks circle{fill:rgba(72,142,55,.38);stroke:rgba(72,142,55,.78);stroke-width:.08}
+#bd .marks{z-index:5}
+#bd .marks line{stroke-width:.19;stroke-linecap:round;marker-end:url(#puzzle-arrow)}
+#bd .marks circle{stroke-width:.08}
+#bd .drag-ghost{position:absolute;z-index:8;width:12.5%;height:12.5%;pointer-events:none;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 4px rgba(0,0,0,.35))}
+#bd .drag-ghost img{width:100%;height:100%;object-fit:contain}
+#bd .sq.drag-source .pc{opacity:.28}
+#bd{cursor:default}
+#bd .sq{ -webkit-tap-highlight-color:transparent }
 .board-help{font-size:.82rem;color:var(--mut);margin-top:9px}
 .sq{position:relative;display:flex;align-items:center;justify-content:center;cursor:pointer;container-type:size}
 .sq.l{background:#f0d9b5}.sq.d{background:#b58863}
@@ -267,7 +273,7 @@ header .resources-menu summary span{font-size:.72em;margin-left:4px}
 </div></div></section>
 
 <section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">One new puzzle every day. Tap a piece, then tap where it should go.</p>
-<div class="pz"><div><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div><div class="board-help">Drag pieces to move · Right-drag to draw arrows · Right-click a square to mark it</div></div>
+<div class="pz"><div><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div><div class="board-help">Drag or tap pieces to move · Right-drag to draw arrows · Right-click to mark a square · Shift red, Ctrl blue, Alt yellow</div></div>
 <div class="side"><div id="st"></div><div class="meta" id="mt"></div>
 <div class="row"><button class="btn g" id="bh">Hint</button><button class="btn g" id="bs">Solution</button><button class="btn" id="br">Retry</button></div>
 <div class="meta">Puzzle archive</div><div class="arch" id="ar"></div></div></div></div></section>
@@ -320,16 +326,134 @@ bd.appendChild(d)}
 const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg');svg.setAttribute('class','marks');svg.setAttribute('viewBox','0 0 8 8');svg.innerHTML='<defs><marker id="puzzle-arrow" markerWidth="4" markerHeight="4" refX="3" refY="2" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L4 2 L0 4 Z" fill="rgba(72,142,55,.9)"/></marker></defs>';
 const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
 boardMarks.forEach(m=>{const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to);if(m.from===m.to){const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');svg.appendChild(c)}else{const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);svg.appendChild(l)}});bd.appendChild(svg)}
-// Board-level pointer handling keeps drag/drop reliable even when the board is redrawn during selection.
+// Board interactions: click-to-move, drag-and-drop, coloured arrows and square marks.
 const puzzleBoard=$('#bd');
-function squareAtPoint(e){const r=puzzleBoard.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;if(x<0||y<0||x>=r.width||y>=r.height)return null;let file=Math.min(7,Math.floor(x/r.width*8)),rank=Math.min(7,Math.floor(y/r.height*8));if(flip){file=7-file;rank=7-rank}return 'abcdefgh'[file]+(8-rank)}
-puzzleBoard.addEventListener('pointerdown',e=>{const sq=squareAtPoint(e);if(!sq)return;if(e.button!==0&&e.button!==2)return;e.preventDefault();activeGesture={from:sq,button:e.button,pointerId:e.pointerId};try{puzzleBoard.setPointerCapture(e.pointerId)}catch(_){}if(e.button===0){const p=g&&g.get(sq);if(p&&p.color===g.turn()&&p.color===cur.side0&&!done){sel=sq;draw()}}});
-puzzleBoard.addEventListener('pointerup',e=>{if(!activeGesture||activeGesture.pointerId!==e.pointerId)return;e.preventDefault();const gesture=activeGesture;activeGesture=null;const to=squareAtPoint(e);if(!to)return;if(gesture.button===2){const k=boardMarks.findIndex(m=>m.from===gesture.from&&m.to===to);if(k>=0)boardMarks.splice(k,1);else boardMarks.push({from:gesture.from,to});draw();return}if(done)return;if(gesture.from!==to&&sel===gesture.from&&g.moves({square:gesture.from,verbose:true}).some(m=>m.to===to)){play(gesture.from,to);return}click(to)});
-puzzleBoard.addEventListener('pointercancel',()=>{activeGesture=null});
+let dragGhost=null;
+const markColours={g:'rgba(72,142,55,.9)',r:'rgba(205,65,65,.92)',b:'rgba(55,125,220,.92)',y:'rgba(220,165,35,.95)'};
+function squareAtPoint(e){
+ const r=puzzleBoard.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+ if(x<0||y<0||x>=r.width||y>=r.height)return null;
+ let file=Math.min(7,Math.floor(x/r.width*8)),rank=Math.min(7,Math.floor(y/r.height*8));
+ if(flip){file=7-file;rank=7-rank}
+ return 'abcdefgh'[file]+(8-rank);
+}
+function gestureColour(e){return e.shiftKey?'r':(e.ctrlKey||e.metaKey)?'b':e.altKey?'y':'g'}
+function clearGhost(){
+ if(dragGhost){dragGhost.remove();dragGhost=null}
+ puzzleBoard.querySelectorAll('.drag-source').forEach(x=>x.classList.remove('drag-source'));
+}
+function moveGhost(e){
+ if(!dragGhost)return;
+ const r=puzzleBoard.getBoundingClientRect();
+ dragGhost.style.left=(e.clientX-r.left)+'px';
+ dragGhost.style.top=(e.clientY-r.top)+'px';
+}
+function paintMarks(){
+ const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg');
+ svg.setAttribute('class','marks');svg.setAttribute('viewBox','0 0 8 8');
+ const defs=document.createElementNS(svgNS,'defs');
+ Object.entries(markColours).forEach(([key,color])=>{
+  const marker=document.createElementNS(svgNS,'marker');
+  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','4');marker.setAttribute('markerHeight','4');
+  marker.setAttribute('refX','3');marker.setAttribute('refY','2');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
+  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L4 2 L0 4 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
+ });
+ svg.appendChild(defs);
+ const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
+ boardMarks.forEach(m=>{
+  const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to),color=markColours[m.col]||markColours.g;
+  if(m.from===m.to){
+   const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');
+   c.setAttribute('fill',color.replace(/\.9[025]?\)/,',.28)'));c.setAttribute('stroke',color);svg.appendChild(c);
+  }else{
+   const l=document.createElementNS(svgNS,'line');l.setAttribute('x1',x1);l.setAttribute('y1',y1);l.setAttribute('x2',x2);l.setAttribute('y2',y2);
+   l.setAttribute('stroke',color);l.setAttribute('marker-end','url(#puzzle-arrow-'+(m.col||'g')+')');svg.appendChild(l);
+  }
+ });
+ puzzleBoard.appendChild(svg);
+}
+function draw(){
+ const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};
+ if(sel)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
+ for(let v=0;v<64;v++){
+  let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}
+  const sq='abcdefgh'[f]+(8-r),pc=bo[r][f],d=document.createElement('div');
+  d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
+  if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');
+  if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
+  if(activeGesture&&activeGesture.mode==='piece'&&activeGesture.from===sq)d.classList.add('drag-source');
+  if(pc){
+   const im=document.createElement('img');im.className='pc';im.alt='';im.draggable=false;
+   im.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(im);
+  }
+  if(v%8===7){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
+  if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
+  bd.appendChild(d);
+ }
+ paintMarks();
+}
+function toggleMark(from,to,col){
+ const i=boardMarks.findIndex(m=>m.from===from&&m.to===to&&m.col===col);
+ if(i>=0)boardMarks.splice(i,1);else boardMarks.push({from,to,col});
+}
+puzzleBoard.addEventListener('pointerdown',e=>{
+ const sq=squareAtPoint(e);if(!sq||!g)return;
+ if(e.button!==0&&e.button!==2)return;
+ e.preventDefault();try{puzzleBoard.setPointerCapture(e.pointerId)}catch(_){}
+ const colour=gestureColour(e);
+ if(e.button===2){
+  activeGesture={mode:'mark',from:sq,to:sq,pointerId:e.pointerId,col:colour};
+  return;
+ }
+ if(done)return;
+ const p=g.get(sq);
+ if(p&&p.color===g.turn()&&p.color===cur.side0){
+  sel=sq;hintSq=null;
+  activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false};
+  const im=puzzleBoard.querySelector('.sq[data-s="'+sq+'"] .pc');
+  if(im){
+   dragGhost=document.createElement('div');dragGhost.className='drag-ghost';
+   const clone=document.createElement('img');clone.src=im.src;clone.alt='';dragGhost.appendChild(clone);puzzleBoard.appendChild(dragGhost);moveGhost(e);
+  }
+  draw();
+ }else{
+  activeGesture={mode:'click',from:sq,to:sq,pointerId:e.pointerId};
+ }
+});
+puzzleBoard.addEventListener('pointermove',e=>{
+ if(!activeGesture||activeGesture.pointerId!==e.pointerId)return;
+ const to=squareAtPoint(e);if(to)activeGesture.to=to;
+ if(activeGesture.mode==='piece'){
+  if(Math.hypot(e.clientX-activeGesture.startX,e.clientY-activeGesture.startY)>5)activeGesture.moved=true;
+  if(activeGesture.moved)moveGhost(e);
+ }
+});
+puzzleBoard.addEventListener('pointerup',e=>{
+ if(!activeGesture||activeGesture.pointerId!==e.pointerId)return;
+ e.preventDefault();const a=activeGesture;activeGesture=null;
+ const to=squareAtPoint(e)||a.to;clearGhost();
+ if(a.mode==='mark'){
+  toggleMark(a.from,to,a.col);draw();return;
+ }
+ if(a.mode==='piece'){
+  if(a.moved&&to&&to!==a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===to)){
+   boardMarks=[];play(a.from,to);return;
+  }
+  if(a.moved){sel=null;draw();return}
+  // A simple tap selects the piece; a second tap on a legal destination moves it.
+  if(to===a.from){draw();return}
+  if(to&&sel===a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===to)){boardMarks=[];play(a.from,to);return}
+ }
+ if(a.mode==='click'&&to)click(to);
+});
+puzzleBoard.addEventListener('pointercancel',()=>{activeGesture=null;clearGhost();draw()});
 puzzleBoard.addEventListener('contextmenu',e=>e.preventDefault());
-function click(sq){if(done)return;const p=g.get(sq);hintSq=null;
-if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){play(sel,sq);return}
-sel=(p&&p.color===g.turn()&&p.color===cur.side0)?sq:null;draw()}
+function click(sq){
+ if(done)return;const p=g.get(sq);hintSq=null;
+ if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){boardMarks=[];play(sel,sq);return}
+ if(p&&p.color===g.turn()&&p.color===cur.side0){sel=sq;draw();return}
+ sel=null;draw();
+}
 function play(a,b){const m=g.move({from:a,to:b,promotion:'q'});sel=null;if(!m)return;last=[a,b];const uci=a+b,exp=cur.moves[idx];
 if(uci===exp||g.in_checkmate()){idx++;if(idx>=cur.moves.length||g.in_checkmate()){done=true;if(!failed)solved[PUZZLES.indexOf(cur)]=1;say('Success!','ok',failed?'Solved with help':'Puzzle complete')}else{say('Best move!','ok','Keep going');draw();setTimeout(()=>{const o=cur.moves[idx++];g.move({from:o.slice(0,2),to:o.slice(2,4),promotion:'q'});last=[o.slice(0,2),o.slice(2,4)];say('Your turn','','Find the best move');draw()},450);return}}
 else{g.undo();failed=true;say('That’s not the move!','no','Try something else');$('#bd').classList.remove('shake');void $('#bd').offsetWidth;$('#bd').classList.add('shake');last=null}
