@@ -357,7 +357,8 @@ body:`<p class="post-author"><a href="https://lichess.org/@/Shubham-Singh" targe
 <h2>10. Psychology: Believe You're the Bullet Boss</h2>
 <ul><li>Visualise yourself reaching your aim. Believe it's just <b>a matter of time</b>.</li><li>Trash-talk the clock in your head: <i>“You're not faster than me; you're just a ticking spectator.”</i></li><li><i>“If you think like a king and move like a rook, nothing can stop your promotion!”</i></li></ul>
 <hr>
-<p class="post-question"><b>What's your current bullet rating?</b> Drop your biggest struggle below. I'll reply with one specific tip to help you improve. Let's climb together!</p>`},\n];
+<p class="post-question"><b>What's your current bullet rating?</b> Drop your biggest struggle below. I'll reply with one specific tip to help you improve. Let's climb together!</p>`}
+];
 const fmt=d=>new Date(d+'T00:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'long',year:'numeric'});
 const livePosts=()=>{const t=localDate();return POSTS.filter(x=>x.date<=t).sort((a,b)=>b.date.localeCompare(a.date))};
 function renderBlog(){document.title='Blog | Chess AnyTime';const l=$('#bl');l.innerHTML='';const ps=livePosts();if(!ps.length){l.textContent='New articles coming soon.';return}
