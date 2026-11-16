@@ -165,13 +165,5 @@ function say(t,c,m){$('#st').textContent=t;$('#st').className=c;$('#mt').textCon
 $('#bh').onclick=()=>{if(done)return;hintSq=cur.moves[idx].slice(0,2);draw()};
 $('#daily-load').onclick=loadDaily;
 PUZZLES.forEach(p=>p.side0=new Chess(p.fen).turn());
-$('#df').onsubmit=e=>{e.preventDefault();const m='Hello Chess AnyTime, I would like to book a demo class.\nParent: '+$('#dp').value+'\nChild: '+$('#dk').value+'\nPhone: '+$('#dn').value;$('#dm').textContent='Thank you, '+$('#dp').value+'. WhatsApp is opening so you can send your request. We will confirm the demo class time shortly.';open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(m),'_blank')};
-const WA_NUMBER='919911966706';
-$('#cf').onsubmit=e=>{e.preventDefault();const m='Hello Chess AnyTime, I want to enroll '+$('#cn').value+' in '+$('#cp').value+'.';if(!WA_NUMBER){$('#cf button').textContent='Enrollment opens soon';return}open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(m),'_blank')};
-const STUDENTS={demo:{name:'Demo Student',code:'1234',hw:[0,1,2]}}; /* preview only: add students and their homework (puzzle numbers) here */
-function renderMe(){$('#tl').innerHTML=me?'Hi, '+STUDENTS[me].name+' · <a href="#portal">My homework</a>':'<a href="#login">Student Login</a>';if(!me)return;$('#pw').textContent='Welcome, '+STUDENTS[me].name;$('#hw').innerHTML='';STUDENTS[me].hw.forEach((i,k)=>{const p=PUZZLES[i],b=document.createElement('button');b.textContent=(solved[i]?'Done · ':'')+'Homework '+(k+1)+' · '+p.theme+' · rating '+p.rating;b.onclick=()=>{load(i);location.hash='#puzzles'};$('#hw').appendChild(b)})}
-$('#lf').onsubmit=e=>{e.preventDefault();const id=$('#li').value.trim().toLowerCase(),s=STUDENTS[id];if(s&&s.code===$('#lc').value){me=id;location.hash='#portal';route()}else $('#lm').textContent='Student ID or password is incorrect.'};
-$('#lo').onclick=()=>{me=null;location.hash='#login';route()};
 document.querySelectorAll('.ph').forEach(e=>{e.textContent='';const i=document.createElement('img');i.src=document.querySelector('.brand img').src;i.alt='Chess AnyTime logo';e.appendChild(i)});
 
-route();
