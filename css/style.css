@@ -1672,3 +1672,10 @@ header nav a.l, header .resources-menu summary, .header-utility a {
   }
   .ca-programs .cp-private-fee-card { padding: 24px 21px; }
 }
+
+/* Homepage hero headline: give the lettering and lines more room to breathe. */
+#home .academy-hero h1 {
+  letter-spacing: -0.025em !important;
+  line-height: 1.12 !important;
+  word-spacing: 0.015em;
+}
