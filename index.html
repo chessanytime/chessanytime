@@ -161,7 +161,7 @@
 (function(){
   var root=document.getElementById('chess-benefits'),grid=root&&root.querySelector('.cab-grid');
   if(!root||!grid)return;
-  var G={n:'\\u265E',b:'\\u265D',r:'\\u265C',p:'\\u265F',q:'\\u265B',k:'\\u265A'};
+  var G={n:'♞',b:'♝',r:'♜',p:'♟',q:'♛',k:'♚'};
   var B=[
     {g:'n',t:'Sharper memory',x:'Recalling openings and patterns gives your memory a daily workout.'},
     {g:'b',t:'Deeper focus',x:'One board, one problem. You learn to block out every distraction.'},
@@ -175,7 +175,7 @@
   var cards=B.map(function(b,i){
     var c=document.createElement('article');c.className='cab-card'+(b.last?' last':'');
     c.style.setProperty('--dl',(i%4)*.1+'s');
-    c.innerHTML='<div class="cab-disc" aria-hidden="true"><span>'+G[b.g]+'\\uFE0E</span></div><h3>'+b.t+'</h3><p>'+b.x+'</p>'+
+    c.innerHTML='<div class="cab-disc" aria-hidden="true"><span>'+G[b.g]+'\uFE0E</span></div><h3>'+b.t+'</h3><p>'+b.x+'</p>'+
       (b.last?'<a class="cab-btn" href="#puzzles">Make your first move</a>':'');
     grid.appendChild(c);return c;});
   function showAll(){cards.forEach(function(c){c.classList.add('in')});}
