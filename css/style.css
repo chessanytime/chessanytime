@@ -607,3 +607,134 @@ body.is-scrolled::before{background:rgba(7,12,22,.98)}
  .ca-programs .cp-btn,.ca-programs .cp-level-option,.ca-programs .cp-currency-tabs button{transition:none}
  .ca-programs .cp-btn:hover,.ca-programs .cp-level-option:hover{transform:none}
 }
+
+
+/* =========================================================
+   Programmes page: presentation-led visual refinement
+   ========================================================= */
+#programs.ca-programs .cp-main{max-width:1380px;padding-top:92px;padding-bottom:90px}
+#programs.ca-programs .cp-section-heading{align-items:end;margin-bottom:38px}
+#programs.ca-programs .cp-section-heading h2{font-size:clamp(2.8rem,5vw,4.8rem);line-height:.98;letter-spacing:-.06em}
+#programs.ca-programs .cp-section-heading h2 em{font-style:normal;color:#bd8967}
+#programs.ca-programs .cp-section-heading>p{font-size:.94rem;max-width:400px;line-height:1.85;color:#768195}
+
+/* Four stages become a clean presentation timeline, not four boxed menu items. */
+#programs.ca-programs .cp-level-layout{display:flex;flex-direction:column;gap:0}
+#programs.ca-programs .cp-level-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid #d8d2c8}
+#programs.ca-programs .cp-level-option{position:relative;display:grid;grid-template-columns:34px 1fr 17px;gap:11px;align-items:center;min-height:82px;padding:13px 18px 17px 0;background:transparent;border:0;border-radius:0;box-shadow:none;color:#172b45;text-align:left;transition:opacity .2s}
+#programs.ca-programs .cp-level-option:hover{transform:none;background:transparent;opacity:.72}
+#programs.ca-programs .cp-level-option:after{content:"";position:absolute;left:0;right:18px;bottom:-1px;height:3px;background:transparent;transition:background .2s}
+#programs.ca-programs .cp-level-option.is-active{background:transparent;border:0;box-shadow:none;color:#172b45}
+#programs.ca-programs .cp-level-option.is-active:after{background:#b98461}
+#programs.ca-programs .cp-level-index{font:800 .72rem 'Bricolage Grotesque';color:#b98461}
+#programs.ca-programs .cp-level-option-copy b{font:700 1rem 'Bricolage Grotesque';color:#172b45}
+#programs.ca-programs .cp-level-option-copy small{font-size:.68rem;color:#8892a0}
+#programs.ca-programs .cp-level-arrow{font-size:1rem;color:#b98461}
+
+/* The selected programme reads as one presentation slide. */
+#programs.ca-programs .cp-level-detail{position:relative;display:grid;grid-template-columns:1.08fr .92fr;grid-template-rows:auto auto auto 1fr auto;column-gap:50px;min-height:420px;padding:42px clamp(30px,5vw,68px);margin-top:18px;border:0;border-radius:0;background:radial-gradient(circle at 82% 46%,rgba(75,105,143,.38),transparent 30%),linear-gradient(115deg,#13243a,#0e1a2b 70%,#182c46);color:#f5f7fb;overflow:hidden;box-shadow:0 28px 58px rgba(21,39,63,.15)}
+#programs.ca-programs .cp-level-detail:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:38px 38px;mask-image:linear-gradient(90deg,transparent 35%,black)}
+#programs.ca-programs .cp-level-detail:after{content:"♞";position:absolute;right:5%;top:50%;transform:translateY(-48%);font:clamp(13rem,24vw,21rem)/1 Georgia,serif;color:rgba(231,216,198,.12);pointer-events:none}
+#programs.ca-programs .cp-detail-top{position:relative;z-index:1;grid-column:1/-1;grid-row:1;display:flex;align-items:center;margin-bottom:30px}
+#programs.ca-programs .cp-detail-tag{font-size:.63rem;letter-spacing:.19em;color:#d5a17b}
+#programs.ca-programs .cp-detail-mark{display:none}
+#programs.ca-programs .cp-level-detail h3{position:relative;z-index:1;grid-column:1;grid-row:2;font:800 clamp(3rem,6vw,5.8rem)/.94 'Bricolage Grotesque';letter-spacing:-.065em;color:#fff;margin:0 0 17px}
+#programs.ca-programs .cp-level-detail>p{position:relative;z-index:1;grid-column:1;grid-row:3;max-width:470px;color:#b9c5d5;font-size:.95rem;line-height:1.85;margin:0}
+#programs.ca-programs .cp-detail-divider{display:none}
+#programs.ca-programs .cp-detail-stats{position:relative;z-index:1;grid-column:2;grid-row:2/5;align-self:center;display:grid;grid-template-columns:1fr;gap:27px;padding-left:30px;border-left:1px solid rgba(255,255,255,.19)}
+#programs.ca-programs .cp-detail-stats>div{display:flex;flex-direction:column;align-items:flex-start}
+#programs.ca-programs .cp-detail-stats small{font-size:.56rem;letter-spacing:.17em;color:#a6b5c8}
+#programs.ca-programs .cp-detail-stats b{font:800 2.45rem/.98 'Bricolage Grotesque';color:#fff;margin:8px 0 3px;letter-spacing:-.04em}
+#programs.ca-programs .cp-detail-stats span{font-size:.75rem;color:#b6c3d3}
+#programs.ca-programs .cp-detail-foot{position:relative;z-index:1;grid-column:1/-1;grid-row:5;display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:28px;padding-top:17px;border-top:1px solid rgba(255,255,255,.16)}
+#programs.ca-programs .cp-detail-foot>span{font-size:.68rem;color:#aab8ca}
+#programs.ca-programs .cp-detail-foot>a{font-size:.75rem;font-weight:800;color:#e1b18d;text-decoration:none}
+#programs.ca-programs .cp-level-note{margin-top:18px;font-size:.72rem;letter-spacing:.02em;color:#8993a0}
+
+/* Package area: a strong headline, oversized class count and one fee panel. */
+#programs.ca-programs .cp-package-section{position:relative;overflow:hidden;grid-template-columns:1.05fr .8fr;gap:clamp(35px,7vw,100px);padding:64px clamp(30px,6vw,78px);margin-bottom:94px;border:0;border-radius:0;background:linear-gradient(120deg,#e9e4dc 0%,#f0ede7 54%,#e2ddd4 100%)}
+#programs.ca-programs .cp-package-section:before{content:"24";position:absolute;left:36%;top:50%;transform:translate(-50%,-56%);font:800 clamp(18rem,37vw,35rem)/.8 'Bricolage Grotesque';letter-spacing:-.1em;color:rgba(23,41,65,.045);pointer-events:none}
+#programs.ca-programs .cp-package-intro,#programs.ca-programs .cp-price-card{position:relative;z-index:1}
+#programs.ca-programs .cp-package-intro h2{font:800 clamp(3.2rem,5.6vw,5.4rem)/.94 'Bricolage Grotesque';letter-spacing:-.065em;color:#172b45}
+#programs.ca-programs .cp-package-intro h2 em{color:#b98461}
+#programs.ca-programs .cp-package-intro>p{max-width:445px;color:#68778a;font-size:.92rem;line-height:1.85;margin:23px 0 30px}
+#programs.ca-programs .cp-validity{border-top:1px solid #d3ccc1;padding-top:18px}
+#programs.ca-programs .cp-price-card{padding:31px 31px 27px;border:1px solid #e0dbd2;border-radius:0;background:#fff;box-shadow:0 25px 60px rgba(24,41,64,.12)}
+#programs.ca-programs .cp-price-card-top{font-size:.59rem;letter-spacing:.17em}
+#programs.ca-programs .cp-currency-tabs{background:transparent;border-bottom:1px solid #e4e0d8;padding:0 0 11px;margin:24px 0 23px}
+#programs.ca-programs .cp-currency-tabs button{flex:0 0 auto;padding:9px 16px;background:#f1eee8;color:#7a8797}
+#programs.ca-programs .cp-currency-tabs button.is-active{background:#172941;color:#fff;box-shadow:none}
+#programs.ca-programs .cp-price-line strong{font-size:clamp(3.1rem,5vw,4.2rem);letter-spacing:-.06em}
+#programs.ca-programs .cp-btn-dark{border-radius:0;padding:16px 18px;letter-spacing:.01em}
+#programs.ca-programs .cp-price-foot{font-size:.68rem;line-height:1.65}
+
+/* Validity and included features are editorial sections, not rows of dashboard tiles. */
+#programs.ca-programs .cp-how-section{padding:0 0 88px;border-bottom:1px solid #ddd8ce;margin-bottom:83px}
+#programs.ca-programs .cp-how-section .cp-section-heading h2{font-size:clamp(2.7rem,5vw,4.5rem)}
+#programs.ca-programs .cp-timeline{gap:32px;padding-top:12px}
+#programs.ca-programs .cp-timeline-line{top:30px;left:8%;right:8%;background:#d9d1c6}
+#programs.ca-programs .cp-timeline-step{padding-top:59px}
+#programs.ca-programs .cp-timeline-dot{width:40px;height:40px;border:5px solid #f6f4f0;background:#172941;color:#d4a17e;box-shadow:0 0 0 1px #d1c8bb}
+#programs.ca-programs .cp-timeline-step>b{font-size:1.5rem;margin:11px 0 7px}
+#programs.ca-programs .cp-timeline-step>p{font-size:.8rem;line-height:1.8}
+#programs.ca-programs .cp-flex-note{padding:17px 0;background:transparent;border:0;border-top:1px solid #ddd6cb;border-bottom:1px solid #ddd6cb}
+#programs.ca-programs .cp-flex-note>span{background:#e7ded2}
+#programs.ca-programs .cp-includes-section{margin-bottom:88px}
+#programs.ca-programs .cp-includes-section .cp-section-heading h2{font-size:clamp(2.7rem,5vw,4.5rem)}
+#programs.ca-programs .cp-includes-grid{gap:0 55px}
+#programs.ca-programs .cp-include{grid-template-columns:55px 1fr;gap:17px;padding:27px 0;background:transparent;border:0;border-top:1px solid #dcd6cc;border-radius:0;box-shadow:none}
+#programs.ca-programs .cp-include-icon{width:50px;height:50px;border:0;border-radius:0;background:#e9e2d8;color:#9b714f;font-size:1.45rem}
+#programs.ca-programs .cp-include b{font-size:1.08rem;color:#1a2d47}
+#programs.ca-programs .cp-include p{font-size:.8rem;line-height:1.75;color:#738094}
+#programs.ca-programs .cp-include-num{display:none}
+#programs.ca-programs .cp-bottom-cta{grid-template-columns:75px 1fr auto;padding:35px 38px;border-radius:0;background:linear-gradient(115deg,#15253b,#0d192a)}
+#programs.ca-programs .cp-cta-piece{border-radius:0;background:rgba(255,255,255,.04)}
+#programs.ca-programs .cp-bottom-cta h2{font-size:clamp(1.7rem,3vw,2.55rem)}
+#programs.ca-programs .cp-bottom-cta .cp-btn{border-radius:0}
+@media(max-width:900px){
+ #programs.ca-programs .cp-level-detail{column-gap:28px;padding:35px 32px}
+ #programs.ca-programs .cp-detail-stats{padding-left:23px}
+ #programs.ca-programs .cp-package-section{grid-template-columns:1fr .9fr;gap:30px}
+ #programs.ca-programs .cp-level-option{grid-template-columns:27px 1fr;gap:8px;padding-right:8px}
+ #programs.ca-programs .cp-level-arrow{display:none}
+}
+@media(max-width:650px){
+ #programs.ca-programs .cp-main{width:calc(100% - 38px);padding-top:62px;padding-bottom:62px}
+ #programs.ca-programs .cp-section-heading{display:block;margin-bottom:26px}
+ #programs.ca-programs .cp-section-heading h2{font-size:2.75rem}
+ #programs.ca-programs .cp-section-heading>p{margin-top:15px;font-size:.86rem}
+ #programs.ca-programs .cp-level-list{grid-template-columns:1fr 1fr}
+ #programs.ca-programs .cp-level-option{min-height:68px;padding:10px 5px 13px 0;grid-template-columns:24px 1fr;gap:7px}
+ #programs.ca-programs .cp-level-option-copy b{font-size:.86rem}
+ #programs.ca-programs .cp-level-option-copy small{font-size:.61rem}
+ #programs.ca-programs .cp-level-detail{min-height:0;grid-template-columns:1fr;padding:28px 23px 22px;row-gap:0;margin-top:13px}
+ #programs.ca-programs .cp-detail-top{margin-bottom:24px}
+ #programs.ca-programs .cp-level-detail h3{font-size:3.2rem;grid-column:1;grid-row:2}
+ #programs.ca-programs .cp-level-detail>p{grid-column:1;grid-row:3;font-size:.88rem}
+ #programs.ca-programs .cp-detail-stats{grid-column:1;grid-row:4;grid-template-columns:1fr 1fr;padding:19px 0 0;margin-top:22px;border-left:0;border-top:1px solid rgba(255,255,255,.19);gap:14px}
+ #programs.ca-programs .cp-detail-stats b{font-size:1.85rem}
+ #programs.ca-programs .cp-detail-foot{grid-column:1;grid-row:5;align-items:flex-start;flex-direction:column;gap:9px;margin-top:20px}
+ #programs.ca-programs .cp-level-detail:after{right:-7%;top:40%;font-size:13rem}
+ #programs.ca-programs .cp-package-section{grid-template-columns:1fr;padding:39px 22px;margin-bottom:68px;gap:25px}
+ #programs.ca-programs .cp-package-section:before{font-size:17rem;left:75%;top:17%}
+ #programs.ca-programs .cp-package-intro h2{font-size:3.5rem}
+ #programs.ca-programs .cp-price-card{padding:24px 21px}
+ #programs.ca-programs .cp-how-section{padding-bottom:65px;margin-bottom:64px}
+ #programs.ca-programs .cp-timeline{grid-template-columns:1fr;gap:22px;padding-left:5px}
+ #programs.ca-programs .cp-timeline-line{left:24px;right:auto;top:20px;bottom:17px;width:1px;height:auto}
+ #programs.ca-programs .cp-timeline-line span{width:1px;height:100%;background:linear-gradient(#a97756,#c5a487,#a97756)}
+ #programs.ca-programs .cp-timeline-step{padding:0 0 0 58px;min-height:76px}
+ #programs.ca-programs .cp-timeline-dot{left:4px;top:-3px}
+ #programs.ca-programs .cp-flex-note{align-items:flex-start}
+ #programs.ca-programs .cp-includes-section{margin-bottom:66px}
+ #programs.ca-programs .cp-includes-section .cp-section-heading h2{font-size:2.7rem}
+ #programs.ca-programs .cp-includes-grid{grid-template-columns:1fr}
+ #programs.ca-programs .cp-include{padding:21px 0;grid-template-columns:46px 1fr;gap:13px}
+ #programs.ca-programs .cp-include-icon{width:43px;height:43px}
+ #programs.ca-programs .cp-bottom-cta{grid-template-columns:48px 1fr;padding:25px 20px;gap:13px}
+ #programs.ca-programs .cp-cta-piece{width:46px;height:46px;font-size:1.8rem}
+ #programs.ca-programs .cp-bottom-cta .cp-btn{grid-column:1/-1}
+}
+@media(prefers-reduced-motion:reduce){
+ #programs.ca-programs .cp-level-option,#programs.ca-programs .cp-level-option:after,#programs.ca-programs .cp-currency-tabs button{transition:none}
+}
