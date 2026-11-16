@@ -1679,3 +1679,53 @@ header nav a.l, header .resources-menu summary, .header-utility a {
   line-height: 1.12 !important;
   word-spacing: 0.015em;
 }
+
+
+/* Four-level curriculum with expandable-by-tab module cards */
+#programs.ca-programs .cp-course-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid #d8d2c8;margin-top:28px}
+#programs.ca-programs .cp-course-tab{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:5px;min-height:104px;padding:17px 18px 20px 0;border:0;background:transparent;text-align:left;color:#172b45;cursor:pointer;transition:opacity .2s}
+#programs.ca-programs .cp-course-tab:after{content:"";position:absolute;left:0;right:18px;bottom:-1px;height:3px;background:transparent}
+#programs.ca-programs .cp-course-tab[aria-selected="true"]:after{background:#b98461}
+#programs.ca-programs .cp-course-tab:hover{opacity:.72}
+#programs.ca-programs .cp-course-tab-num{font:800 .68rem 'Bricolage Grotesque';letter-spacing:.12em;color:#b98461}
+#programs.ca-programs .cp-course-tab-name{font:800 1.25rem 'Bricolage Grotesque';color:#172b45}
+#programs.ca-programs .cp-course-tab-sub{font-size:.7rem;color:#8791a0}
+#programs.ca-programs .cp-course-panel{margin-top:25px}
+#programs.ca-programs .cp-course-intro{display:grid;grid-template-columns:1fr 170px;gap:35px;align-items:center;padding:30px 34px;margin-bottom:22px;background:linear-gradient(115deg,#15263d,#0d192a);color:#fff;position:relative;overflow:hidden}
+#programs.ca-programs .cp-course-intro:after{content:"♞";position:absolute;right:175px;bottom:-65px;font:14rem/1 Georgia,serif;color:rgba(255,255,255,.045);pointer-events:none}
+#programs.ca-programs .cp-course-intro>div:first-child{position:relative;z-index:1}
+#programs.ca-programs .cp-course-intro small{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:#d3a17b}
+#programs.ca-programs .cp-course-intro h3{font:800 clamp(2.5rem,5vw,4.2rem)/1 'Bricolage Grotesque';letter-spacing:-.045em;color:#fff;margin:10px 0}
+#programs.ca-programs .cp-course-intro p{max-width:680px;color:#bdc8d7;font-size:.86rem;line-height:1.75;margin:0}
+#programs.ca-programs .cp-course-focus{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+#programs.ca-programs .cp-course-focus span{padding:6px 11px;border:1px solid rgba(211,161,123,.4);color:#e7c5a9;font-size:.67rem}
+#programs.ca-programs .cp-course-count{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:3px 12px;padding-left:22px;border-left:1px solid rgba(255,255,255,.17)}
+#programs.ca-programs .cp-course-count b{font:800 2.15rem/1 'Bricolage Grotesque';color:#fff}
+#programs.ca-programs .cp-course-count span{font-size:.65rem;color:#aebbd0;align-self:start}
+#programs.ca-programs .cp-course-modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#programs.ca-programs .cp-course-module{min-width:0;padding:21px 20px 18px;background:#fff;border:1px solid #e4e0d8;box-shadow:0 10px 25px rgba(24,41,64,.035);transition:transform .2s,border-color .2s}
+#programs.ca-programs .cp-course-module:hover{transform:translateY(-3px);border-color:#c7a184}
+#programs.ca-programs .cp-course-module-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+#programs.ca-programs .cp-course-module-head>span{display:grid;place-items:center;flex:0 0 39px;width:39px;height:39px;background:#172941;color:#e2b18c;font:800 1rem 'Bricolage Grotesque'}
+#programs.ca-programs .cp-course-module-head small{display:block;font-size:.56rem;letter-spacing:.14em;font-weight:800;color:#a77b5c}
+#programs.ca-programs .cp-course-module-head h4{font:800 1.08rem/1.15 'Bricolage Grotesque';color:#1a2d47;margin:4px 0 0}
+#programs.ca-programs .cp-course-module ul{list-style:none;margin:0;padding:0}
+#programs.ca-programs .cp-course-module li{position:relative;padding:8px 0 8px 17px;border-top:1px solid #eeece7;color:#657286;font-size:.73rem;line-height:1.45}
+#programs.ca-programs .cp-course-module li:before{content:"♟";position:absolute;left:0;top:8px;color:#b98461;font-size:.66rem}
+#programs.ca-programs .cp-course-module li.is-review{color:#9b704f;font-weight:700}
+#programs.ca-programs .cp-course-module li.is-review:before{content:"✦"}
+@media(max-width:900px){#programs.ca-programs .cp-course-modules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:620px){
+ #programs.ca-programs .cp-course-tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 15px;margin-top:22px}
+ #programs.ca-programs .cp-course-tab{min-height:82px;padding:12px 5px 14px 0}
+ #programs.ca-programs .cp-course-tab-name{font-size:1.05rem}
+ #programs.ca-programs .cp-course-tab-sub{font-size:.62rem}
+ #programs.ca-programs .cp-course-intro{grid-template-columns:1fr;padding:24px 21px;gap:22px}
+ #programs.ca-programs .cp-course-intro h3{font-size:2.8rem}
+ #programs.ca-programs .cp-course-count{grid-template-columns:auto 1fr auto 1fr;align-items:center;padding:15px 0 0;border-left:0;border-top:1px solid rgba(255,255,255,.17)}
+ #programs.ca-programs .cp-course-count b{font-size:1.7rem}
+ #programs.ca-programs .cp-course-intro:after{right:-20px;bottom:20px;font-size:8rem}
+ #programs.ca-programs .cp-course-modules{grid-template-columns:1fr;gap:12px}
+ #programs.ca-programs .cp-course-module{padding:19px 18px}
+}
+@media(prefers-reduced-motion:reduce){#programs.ca-programs .cp-course-tab,#programs.ca-programs .cp-course-module{transition:none}}
