@@ -1,0 +1,3 @@
+$('#df').onsubmit=e=>{e.preventDefault();const m='Hello Chess AnyTime, I would like to book a demo class.\nParent: '+$('#dp').value+'\nChild: '+$('#dk').value+'\nPhone: '+$('#dn').value;$('#dm').textContent='Thank you, '+$('#dp').value+'. WhatsApp is opening so you can send your request. We will confirm the demo class time shortly.';open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(m),'_blank')};
+const WA_NUMBER='919911966706';
+$('#cf').onsubmit=e=>{e.preventDefault();const m='Hello Chess AnyTime, I want to enroll '+$('#cn').value+' in '+$('#cp').value+'.';if(!WA_NUMBER){$('#cf button').textContent='Enrollment opens soon';return}open('https://wa.me/'+WA_NUMBER+'?text='+encodeURIComponent(m),'_blank')};
