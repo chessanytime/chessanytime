@@ -1,6 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Chess AnyTime">
   <rect width="64" height="64" rx="15" fill="#142238"/>
   <rect x="2" y="2" width="60" height="60" rx="14" fill="none" stroke="#d4a47d" stroke-width="2"/>
-  <text x="32" y="47" text-anchor="middle" font-size="46" font-family="Segoe UI Symbol, Noto Sans Symbols, DejaVu Sans, serif" fill="#f4eadb">♞</text>
-  <path d="M17 54h30" stroke="#d4a47d" stroke-width="2" stroke-linecap="round"/>
+  <text x="32" y="42" text-anchor="middle" font-family="Georgia,serif" font-size="31" font-weight="bold" fill="#f4eadb">CA</text>
+  <path d="M13 51h38" stroke="#d4a47d" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="32" cy="51" r="2.5" fill="#d4a47d"/>
 </svg>
