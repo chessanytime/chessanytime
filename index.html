@@ -424,6 +424,17 @@ header.is-scrolled .header-utility a:hover{color:#fff;background:rgba(255,255,25
  .academy-action:hover,.moment-card:hover{transform:none}
 }
 
+
+/* Final header refinement: compact height, matching safe-area colour and anchor clearance */
+body::before{background:#fff;transition:background .28s ease}
+body.is-scrolled::before{background:rgba(7,12,22,.98)}
+#academy-life,#chess-benefits{scroll-margin-top:84px}
+@media(min-width:1051px){
+ header nav{height:62px;min-height:62px}
+ header .brand img{width:40px;height:40px;flex-basis:40px}
+ header.is-scrolled nav{height:56px;min-height:56px}
+ header.is-scrolled .brand img{width:36px;height:36px;flex-basis:36px}
+}
 </style></head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
 <header><div class="w"><nav>
@@ -793,6 +804,6 @@ route();
 (()=>{const menu=document.querySelector('header .resources-menu');if(!menu)return;const summary=menu.querySelector('summary');const desktop=window.matchMedia('(hover: hover) and (pointer: fine)');if(!desktop.matches)return;menu.addEventListener('mouseenter',()=>{menu.open=true});menu.addEventListener('mouseleave',()=>{menu.open=false});summary.addEventListener('click',e=>{e.preventDefault();menu.open=!menu.open});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;summary.blur()}});menu.addEventListener('focusout',e=>{if(!menu.contains(e.relatedTarget))menu.open=false})})();
 </script>
 <script>
-(()=>{const header=document.querySelector('header');if(!header)return;const update=()=>header.classList.toggle('is-scrolled',window.scrollY>24);update();window.addEventListener('scroll',update,{passive:true});})();
+(()=>{const header=document.querySelector('header');if(!header)return;const update=()=>{const scrolled=window.scrollY>24;header.classList.toggle('is-scrolled',scrolled);document.body.classList.toggle('is-scrolled',scrolled)};update();window.addEventListener('scroll',update,{passive:true});})();
 </script>
 </body></html>
