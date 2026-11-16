@@ -1241,3 +1241,134 @@ textarea,
     font-size: .88rem !important;
   }
 }
+
+
+/* =========================================================
+   Consistent academy-wide typography and text-only life section
+   ========================================================= */
+:root { font-size: 16px; }
+body {
+  font-family: 'Figtree', Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.65 !important;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Bricolage Grotesque', 'Figtree', Arial, sans-serif !important;
+  line-height: 1.15 !important;
+}
+p, li {
+  font-family: 'Figtree', Arial, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+h1 { font-size: clamp(2.35rem, 4.8vw, 4.4rem) !important; }
+h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem) !important; }
+h3 { font-size: clamp(1.25rem, 1.8vw, 1.55rem) !important; }
+small, .meta, .post-author, .back, .card .m, .stats span,
+.badge, .top, footer, .header-utility a {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+.section-kicker, .academy-eyebrow, .cover-kicker,
+.academy-video-page-kicker, .academy-video-page-meta,
+.mind-board-topline, .mind-panel-topline {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  letter-spacing: .12em;
+}
+header nav a.l, header .resources-menu summary, .header-utility a {
+  font-size: 15px !important;
+}
+.btn, button, input, select, textarea {
+  font-family: 'Figtree', Arial, sans-serif !important;
+  font-size: 15px !important;
+}
+#home .academy-hero h1 {
+  font-size: clamp(3rem, 5.8vw, 5.4rem) !important;
+  line-height: 1.04 !important;
+}
+.academy-section-heading h2, .benefits-heading h2,
+#home .mind-intro h2, #videos .academy-video-heading h2 {
+  font-size: clamp(2rem, 3.8vw, 3.25rem) !important;
+  line-height: 1.08 !important;
+}
+#post .art > h1 {
+  font-size: clamp(2.2rem, 4.2vw, 3.6rem) !important;
+  line-height: 1.08 !important;
+}
+#post .body, #post .body p, #post .body li {
+  font-size: 17px !important;
+  line-height: 1.8 !important;
+}
+#videos .academy-video-page-hero h1 {
+  font-size: clamp(2.5rem, 5vw, 4.6rem) !important;
+  line-height: 1.05 !important;
+}
+#home .academy-life .academy-section-heading > p,
+#home .academy-life .moment-copy p {
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+.academy-moments-text {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+.academy-moments-text .moment-card {
+  min-height: 0;
+  border-radius: 12px;
+  border: 1px solid #e2e7ee;
+  box-shadow: 0 8px 24px rgba(23,38,58,.045);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.academy-moments-text .moment-card:hover {
+  transform: none;
+  border-color: #b9c8da;
+  box-shadow: 0 12px 28px rgba(23,38,58,.08);
+}
+.academy-moments-text .moment-copy {
+  padding: 28px 30px 30px;
+}
+.academy-moments-text .moment-copy > span {
+  display: block;
+  margin-bottom: 12px;
+  color: #8a684f;
+  font-size: 12px !important;
+  font-weight: 700;
+  letter-spacing: .1em;
+  line-height: 1.5;
+}
+.academy-moments-text .moment-copy h3 {
+  margin: 0 0 10px;
+  color: #182940;
+  font-size: 22px !important;
+  line-height: 1.25 !important;
+}
+.academy-moments-text .moment-copy p {
+  max-width: 52ch;
+  margin: 0;
+  color: #65748a;
+  font-size: 16px !important;
+  line-height: 1.7 !important;
+}
+@media (max-width: 700px) {
+  body { font-size: 16px !important; }
+  p, li { font-size: 16px !important; }
+  h1 { font-size: clamp(2.1rem, 8vw, 2.8rem) !important; }
+  h2 { font-size: clamp(1.75rem, 6vw, 2.25rem) !important; }
+  h3 { font-size: 20px !important; }
+  header nav a.l, header .resources-menu summary { font-size: 14px !important; }
+  .academy-moments-text { grid-template-columns: 1fr; gap: 12px; }
+  .academy-moments-text .moment-copy { padding: 22px 20px 24px; }
+  .academy-moments-text .moment-copy h3 { font-size: 20px !important; }
+  #post .body, #post .body p, #post .body li {
+    font-size: 16px !important;
+    line-height: 1.75 !important;
+  }
+  #home .academy-hero h1 { font-size: clamp(2.6rem, 10vw, 3.8rem) !important; }
+  .academy-section-heading h2, .benefits-heading h2,
+  #home .mind-intro h2, #videos .academy-video-heading h2 {
+    font-size: clamp(1.9rem, 7vw, 2.55rem) !important;
+  }
+}
