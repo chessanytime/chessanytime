@@ -204,7 +204,9 @@ header .resources-menu summary{list-style:none;cursor:pointer;padding:10px 13px;
 header .resources-menu summary::-webkit-details-marker{display:none}
 header .resources-menu summary:hover,header .resources-menu[open] summary{color:var(--tx);background:var(--bg2)}
 header .resources-menu summary span{font-size:.72em;margin-left:4px}
+.resources-menu::after{content:"";position:absolute;left:0;right:0;top:100%;height:10px}
 .resources-dropdown{position:absolute;top:calc(100% + 8px);left:0;min-width:180px;padding:7px;background:var(--bg2);border:1px solid var(--ln);border-radius:12px;box-shadow:0 14px 35px rgba(0,0,0,.32);display:grid;gap:3px;z-index:20}
+@media(hover:hover) and (pointer:fine){header .resources-menu{cursor:pointer}header .resources-menu:not([open])>.resources-dropdown{display:none}}
 .resources-dropdown a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;color:var(--tx);white-space:nowrap}
 .resources-dropdown a:hover,.resources-dropdown a:focus-visible{background:rgba(255,255,255,.09)}
 .header-utility{display:flex;justify-content:flex-end;padding:0 0 10px}
@@ -517,4 +519,6 @@ function renderBlog(){document.title='Blog | Chess AnyTime';const l=$('#bl');l.i
 ps.forEach(x=>{const a=document.createElement('a');a.className='card pc2';a.href='#blog-'+x.slug;const img=document.createElement('div');img.className='blog-thumb-fallback';img.innerHTML='BULLET CHESS GUIDE<span>HOW TO PLAY FAST AND WIN</span>';const h3=document.createElement('h3');h3.textContent=x.title;a.append(img,h3);l.appendChild(a)})}
 function renderPost(slug){const x=livePosts().find(y=>y.slug===slug);if(!x){location.hash='#blog';return}document.title=x.title+' | Chess AnyTime';$('#pt').textContent=x.title;$('#pd').textContent=fmt(x.date)+' \u00b7 By Coach Shubham';$('#pb').innerHTML=x.body;scrollTo(0,0)}
 route();
+</script><script>
+(()=>{const menu=document.querySelector('header .resources-menu');if(!menu)return;const summary=menu.querySelector('summary');const desktop=window.matchMedia('(hover: hover) and (pointer: fine)');if(!desktop.matches)return;menu.addEventListener('mouseenter',()=>{menu.open=true});menu.addEventListener('mouseleave',()=>{menu.open=false});summary.addEventListener('click',e=>{e.preventDefault();menu.open=!menu.open});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menu.open){menu.open=false;summary.blur()}});menu.addEventListener('focusout',e=>{if(!menu.contains(e.relatedTarget))menu.open=false})})();
 </script></body></html>
