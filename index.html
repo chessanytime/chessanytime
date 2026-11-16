@@ -94,45 +94,99 @@
     </div>
   </section>
 
-  <section class="academy-benefits mind-benefits" id="chess-benefits">
-    <div class="mind-benefits-shell">
-      <div class="mind-intro">
-        <span class="section-kicker">THE THINKING BEHIND THE GAME</span>
-        <h2>Every move builds<br><em>more than a player.</em></h2>
-        <p>Chess gives students a practical way to practise focus, careful thinking and confident decision-making. Explore what happens in the mind behind every move.</p>
-      </div>
+  <!-- Chess AnyTime benefits of chess section -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 
-      <div class="mind-lab">
-        <div class="mind-board-panel">
-          <div class="mind-board-topline"><span>THE THINKING BOARD</span><span id="mind-board-step">01 / 06</span></div>
-          <div class="mind-board-frame">
-            <div class="mind-board" id="mind-board" role="img" aria-label="Chess position illustrating focus"></div>
-          </div>
-          <div class="mind-board-foot"><span id="mind-board-label">FOCUS · SCAN THE WHOLE POSITION</span><span>SELECT A SKILL TO CHANGE THE POSITION</span></div>
-        </div>
+<section class="cab" id="chess-benefits" aria-label="Benefits of playing chess">
+<style>
+.cab{--gold:#F2B94B;--ivory:#FFF4DC;font-family:'DM Sans',system-ui,sans-serif;color:var(--ivory);
+  background:radial-gradient(ellipse at 50% 0,#34230f,#100c08 70%);padding:100px 24px;box-sizing:border-box}
+.cab *{box-sizing:border-box}
+.cab-wrap{max-width:1240px;margin:0 auto}
+.cab-head{text-align:center;margin-bottom:56px}
+.cab-head h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.4rem,5.5vw,4.4rem);
+  line-height:1.03;letter-spacing:-.025em;margin:0 0 14px;color:var(--ivory)}
+.cab-head p{margin:0 auto;color:#e0cfa9;font-size:clamp(1.1rem,2vw,1.4rem);max-width:30em;line-height:1.5}
+.cab-grid{display:grid;grid-template-columns:repeat(4,1fr);border-radius:22px;overflow:hidden;border:8px solid #3b2612;
+  box-shadow:0 40px 80px -30px #000,0 0 0 2px #0009}
+.cab-card{--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC;
+  background:var(--bg);color:var(--fg);padding:36px 28px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;
+  position:relative;transition:transform .3s,box-shadow .3s;opacity:0;transform:translateY(24px)}
+.cab-card.in{opacity:1;transform:none;transition:opacity .6s ease var(--dl,0s),transform .6s ease var(--dl,0s)}
+.cab-card.in:hover{transform:scale(1.03);z-index:2;box-shadow:0 20px 40px -10px #000a;transition:transform .25s,box-shadow .25s}
+.cab-card:nth-child(2),.cab-card:nth-child(4),.cab-card:nth-child(5),.cab-card:nth-child(7){
+  --bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
+.cab-disc{width:104px;height:104px;border-radius:50%;background:var(--dc);display:grid;place-items:center;margin-bottom:22px;
+  box-shadow:0 10px 24px -8px #0008}
+.cab-disc span{font-size:68px;line-height:1;color:var(--pc);transform:translateY(-3px)}
+.cab-card h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(1.5rem,2.3vw,1.9rem);
+  line-height:1.1;letter-spacing:-.015em;margin:0 0 12px;color:inherit}
+.cab-card p{margin:0;font-size:1.1rem;line-height:1.55;opacity:.92;color:inherit}
+.cab-card.last,.cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B;
+  background:linear-gradient(160deg,#ffd47a,#f2b94b)}
+.cab-btn{display:inline-block;margin-top:22px;background:#24160d;color:#ffd47a;text-decoration:none;font-weight:500;
+  padding:14px 30px;border-radius:999px;font-size:1.05rem;transition:transform .15s,background .15s}
+.cab-btn:hover,.cab-btn:focus-visible{transform:translateY(-2px);background:#3a2410}
+.cab-card.last{justify-content:flex-start}
+@media (max-width:999px){
+  .cab{padding:72px 18px}
+  .cab-head{margin-bottom:36px}
+  .cab-grid{grid-template-columns:repeat(2,1fr)}
+  .cab-card:nth-child(n){--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC}
+  .cab-card:nth-child(2),.cab-card:nth-child(3),.cab-card:nth-child(6),.cab-card:nth-child(7){
+    --bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
+  .cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B}
+}
+@media (max-width:559px){
+  .cab-grid{grid-template-columns:1fr}
+  .cab-card:nth-child(n){--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC}
+  .cab-card:nth-child(even){--bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
+  .cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B}
+  .cab-card{padding:30px 22px 34px}
+}
+@media (prefers-reduced-motion:reduce){.cab-card{opacity:1;transform:none;transition:none!important}}
+</style>
 
-        <div class="mind-control-panel">
-          <div class="mind-panel-topline"><span>CHOOSE A SKILL</span><span class="mind-interactive-tag"><i></i> INTERACTIVE</span></div>
-          <div class="mind-skill-grid" role="group" aria-label="Skills practised through chess">
-            <button class="mind-skill is-active" type="button" data-mind-skill="focus" aria-pressed="true"><span>01</span><b>Focus</b><i>↗</i></button>
-            <button class="mind-skill" type="button" data-mind-skill="problem" aria-pressed="false"><span>02</span><b>Problem-solving</b><i>↗</i></button>
-            <button class="mind-skill" type="button" data-mind-skill="ahead" aria-pressed="false"><span>03</span><b>Think ahead</b><i>↗</i></button>
-            <button class="mind-skill" type="button" data-mind-skill="patience" aria-pressed="false"><span>04</span><b>Patience</b><i>↗</i></button>
-            <button class="mind-skill" type="button" data-mind-skill="resilience" aria-pressed="false"><span>05</span><b>Resilience</b><i>↗</i></button>
-            <button class="mind-skill" type="button" data-mind-skill="confidence" aria-pressed="false"><span>06</span><b>Confidence</b><i>↗</i></button>
-          </div>
-          <article class="mind-skill-detail" aria-live="polite">
-            <div class="mind-detail-kicker" id="mind-detail-kicker">SKILL 01 / FOCUS</div>
-            <h3 id="mind-detail-title">See the whole position.</h3>
-            <p id="mind-detail-copy">A strong move starts with observation. Students learn to scan the board, notice threats and pay attention to what has changed before they act.</p>
-            <div class="mind-detail-footer"><span id="mind-detail-prompt">LOOK BEFORE YOU MOVE</span><span>♞</span></div>
-          </article>
-        </div>
-      </div>
+<div class="cab-wrap">
+  <div class="cab-head">
+    <h2>What chess does for you</h2>
+    <p>A few minutes a day on the board builds skills you use everywhere else.</p>
+  </div>
+  <div class="cab-grid" aria-live="off"></div>
+</div>
 
-      <div class="mind-benefits-footer"><span>LEARN THE POSITION. MAKE THE MOVE.</span><b>Think clearly. Play confidently.</b><span>THE CHESS ANYTIME WAY</span></div>
-    </div>
-  </section>
+<script>
+(function(){
+  var root=document.getElementById('chess-benefits'),grid=root&&root.querySelector('.cab-grid');
+  if(!root||!grid)return;
+  var G={n:'\\u265E',b:'\\u265D',r:'\\u265C',p:'\\u265F',q:'\\u265B',k:'\\u265A'};
+  var B=[
+    {g:'n',t:'Sharper memory',x:'Recalling openings and patterns gives your memory a daily workout.'},
+    {g:'b',t:'Deeper focus',x:'One board, one problem. You learn to block out every distraction.'},
+    {g:'r',t:'Smarter planning',x:'Think several moves ahead and see how today’s choice shapes tomorrow.'},
+    {g:'n',t:'Better problem-solving',x:'Weigh your options, spot threats, and pick the best move under pressure.'},
+    {g:'q',t:'More creativity',x:'Find surprising ideas, like the attack nobody saw coming.'},
+    {g:'p',t:'Real patience',x:'Good moves take time. Chess rewards thinking before acting.'},
+    {g:'b',t:'Calm under pressure',x:'Stay cool, keep your eyes open, and finish what you started.'},
+    {g:'k',t:'Play with anyone',x:'Any age, any level, anywhere. Your next move is waiting.',last:1}
+  ];
+  var cards=B.map(function(b,i){
+    var c=document.createElement('article');c.className='cab-card'+(b.last?' last':'');
+    c.style.setProperty('--dl',(i%4)*.1+'s');
+    c.innerHTML='<div class="cab-disc" aria-hidden="true"><span>'+G[b.g]+'\\uFE0E</span></div><h3>'+b.t+'</h3><p>'+b.x+'</p>'+
+      (b.last?'<a class="cab-btn" href="#puzzles">Make your first move</a>':'');
+    grid.appendChild(c);return c;});
+  function showAll(){cards.forEach(function(c){c.classList.add('in')});}
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(entries,observer){
+      if(entries.some(function(entry){return entry.isIntersecting;})){showAll();observer.disconnect();}
+    },{threshold:.15}).observe(grid);
+  }else showAll();
+})();
+</script>
+</section>
 
 <section class="academy-section academy-journey">
     <div class="academy-section-heading">
