@@ -876,3 +876,71 @@ body.is-scrolled::before{background:rgba(7,12,22,.98)}
  #home .moment-art .moment-photo,#home .academy-video-player-wrap{transition:none}
  #home .moment-card:hover .moment-photo{transform:none}
 }
+
+
+/* =========================================================
+   Homepage polish: stronger masthead, orbital interaction,
+   and a richer free-video discovery area
+   ========================================================= */
+/* Give the site header more presence at first glance. */
+header nav{height:76px;min-height:76px;gap:clamp(7px,.85vw,14px)}
+header .brand{font-size:1.42rem;gap:14px}
+header .brand img{width:49px;height:49px;flex-basis:49px}
+header nav a.l{font-size:.97rem;padding:11px 14px}
+header nav a.btn{font-size:.94rem;padding:14px 19px}
+header.is-scrolled nav{height:68px;min-height:68px}
+header.is-scrolled .brand img{width:43px;height:43px;flex-basis:43px}
+.academy-eyebrow{font-size:.8rem;letter-spacing:.2em}
+.academy-hero h1{font-size:clamp(3.6rem,7vw,6.6rem)}
+@media(max-width:1050px){
+ header nav{height:auto;min-height:78px}
+ header .brand{font-size:1.4rem}
+ header nav a.l{font-size:.91rem;padding:9px 12px}
+ header nav a.btn{font-size:.9rem}
+ header.is-scrolled nav{height:auto;min-height:66px}
+}
+@media(max-width:650px){
+ header nav{height:auto;min-height:0;padding:10px 0}
+ header .brand{font-size:1.25rem}
+ header .brand img{width:42px;height:42px;flex-basis:42px}
+ header nav a.l{font-size:.82rem;padding:8px 10px}
+ header nav a.btn{font-size:.82rem;padding:9px 12px}
+ header.is-scrolled nav{height:auto;min-height:0;padding:7px 0}
+ .academy-eyebrow{font-size:.68rem;letter-spacing:.16em}
+ .academy-hero h1{font-size:clamp(3.25rem,13.7vw,4.7rem)}
+}
+
+/* Orbit stage: clearer planetary depth, glow and hover pause. */
+#home .benefit-orbit-stage{filter:drop-shadow(0 18px 35px rgba(0,0,0,.12))}
+#home .benefit-orbit-core{animation:benefit-core-pulse 5.5s ease-in-out infinite}
+#home .benefit-orbit-core:after{content:"";position:absolute;inset:-12px;border:1px solid rgba(211,161,123,.23);border-radius:50%;animation:benefit-core-ring 5s ease-in-out infinite}
+#home .benefit-planet{backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
+#home .benefit-planet.is-active{box-shadow:0 0 0 8px rgba(201,149,112,.12),0 0 38px rgba(201,149,112,.24),0 14px 38px rgba(0,0,0,.3)}
+#home .benefit-orbit-stage:hover .benefit-orbit-track,
+#home .benefit-orbit-stage:hover .benefit-orbit-stars,
+#home .benefit-orbit-stage:hover .benefit-planet{animation-play-state:paused}
+#home .benefit-planet:focus-visible{outline:3px solid #f0c49f;outline-offset:5px}
+@keyframes benefit-core-pulse{0%,100%{box-shadow:0 0 0 12px rgba(211,161,123,.045),0 0 42px rgba(109,148,190,.19),inset 0 0 25px rgba(255,255,255,.06)}50%{box-shadow:0 0 0 19px rgba(211,161,123,.065),0 0 65px rgba(109,148,190,.28),inset 0 0 29px rgba(255,255,255,.09)}}
+@keyframes benefit-core-ring{0%,100%{opacity:.25;transform:scale(.96)}50%{opacity:.8;transform:scale(1.04)}}
+
+/* Video topic selector: four distinct learning stops, clearer active state. */
+#home .academy-video-topics{gap:8px}
+#home .academy-video-tab{padding:11px 13px;min-height:43px}
+#home .academy-video-tab:focus-visible{outline:3px solid #a87552;outline-offset:3px}
+#home .academy-video-info{min-height:155px;transition:opacity .2s}
+#home .academy-video-player-wrap{position:relative}
+#home .academy-video-player-wrap:before{content:"";position:absolute;inset:-8px 10px 10px -8px;border:1px solid rgba(169,121,87,.24);pointer-events:none}
+#home .academy-video-frame iframe{background:#0c1727}
+#home .academy-video-library-links{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:18px}
+#home .academy-video-library-links a{color:#806044;font-size:.72rem;font-weight:800;text-decoration:none}
+#home .academy-video-library-links a:hover{text-decoration:underline;text-underline-offset:4px}
+#home .academy-video-player-foot span:last-child{color:#8893a3}
+@media(max-width:650px){
+ #home .academy-video-topics{display:grid;grid-template-columns:1fr 1fr}
+ #home .academy-video-tab{justify-content:flex-start;padding:9px 10px}
+ #home .academy-video-info{min-height:0}
+ #home .academy-video-library-links{gap:11px 17px}
+}
+@media(prefers-reduced-motion:reduce){
+ header nav,#home .benefit-orbit-core,#home .benefit-orbit-core:after{animation:none!important;transition:none!important}
+}
