@@ -1,0 +1,1 @@
+(()=>{const header=document.querySelector('header');if(!header)return;const update=()=>{const scrolled=window.scrollY>24;header.classList.toggle('is-scrolled',scrolled);document.body.classList.toggle('is-scrolled',scrolled)};update();window.addEventListener('scroll',update,{passive:true});})();
