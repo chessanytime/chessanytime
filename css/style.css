@@ -745,7 +745,7 @@ body.is-scrolled::before{background:rgba(7,12,22,.98)}
    animated solar-system-style chess benefits explorer
    ========================================================= */
 #home .academy-eyebrow{font-size:.82rem;font-weight:900;letter-spacing:.22em;color:#d9ad8a;gap:13px}
-#home .academy-eyebrow:after{content:"";display:inline-block;width:42px;height:3px;background:#c99570;margin-left:4px;box-shadow:0 0 16px rgba(201,149,112,.28)}
+#home .academy-eyebrow:after{display:none}
 #home .academy-hero h1{font-size:clamp(3.55rem,7vw,6.7rem);font-weight:900;letter-spacing:-.062em}
 @media(max-width:650px){#home .academy-eyebrow{font-size:.68rem;letter-spacing:.16em}#home .academy-eyebrow:after{width:27px}#home .academy-hero h1{font-size:clamp(3.15rem,13.2vw,4.7rem)}}
 
