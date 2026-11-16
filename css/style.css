@@ -738,3 +738,141 @@ body.is-scrolled::before{background:rgba(7,12,22,.98)}
 @media(prefers-reduced-motion:reduce){
  #programs.ca-programs .cp-level-option,#programs.ca-programs .cp-level-option:after,#programs.ca-programs .cp-currency-tabs button{transition:none}
 }
+
+
+/* =========================================================
+   Homepage enhancement: stronger hero, photo wall, video and
+   animated solar-system-style chess benefits explorer
+   ========================================================= */
+#home .academy-eyebrow{font-size:.82rem;font-weight:900;letter-spacing:.22em;color:#d9ad8a;gap:13px}
+#home .academy-eyebrow:after{content:"";display:inline-block;width:42px;height:3px;background:#c99570;margin-left:4px;box-shadow:0 0 16px rgba(201,149,112,.28)}
+#home .academy-hero h1{font-size:clamp(3.55rem,7vw,6.7rem);font-weight:900;letter-spacing:-.062em}
+@media(max-width:650px){#home .academy-eyebrow{font-size:.68rem;letter-spacing:.16em}#home .academy-eyebrow:after{width:27px}#home .academy-hero h1{font-size:clamp(3.15rem,13.2vw,4.7rem)}}
+
+/* Real chess-classroom photos replace the empty gallery placeholders. */
+#home .moment-art{position:relative;isolation:isolate;overflow:hidden}
+#home .moment-art:before{z-index:0;opacity:.12}
+#home .moment-art .moment-photo{position:absolute;inset:0;z-index:-1;width:100%;height:100%;object-fit:cover;object-position:center;border:0;border-radius:0;opacity:.92;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .4s}
+#home .moment-art:after{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(180deg,rgba(8,17,30,.08) 0%,rgba(8,17,30,.12) 35%,rgba(8,17,30,.82) 100%);pointer-events:none}
+#home .moment-art>*:not(.moment-photo){z-index:1}
+#home .moment-card:hover .moment-photo{transform:scale(1.07);filter:saturate(1.08)}
+#home .moment-art .moment-art-kicker{font-size:.57rem;letter-spacing:.16em;color:#fff}
+#home .moment-art .moment-art-caption{font-size:1.18rem;text-shadow:0 2px 12px rgba(0,0,0,.45)}
+#home .moment-photo-credit{align-self:flex-end;margin-top:5px;font-size:.55rem;letter-spacing:.06em;color:rgba(255,255,255,.68)}
+#home .moment-art .moment-art-symbol,#home .moment-art .photo-slot-note{display:none}
+
+/* Video discovery section: two selectable embedded lessons. */
+#home .academy-video-section{padding:96px clamp(20px,6vw,92px);background:#ebe7df;color:#182940}
+#home .academy-video-inner{max-width:1320px;margin:0 auto;display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(40px,7vw,95px);align-items:center}
+#home .academy-video-heading .section-kicker{color:#a97957}
+#home .academy-video-heading h2{font:800 clamp(2.5rem,4.5vw,4.25rem)/1.02 'Bricolage Grotesque',Georgia,serif;letter-spacing:-.055em;color:#172b45;margin:14px 0 17px}
+#home .academy-video-heading h2 em{font-style:normal;color:#b98461}
+#home .academy-video-heading>p{max-width:460px;color:#6d7a8c;font-size:.92rem;line-height:1.85;margin:0}
+#home .academy-video-topics{display:flex;gap:8px;flex-wrap:wrap;margin-top:27px}
+#home .academy-video-tab{display:flex;align-items:center;gap:10px;padding:11px 14px;background:transparent;border:1px solid #d4cec4;color:#68758a;font:700 .78rem Figtree;cursor:pointer;transition:background .2s,color .2s,border .2s}
+#home .academy-video-tab span{font:800 .62rem 'Bricolage Grotesque';color:#b27f5c}
+#home .academy-video-tab:hover{border-color:#b98461;color:#172b45}
+#home .academy-video-tab.is-active{background:#172941;border-color:#172941;color:#fff}
+#home .academy-video-tab.is-active span{color:#e2b18d}
+#home .academy-video-info{margin-top:28px;padding-left:16px;border-left:3px solid #c99570}
+#home .academy-video-info>span{font-size:.58rem;font-weight:800;letter-spacing:.16em;color:#a97957}
+#home .academy-video-info h3{font:700 1.34rem 'Bricolage Grotesque';color:#192d47;margin:7px 0}
+#home .academy-video-info p{max-width:430px;font-size:.79rem;line-height:1.7;color:#758194;margin:0 0 9px}
+#home .academy-video-info a{font-size:.73rem;font-weight:800;color:#956b4d;text-decoration:none}
+#home .academy-video-info a:hover{text-decoration:underline;text-underline-offset:4px}
+#home .academy-video-player-wrap{padding:13px;background:#fff;box-shadow:0 22px 55px rgba(25,42,64,.13);transform:rotate(.6deg);transition:transform .35s,box-shadow .35s}
+#home .academy-video-player-wrap:hover{transform:rotate(0) translateY(-4px);box-shadow:0 30px 70px rgba(25,42,64,.18)}
+#home .academy-video-frame{position:relative;width:100%;aspect-ratio:16/9;background:#0c1727;overflow:hidden}
+#home .academy-video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+#home .academy-video-player-foot{display:flex;align-items:center;justify-content:space-between;padding:13px 5px 1px;color:#8792a1;font-size:.56rem;letter-spacing:.14em;font-weight:800}
+#home .academy-video-player-foot span:first-child{display:flex;align-items:center;gap:8px;color:#688a76}
+#home .academy-video-player-foot i{width:7px;height:7px;border-radius:50%;background:#72b58b;box-shadow:0 0 0 4px rgba(114,181,139,.13)}
+
+/* Benefits orbit: the six learning skills move around a chess-centred sun. */
+#home .academy-benefits-orbit{position:relative;overflow:hidden}
+#home .academy-benefits-orbit:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 76% 52%,rgba(73,107,151,.2),transparent 34%),radial-gradient(circle at 10% 15%,rgba(190,142,105,.09),transparent 23%);pointer-events:none}
+#home .academy-benefits-orbit .benefits-inner{position:relative;z-index:1}
+#home .academy-benefits-orbit .benefits-heading{max-width:740px;margin-bottom:45px}
+#home .academy-benefits-orbit .benefits-heading h2{font-size:clamp(2.8rem,5vw,4.7rem)}
+#home .academy-benefits-orbit .benefits-heading h2 em{font-style:normal;color:#d3a17b}
+#home .benefits-explore-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:35px;align-items:center}
+#home .benefit-active-detail{max-width:450px;padding:10px 0 20px}
+#home .benefit-active-symbol{display:grid;place-items:center;width:57px;height:57px;border:1px solid rgba(211,161,123,.5);border-radius:50%;color:#e0b48f;font-size:1.8rem;margin-bottom:25px;box-shadow:0 0 0 9px rgba(211,161,123,.05)}
+#home .benefit-active-kicker{font-size:.62rem;font-weight:800;letter-spacing:.16em;color:#d3a17b}
+#home .benefit-active-detail h3{font:800 clamp(1.9rem,3.2vw,2.75rem)/1.05 'Bricolage Grotesque';color:#f6f7fb;letter-spacing:-.04em;margin:10px 0 13px}
+#home .benefit-active-detail>p{color:#b2bfd0;max-width:410px;line-height:1.85;font-size:.91rem;margin:0}
+#home .benefit-active-hint{display:flex;align-items:center;gap:9px;margin-top:27px;color:#889ab1;font-size:.7rem}
+#home .benefit-active-hint span{color:#d3a17b;font-size:1rem}
+#home .benefit-orbit-stage{position:relative;width:min(100%,590px);aspect-ratio:1;margin:0 auto;display:grid;place-items:center;isolation:isolate}
+#home .benefit-orbit-stars{position:absolute;inset:0;border-radius:50%;background-image:radial-gradient(1px 1px at 15% 22%,rgba(255,255,255,.9) 50%,transparent 80%),radial-gradient(1px 1px at 83% 18%,rgba(211,161,123,.8) 50%,transparent 80%),radial-gradient(1.5px 1.5px at 76% 77%,rgba(255,255,255,.7) 50%,transparent 80%),radial-gradient(1px 1px at 27% 83%,rgba(255,255,255,.7) 50%,transparent 80%),radial-gradient(1px 1px at 48% 10%,rgba(255,255,255,.6) 50%,transparent 80%);opacity:.7;animation:benefit-twinkle 6s ease-in-out infinite alternate}
+#home .benefit-orbit-track{position:absolute;left:50%;top:50%;border:1px solid rgba(196,169,143,.2);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
+#home .benefit-orbit-track-one{width:42%;height:42%;border-style:dashed;animation:benefit-spin 48s linear infinite}
+#home .benefit-orbit-track-two{width:68%;height:68%;border-color:rgba(196,169,143,.29);animation:benefit-spin 75s linear infinite reverse}
+#home .benefit-orbit-track-three{width:94%;height:94%;border-color:rgba(196,169,143,.15);border-style:dotted;animation:benefit-spin 110s linear infinite}
+#home .benefit-orbit-core{position:relative;z-index:2;width:25%;aspect-ratio:1;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 38% 30%,#425c7d,#172c46 70%);border:1px solid rgba(222,184,148,.55);box-shadow:0 0 0 12px rgba(211,161,123,.045),0 0 45px rgba(109,148,190,.19),inset 0 0 25px rgba(255,255,255,.06)}
+#home .benefit-orbit-core>span{font:3.4rem/1 Georgia,serif;color:#e8d5c2;text-shadow:0 7px 12px rgba(0,0,0,.3)}
+#home .benefit-orbit-core>b{font:800 .58rem 'Bricolage Grotesque';letter-spacing:.18em;color:#f6f4ed;margin-top:5px}
+#home .benefit-orbit-core>small{font-size:.46rem;letter-spacing:.17em;color:#c0cad8;margin-top:3px}
+#home .benefit-planet{position:absolute;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:112px;min-height:92px;padding:8px 7px;background:rgba(19,35,56,.94);border:1px solid rgba(196,169,143,.37);border-radius:50%;color:#dbe2eb;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.25);transition:transform .22s,border .22s,background .22s,box-shadow .22s}
+#home .benefit-planet:hover{transform:scale(1.09);border-color:#d3a17b}
+#home .benefit-planet.is-active{background:#c99570;border-color:#edc6a7;color:#15253b;box-shadow:0 0 0 8px rgba(201,149,112,.1),0 14px 38px rgba(0,0,0,.3);transform:scale(1.06)}
+#home .planet-symbol{font-size:1.45rem;line-height:1}
+#home .planet-label{font-size:.62rem;line-height:1.15;text-align:center;font-weight:800;max-width:92px}
+#home .planet-focus{left:50%;top:0;transform:translateX(-50%);animation:benefit-float 5s ease-in-out infinite}
+#home .planet-focus:hover,#home .planet-focus.is-active{transform:translateX(-50%) scale(1.06)}
+#home .planet-problem{right:8%;top:18%;animation:benefit-float 5.8s ease-in-out -1.2s infinite}
+#home .planet-ahead{right:2%;bottom:18%;animation:benefit-float 6s ease-in-out -2.2s infinite}
+#home .planet-patience{left:50%;bottom:0;transform:translateX(-50%);animation:benefit-float 5.3s ease-in-out -3s infinite}
+#home .planet-patience:hover,#home .planet-patience.is-active{transform:translateX(-50%) scale(1.06)}
+#home .planet-resilience{left:2%;bottom:18%;animation:benefit-float 5.7s ease-in-out -1.6s infinite}
+#home .planet-confidence{left:8%;top:18%;animation:benefit-float 6.2s ease-in-out -2.8s infinite}
+#home .benefit-orbit-caption{position:absolute;z-index:2;bottom:12%;font-size:.48rem;letter-spacing:.2em;color:rgba(213,161,123,.67)}
+#home .academy-benefits-orbit .benefits-board-note{border-top:1px solid rgba(255,255,255,.14)}
+@keyframes benefit-spin{from{rotate:0deg}to{rotate:360deg}}
+@keyframes benefit-float{0%,100%{margin-top:0}50%{margin-top:-8px}}
+@keyframes benefit-twinkle{from{opacity:.35;transform:scale(.98)}to{opacity:.8;transform:scale(1.02)}}
+@media(max-width:900px){
+ #home .academy-video-inner{grid-template-columns:1fr;gap:34px}
+ #home .academy-video-heading{max-width:760px}
+ #home .academy-video-player-wrap{width:min(100%,860px);margin:0 auto}
+ #home .benefits-explore-layout{grid-template-columns:1fr;gap:24px}
+ #home .benefit-active-detail{max-width:690px;padding-bottom:0}
+ #home .benefit-orbit-stage{width:min(100%,550px)}
+}
+@media(max-width:650px){
+ #home .academy-video-section{padding:66px 20px}
+ #home .academy-video-heading h2{font-size:2.65rem}
+ #home .academy-video-topics{gap:6px}
+ #home .academy-video-tab{padding:10px 11px;font-size:.72rem}
+ #home .academy-video-player-wrap{padding:7px;transform:none}
+ #home .academy-video-player-foot{font-size:.46rem;letter-spacing:.1em}
+ #home .academy-benefits-orbit .benefits-heading h2{font-size:2.75rem}
+ #home .benefits-explore-layout{gap:18px}
+ #home .benefit-active-detail{padding:0 0 5px}
+ #home .benefit-active-symbol{width:47px;height:47px;font-size:1.45rem;margin-bottom:17px}
+ #home .benefit-active-detail h3{font-size:1.9rem}
+ #home .benefit-active-detail>p{font-size:.84rem}
+ #home .benefit-active-hint{font-size:.62rem;margin-top:18px}
+ #home .benefit-orbit-stage{width:min(100%,420px)}
+ #home .benefit-planet{width:76px;min-height:68px;padding:6px;gap:2px}
+ #home .planet-symbol{font-size:1.1rem}
+ #home .planet-label{font-size:.49rem;max-width:68px}
+ #home .benefit-orbit-core{width:27%}
+ #home .benefit-orbit-core>span{font-size:2.3rem}
+ #home .benefit-orbit-core>b{font-size:.46rem}
+ #home .benefit-orbit-core>small{font-size:.37rem}
+ #home .benefit-orbit-caption{font-size:.39rem;bottom:10%}
+ #home .planet-problem{right:5%;top:18%}
+ #home .planet-ahead{right:0;bottom:18%}
+ #home .planet-resilience{left:0;bottom:18%}
+ #home .planet-confidence{left:5%;top:18%}
+}
+@media(max-width:390px){
+ #home .benefit-planet{width:68px;min-height:62px}
+ #home .planet-label{font-size:.45rem}
+}
+@media(prefers-reduced-motion:reduce){
+ #home .benefit-orbit-stars,#home .benefit-orbit-track,#home .benefit-planet{animation:none!important}
+ #home .moment-art .moment-photo,#home .academy-video-player-wrap{transition:none}
+ #home .moment-card:hover .moment-photo{transform:none}
+}
