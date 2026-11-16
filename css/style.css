@@ -1729,3 +1729,5 @@ header nav a.l, header .resources-menu summary, .header-utility a {
  #programs.ca-programs .cp-course-module{padding:19px 18px}
 }
 @media(prefers-reduced-motion:reduce){#programs.ca-programs .cp-course-tab,#programs.ca-programs .cp-course-module{transition:none}}
+
+#programs.ca-programs .cp-level-journey{display:block;max-width:none;margin:0}
