@@ -1073,3 +1073,47 @@ header .brand small{font-size:.73rem;letter-spacing:.17em}
  header .brand img{width:58px;height:58px;flex-basis:58px}
  #home .academy-hero h1{font-size:clamp(3.4rem,14.2vw,4.95rem)}
 }
+
+
+/* Stable sticky header: keep its layout height constant across scroll states.
+   The old compact state reduced the nav height at the 24px scroll threshold,
+   which could move the scroll position back across that threshold and flicker. */
+header nav,
+header.is-scrolled nav {
+  height: auto;
+  min-height: 98px;
+  transition: none;
+}
+header .brand img,
+header.is-scrolled .brand img {
+  width: 72px;
+  height: 72px;
+  flex: 0 0 72px;
+  transition: none;
+}
+@media (max-width: 1050px) {
+  header nav,
+  header.is-scrolled nav {
+    height: auto;
+    min-height: 88px;
+  }
+  header .brand img,
+  header.is-scrolled .brand img {
+    width: 66px;
+    height: 66px;
+    flex-basis: 66px;
+  }
+}
+@media (max-width: 620px) {
+  header nav,
+  header.is-scrolled nav {
+    height: auto;
+    min-height: 0;
+  }
+  header .brand img,
+  header.is-scrolled .brand img {
+    width: 58px;
+    height: 58px;
+    flex-basis: 58px;
+  }
+}
