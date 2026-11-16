@@ -1117,3 +1117,127 @@ header.is-scrolled .brand img {
     flex-basis: 58px;
   }
 }
+
+
+/* =========================================================
+   Global readability pass: consistent type scale and spacing
+   ========================================================= */
+html { font-size: 16px; }
+body {
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body p,
+body li,
+body label,
+body input,
+body select,
+body textarea {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+body p { margin-top: 0; }
+body h1 {
+  font-size: clamp(2.15rem, 4.4vw, 4.1rem) !important;
+  line-height: 1.08 !important;
+}
+body h2 {
+  font-size: clamp(1.65rem, 3vw, 2.55rem) !important;
+  line-height: 1.15 !important;
+}
+body h3 {
+  font-size: clamp(1.18rem, 1.7vw, 1.55rem) !important;
+  line-height: 1.25 !important;
+}
+/* Keep supporting copy and interface labels comfortably readable. */
+.meta,
+.sub,
+.post-author,
+.post-tags span,
+.post-tags a,
+.badge,
+.stats span,
+.card .m,
+.card ul,
+footer,
+.top,
+header nav a.l,
+header .resources-menu,
+.header-utility a,
+.btn,
+button,
+input,
+select,
+textarea,
+.back,
+.board-help {
+  font-size: max(.86rem, 1em);
+}
+.academy-eyebrow,
+.section-kicker,
+[class*="kicker"],
+[class*="eyebrow"],
+.cover-kicker,
+#videos .academy-video-page-meta,
+#videos .academy-video-page-kicker,
+#home .mind-board-topline,
+#home .mind-panel-topline,
+#home .mind-board-foot,
+#home .mind-detail-footer,
+#home .mind-benefits-footer span {
+  font-size: max(.72rem, 1em) !important;
+  line-height: 1.45;
+}
+#home .academy-hero h1 {
+  font-size: clamp(2.65rem, 5.2vw, 5rem) !important;
+  line-height: 1.02 !important;
+}
+#home .mind-intro h2 {
+  font-size: clamp(2.15rem, 4.3vw, 3.8rem) !important;
+  line-height: 1.06 !important;
+}
+#videos .academy-video-page-hero h1 {
+  font-size: clamp(2.45rem, 5vw, 4.8rem) !important;
+  line-height: 1.04 !important;
+}
+#post .art > h1 {
+  font-size: clamp(2.15rem, 4.2vw, 3.7rem) !important;
+}
+#post .body {
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+#post .body p,
+#post .body li {
+  font-size: 1.08rem;
+  line-height: 1.8;
+}
+@media (max-width: 650px) {
+  html { font-size: 15.5px; }
+  body { line-height: 1.65; }
+  body h1 { font-size: clamp(2rem, 8vw, 2.8rem) !important; }
+  body h2 { font-size: clamp(1.55rem, 6vw, 2.1rem) !important; }
+  body h3 { font-size: clamp(1.12rem, 4.5vw, 1.4rem) !important; }
+  #home .academy-hero h1 {
+    font-size: clamp(2.55rem, 10.5vw, 3.8rem) !important;
+  }
+  #home .mind-intro h2 {
+    font-size: clamp(2rem, 8vw, 2.8rem) !important;
+  }
+  #videos .academy-video-page-hero h1 {
+    font-size: clamp(2.2rem, 9vw, 3.1rem) !important;
+  }
+  #post .body,
+  #post .body p,
+  #post .body li {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  header nav a.l,
+  header .resources-menu summary,
+  .header-utility a {
+    font-size: .88rem !important;
+  }
+}
