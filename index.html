@@ -94,96 +94,101 @@
     </div>
   </section>
 
-  <!-- Chess AnyTime benefits of chess section -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
-
+  <!-- Chess AnyTime benefits: scroll-driven card deck -->
 <section class="cab" id="chess-benefits" aria-label="Benefits of playing chess">
 <style>
-.cab{--gold:#F2B94B;--ivory:#FFF4DC;font-family:'DM Sans',system-ui,sans-serif;color:var(--ivory);
-  background:radial-gradient(ellipse at 50% 0,#34230f,#100c08 70%);padding:100px 24px;box-sizing:border-box}
-.cab *{box-sizing:border-box}
-.cab-wrap{max-width:1240px;margin:0 auto}
-.cab-head{text-align:center;margin-bottom:56px}
-.cab-head h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.4rem,5.5vw,4.4rem);
-  line-height:1.03;letter-spacing:-.025em;margin:0 0 14px;color:var(--ivory)}
-.cab-head p{margin:0 auto;color:#e0cfa9;font-size:clamp(1.1rem,2vw,1.4rem);max-width:30em;line-height:1.5}
-.cab-grid{display:grid;grid-template-columns:repeat(4,1fr);border-radius:22px;overflow:hidden;border:8px solid #3b2612;
-  box-shadow:0 40px 80px -30px #000,0 0 0 2px #0009}
-.cab-card{--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC;
-  background:var(--bg);color:var(--fg);padding:36px 28px 40px;display:flex;flex-direction:column;align-items:center;text-align:center;
-  position:relative;transition:transform .3s,box-shadow .3s;opacity:0;transform:translateY(24px)}
-.cab-card.in{opacity:1;transform:none;transition:opacity .6s ease var(--dl,0s),transform .6s ease var(--dl,0s)}
-.cab-card.in:hover{transform:scale(1.03);z-index:2;box-shadow:0 20px 40px -10px #000a;transition:transform .25s,box-shadow .25s}
-.cab-card:nth-child(2),.cab-card:nth-child(4),.cab-card:nth-child(5),.cab-card:nth-child(7){
-  --bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
-.cab-disc{width:104px;height:104px;border-radius:50%;background:var(--dc);display:grid;place-items:center;margin-bottom:22px;
-  box-shadow:0 10px 24px -8px #0008}
-.cab-disc span{font-size:68px;line-height:1;color:var(--pc);transform:translateY(-3px)}
-.cab-card h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(1.5rem,2.3vw,1.9rem);
-  line-height:1.1;letter-spacing:-.015em;margin:0 0 12px;color:inherit}
-.cab-card p{margin:0;font-size:1.1rem;line-height:1.55;opacity:.92;color:inherit}
-.cab-card.last,.cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B;
-  background:linear-gradient(160deg,#ffd47a,#f2b94b)}
-.cab-btn{display:inline-block;margin-top:22px;background:#24160d;color:#ffd47a;text-decoration:none;font-weight:500;
-  padding:14px 30px;border-radius:999px;font-size:1.05rem;transition:transform .15s,background .15s}
-.cab-btn:hover,.cab-btn:focus-visible{transform:translateY(-2px);background:#3a2410}
-.cab-card.last{justify-content:flex-start}
-@media (max-width:999px){
-  .cab{padding:72px 18px}
-  .cab-head{margin-bottom:36px}
-  .cab-grid{grid-template-columns:repeat(2,1fr)}
-  .cab-card:nth-child(n){--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC}
-  .cab-card:nth-child(2),.cab-card:nth-child(3),.cab-card:nth-child(6),.cab-card:nth-child(7){
-    --bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
-  .cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B}
-}
-@media (max-width:559px){
-  .cab-grid{grid-template-columns:1fr}
-  .cab-card:nth-child(n){--bg:#ecd9b0;--fg:#2a170b;--dc:#1a110a;--pc:#FFF4DC}
-  .cab-card:nth-child(even){--bg:#8b5a2b;--fg:#FFF4DC;--dc:#F2B94B;--pc:#2a170b}
-  .cab-card.last:nth-child(n){--bg:#F2B94B;--fg:#24160d;--dc:#24160d;--pc:#F2B94B}
-  .cab-card{padding:30px 22px 34px}
-}
-@media (prefers-reduced-motion:reduce){.cab-card{opacity:1;transform:none;transition:none!important}}
+.cab{--gold:#f2b94b;--ivory:#fff4dc;--ink:#100c08;color:var(--ivory);background:radial-gradient(ellipse at 18% 35%,#382713 0,#17110b 48%,#0d0b08 100%);padding:100px 24px 120px;box-sizing:border-box;overflow:clip}
+.cab *{box-sizing:border-box}.cab-wrap{max-width:1320px;margin:0 auto}
+.cab-head{max-width:780px;margin:0 auto 62px;text-align:center}.cab-head h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.02;letter-spacing:-.035em;margin:0 0 16px;color:var(--ivory)}
+.cab-head p{margin:0 auto;color:#e0cfa9;font-size:clamp(1.05rem,1.8vw,1.3rem);max-width:34em;line-height:1.6}
+.cab-experience{display:grid;grid-template-columns:minmax(280px,.85fr) minmax(460px,1.15fr);gap:clamp(36px,7vw,100px);align-items:start}
+.cab-visual-column{position:sticky;top:16vh;min-height:570px;display:flex;align-items:center;justify-content:center}
+.cab-orbit-scene{position:relative;width:min(100%,510px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate}
+.cab-orbit{position:absolute;border:1px solid rgba(242,185,75,.24);border-radius:50%;animation:cab-spin 26s linear infinite}
+.cab-orbit.one{width:76%;height:76%}.cab-orbit.two{width:96%;height:96%;border-style:dashed;animation-duration:42s;animation-direction:reverse}
+.cab-orbit:before,.cab-orbit:after{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px #f2b94b99}
+.cab-orbit:before{top:12%;left:17%}.cab-orbit:after{right:9%;bottom:22%;width:8px;height:8px}
+.cab-board{position:relative;width:58%;aspect-ratio:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);transform:rotate(-8deg);border:8px solid #6b4828;border-radius:12px;box-shadow:0 28px 65px #0009,0 0 0 1px #f2b94b55;overflow:hidden;animation:cab-float 5s ease-in-out infinite}
+.cab-board span{display:grid;place-items:center;font-family:Georgia,serif;font-size:clamp(2rem,5vw,4.2rem);line-height:1}
+.cab-board span:nth-child(odd){background:#e9d5ad;color:#2b1b0d}.cab-board span:nth-child(even){background:#79502d;color:#fff0d0}
+.cab-board span:nth-child(5),.cab-board span:nth-child(10),.cab-board span:nth-child(15){background:#f2b94b;color:#24160d}
+.cab-orbit-caption{position:absolute;bottom:3%;left:50%;transform:translateX(-50%);white-space:nowrap;color:#d6bd94;font-size:11px;font-weight:700;letter-spacing:.2em}
+.cab-visual-note{position:absolute;top:8%;right:0;padding:12px 16px;border:1px solid #f2b94b44;background:#20180fdd;border-radius:12px;color:#f6dfb9;font-size:12px;letter-spacing:.08em;box-shadow:0 12px 30px #0005;animation:cab-note 4s ease-in-out infinite}
+.cab-visual-note b{display:block;color:var(--gold);font-size:18px;letter-spacing:0;margin-top:3px}
+.cab-progress{position:absolute;bottom:13%;left:2%;display:flex;align-items:center;gap:10px;color:#d8c6a5;font-size:12px;letter-spacing:.12em}
+.cab-progress-track{width:100px;height:3px;background:#ffffff2b;border-radius:9px;overflow:hidden}.cab-progress-track i{display:block;width:12.5%;height:100%;background:var(--gold);transition:width .35s ease}
+.cab-deck-column{position:relative}.cab-scroll-track{height:640vh;position:relative}
+.cab-stage{position:sticky;top:13vh;height:74vh;min-height:560px;display:flex;align-items:center;justify-content:center;perspective:1200px}
+.cab-deck{position:relative;width:100%;height:min(100%,590px);max-height:590px}
+.cab-card{--bg:#ecd9b0;--fg:#2a170b;--disc:#1a110a;--piece:#fff4dc;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(30px,5vw,64px);border-radius:26px;background:var(--bg);color:var(--fg);border:1px solid #fff8;box-shadow:0 30px 85px #0008;opacity:0;visibility:hidden;transform:translate3d(0,90px,-140px) rotateX(-8deg) scale(.88);transition:transform .65s cubic-bezier(.2,.75,.25,1),opacity .55s ease,visibility .55s}
+.cab-card:nth-child(even){--bg:#8b5a2b;--fg:#fff4dc;--disc:#f2b94b;--piece:#2a170b}
+.cab-card.is-active{opacity:1;visibility:visible;transform:translate3d(0,0,0) rotateX(0) scale(1);z-index:3}
+.cab-card.is-past{opacity:.2;visibility:visible;transform:translate3d(0,-48px,-100px) rotateX(8deg) scale(.93);z-index:1}
+.cab-card.is-next{opacity:.55;visibility:visible;transform:translate3d(0,30px,-55px) rotateX(-4deg) scale(.96);z-index:2}
+.cab-card .cab-card-top{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:clamp(24px,4vw,42px)}
+.cab-card .cab-index{font-size:12px;font-weight:800;letter-spacing:.2em;opacity:.68}.cab-card .cab-disc{width:clamp(76px,9vw,112px);height:clamp(76px,9vw,112px);border-radius:50%;background:var(--disc);display:grid;place-items:center;box-shadow:0 12px 28px #0003}
+.cab-card .cab-disc span{font-family:Georgia,serif;font-size:clamp(3.3rem,6vw,5rem);line-height:1;color:var(--piece);transform:translateY(-4px)}
+.cab-card h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.2rem,4vw,3.6rem);line-height:1.03;letter-spacing:-.035em;margin:0 0 18px;color:inherit;max-width:11ch}
+.cab-card p{font-size:clamp(1.05rem,1.7vw,1.28rem);line-height:1.65;max-width:34em;margin:0;color:inherit;opacity:.88}
+.cab-card .cab-card-foot{margin-top:clamp(26px,4vw,44px);display:flex;align-items:center;gap:12px;font-size:11px;font-weight:800;letter-spacing:.15em;opacity:.68}
+.cab-card .cab-card-foot:before{content:"";width:34px;height:1px;background:currentColor}
+.cab-card.last{--bg:#f2b94b;--fg:#24160d;--disc:#24160d;--piece:#f2b94b;background:linear-gradient(145deg,#ffda8a,#f2b94b)}
+.cab-btn{display:inline-block;margin-top:25px;background:#24160d;color:#ffd47a;text-decoration:none;font-weight:700;padding:14px 26px;border-radius:999px;font-size:1rem;transition:transform .2s,background .2s}.cab-btn:hover{transform:translateY(-3px);background:#3a2410}
+@keyframes cab-spin{to{transform:rotate(360deg)}}@keyframes cab-float{0%,100%{translate:0 0}50%{translate:0 -13px}}@keyframes cab-note{0%,100%{translate:0 0}50%{translate:0 -8px}}
+@media(max-width:850px){.cab{padding:76px 18px 90px}.cab-head{margin-bottom:36px}.cab-experience{grid-template-columns:1fr;gap:12px}.cab-visual-column{position:relative;top:auto;min-height:320px;height:320px}.cab-orbit-scene{width:300px;max-width:82vw}.cab-board{width:55%}.cab-orbit-caption{bottom:0}.cab-visual-note{top:0;right:2%}.cab-progress{bottom:2%;left:0}.cab-scroll-track{height:640vh}.cab-stage{top:10vh;height:76vh;min-height:490px}.cab-deck{height:min(100%,560px)}.cab-card{padding:30px}.cab-card h3{max-width:13ch}}
+@media(max-width:520px){.cab-visual-column{min-height:270px;height:270px}.cab-orbit-scene{width:250px}.cab-stage{min-height:460px;height:70vh;top:9vh}.cab-card{padding:25px 23px;border-radius:20px}.cab-card .cab-card-top{margin-bottom:23px}.cab-card h3{font-size:2.2rem}.cab-card p{font-size:1rem}.cab-card .cab-disc{width:72px;height:72px}.cab-card .cab-disc span{font-size:3.2rem}}
+@media(prefers-reduced-motion:reduce){.cab-orbit,.cab-board,.cab-visual-note{animation:none!important}.cab-card{transition:none!important}}
 </style>
-
 <div class="cab-wrap">
-  <div class="cab-head">
-    <h2>What chess does for you</h2>
-    <p>A few minutes a day on the board builds skills you use everywhere else.</p>
+  <div class="cab-head"><h2>What chess does for you</h2><p>Eight ways the game helps young minds grow, one thoughtful move at a time.</p></div>
+  <div class="cab-experience">
+    <div class="cab-visual-column" aria-hidden="true">
+      <div class="cab-orbit-scene">
+        <div class="cab-orbit one"></div><div class="cab-orbit two"></div>
+        <div class="cab-board"><span>♜</span><span>♞</span><span>♝</span><span>♛</span><span>♟</span><span>♙</span><span>♘</span><span>♗</span><span>♕</span><span>♖</span><span>♙</span><span>♟</span><span>♞</span><span>♗</span><span>♖</span><span>♔</span></div>
+        <div class="cab-visual-note">A LITTLE THINKING<b>BIG GROWTH</b></div>
+        <div class="cab-progress"><span id="cab-progress-label">01 / 08</span><span class="cab-progress-track"><i id="cab-progress-fill"></i></span></div>
+        <div class="cab-orbit-caption">LEARN · THINK · IMPROVE</div>
+      </div>
+    </div>
+    <div class="cab-deck-column">
+      <div class="cab-scroll-track" id="cab-scroll-track">
+        <div class="cab-stage"><div class="cab-deck" id="cab-deck" aria-live="polite"></div></div>
+      </div>
+    </div>
   </div>
-  <div class="cab-grid" aria-live="off"></div>
 </div>
-
 <script>
 (function(){
-  var root=document.getElementById('chess-benefits'),grid=root&&root.querySelector('.cab-grid');
-  if(!root||!grid)return;
-  var G={n:'♞',b:'♝',r:'♜',p:'♟',q:'♛',k:'♚'};
-  var B=[
-    {g:'n',t:'Sharper memory',x:'Recalling openings and patterns gives your memory a daily workout.'},
-    {g:'b',t:'Deeper focus',x:'One board, one problem. You learn to block out every distraction.'},
-    {g:'r',t:'Smarter planning',x:'Think several moves ahead and see how today’s choice shapes tomorrow.'},
-    {g:'n',t:'Better problem-solving',x:'Weigh your options, spot threats, and pick the best move under pressure.'},
-    {g:'q',t:'More creativity',x:'Find surprising ideas, like the attack nobody saw coming.'},
-    {g:'p',t:'Real patience',x:'Good moves take time. Chess rewards thinking before acting.'},
-    {g:'b',t:'Calm under pressure',x:'Stay cool, keep your eyes open, and finish what you started.'},
-    {g:'k',t:'Play with anyone',x:'Any age, any level, anywhere. Your next move is waiting.',last:1}
+  var root=document.getElementById('chess-benefits'),deck=root&&root.querySelector('#cab-deck'),track=root&&root.querySelector('#cab-scroll-track');
+  if(!root||!deck||!track)return;
+  var pieces=['♞','♝','♜','♞','♛','♟','♝','♚'];
+  var items=[
+    ['Sharper memory','Recalling openings, familiar positions and tactical patterns gives your memory a regular workout.'],
+    ['Deeper focus','One board, one problem. You learn to block out distractions and give your attention to the position.'],
+    ['Smarter planning','Think several moves ahead and see how today’s choice can shape what happens next.'],
+    ['Better problem-solving','Compare candidate moves, spot threats and find a practical solution under pressure.'],
+    ['More creativity','Discover unexpected ideas and imaginative ways to turn a position in your favour.'],
+    ['Real patience','Good moves take time. Chess rewards careful thought instead of rushing into a decision.'],
+    ['Calm under pressure','Stay composed, keep looking for resources and make the best of a difficult position.'],
+    ['Play with anyone','Any age, any level, anywhere. Chess brings people together across the board.']
   ];
-  var cards=B.map(function(b,i){
-    var c=document.createElement('article');c.className='cab-card'+(b.last?' last':'');
-    c.style.setProperty('--dl',(i%4)*.1+'s');
-    c.innerHTML='<div class="cab-disc" aria-hidden="true"><span>'+G[b.g]+'\uFE0E</span></div><h3>'+b.t+'</h3><p>'+b.x+'</p>'+
-      (b.last?'<a class="cab-btn" href="#puzzles">Make your first move</a>':'');
-    grid.appendChild(c);return c;});
-  function showAll(){cards.forEach(function(c){c.classList.add('in')});}
-  if('IntersectionObserver' in window){
-    new IntersectionObserver(function(entries,observer){
-      if(entries.some(function(entry){return entry.isIntersecting;})){showAll();observer.disconnect();}
-    },{threshold:.15}).observe(grid);
-  }else showAll();
+  var cards=items.map(function(item,i){
+    var card=document.createElement('article');card.className='cab-card'+(i===7?' last':'');card.setAttribute('aria-label','Benefit '+(i+1)+': '+item[0]);
+    card.innerHTML='<div class="cab-card-top"><span class="cab-index">BENEFIT / 0'+(i+1)+'</span><div class="cab-disc"><span>'+pieces[i]+'</span></div></div><h3>'+item[0]+'</h3><p>'+item[1]+'</p><div class="cab-card-foot">CHESS ANYTIME · '+String(i+1).padStart(2,'0')+' / 08</div>'+(i===7?'<a class="cab-btn" href="#puzzles">Make your first move ↗</a>':'');
+    deck.appendChild(card);return card;
+  });
+  var active=-1,raf=0;
+  function update(){
+    raf=0;var rect=track.getBoundingClientRect(),scrollable=track.offsetHeight-window.innerHeight*.74;
+    var progress=Math.max(0,Math.min(1,(-rect.top+window.innerHeight*.13)/Math.max(1,scrollable)));
+    var index=Math.min(items.length-1,Math.floor(progress*items.length));
+    if(index!==active){active=index;cards.forEach(function(card,i){card.classList.toggle('is-active',i===index);card.classList.toggle('is-past',i<index);card.classList.toggle('is-next',i===index+1);});}
+    var label=root.querySelector('#cab-progress-label'),fill=root.querySelector('#cab-progress-fill');
+    if(label)label.textContent=String(index+1).padStart(2,'0')+' / 08';if(fill)fill.style.width=((index+1)/8*100)+'%';
+  }
+  function onScroll(){if(!raf)raf=requestAnimationFrame(update);}
+  window.addEventListener('scroll',onScroll,{passive:true});window.addEventListener('resize',onScroll);update();
 })();
 </script>
 </section>
