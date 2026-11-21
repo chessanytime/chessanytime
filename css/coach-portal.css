@@ -17,6 +17,9 @@
 .coach-field input:focus { outline:3px solid rgba(185,132,97,.17); border-color:#b98461; }
 .coach-field small { color:#8791a0; font-size:12px !important; }
 .coach-field-full { grid-column:1 / -1; }
+.coach-theme-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px 20px; }
+.coach-theme-grid .coach-field { padding:16px; border:1px solid #e4e9ef; border-radius:10px; background:#f8fafc; }
+.coach-theme-grid .coach-field small { line-height:1.5; }
 .coach-primary-button { display:inline-flex; justify-content:center; align-items:center; min-height:48px; padding:12px 21px; border:0; border-radius:8px; background:#172b45; color:#fff; font-weight:700; cursor:pointer; }
 .coach-primary-button:hover { background:#263e5d; }
 .coach-primary-button:disabled { opacity:.6; cursor:wait; }
@@ -40,7 +43,7 @@
 #tl { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
 #tl a + a { padding-left:12px; border-left:1px solid rgba(120,135,155,.35); }
 @media(max-width:650px) {
-  .coach-form-grid { grid-template-columns:1fr; }
+  .coach-form-grid, .coach-theme-grid { grid-template-columns:1fr; }
   .coach-field-full { grid-column:auto; }
   #coach-login .coach-auth-card, #coach-dashboard .coach-dashboard-card { margin:20px auto 45px; padding:22px 18px; }
   #tl { gap:8px; }
