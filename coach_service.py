@@ -59,7 +59,8 @@ class LoginRequest(BaseModel):
 
 
 class GenerateRequest(BaseModel):
-    theme: str = Field(default="", max_length=80)
+    include_themes: list[str] = Field(default_factory=list, max_length=50)
+    exclude_themes: list[str] = Field(default_factory=list, max_length=50)
     count: int = Field(default=10, ge=1, le=5000)
     min_rating: int = Field(default=2250, ge=0, le=4000)
     max_rating: int = Field(default=2550, ge=0, le=4000)
@@ -187,7 +188,8 @@ def generate_pgn(payload: GenerateRequest, token: str = Depends(require_coach)):
         suffix = " ..." if len(missing) > 5 else ""
         raise HTTPException(status_code=400, detail=f"Missing {len(missing)} of the 62 CSV files in {CSV_DIR}: {preview}{suffix}")
 
-    theme_pattern = re.compile(re.escape(payload.theme.strip()), re.IGNORECASE) if payload.theme.strip() else None
+    include_themes = {item.strip().casefold() for item in payload.include_themes if item.strip()}
+    exclude_themes = {item.strip().casefold() for item in payload.exclude_themes if item.strip()}
     selected: list[str] = []
     rows_scanned = 0
     files_scanned = 0
@@ -205,8 +207,13 @@ def generate_pgn(payload: GenerateRequest, token: str = Depends(require_coach)):
                 continue
             for row in reader:
                 rows_scanned += 1
-                themes = row.get("Themes") or ""
-                if theme_pattern and not theme_pattern.search(themes):
+                row_themes = {item.casefold() for item in (row.get("Themes") or "").split()}
+
+                # Include themes use OR logic: a puzzle may match any selected theme.
+                # Excluded themes always take priority and remove a matching puzzle.
+                if include_themes and not (include_themes & row_themes):
+                    continue
+                if exclude_themes & row_themes:
                     continue
 
                 rating = as_int(row.get("Rating"))
