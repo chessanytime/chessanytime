@@ -27,6 +27,37 @@
     node.classList.toggle("is-success", !isError);
   }
 
+  function installThemeControls() {
+    const oldInput = $("coach-theme");
+    if (!oldInput || oldInput.dataset.multiThemeReady === "true") return;
+    const oldField = oldInput.closest(".coach-field");
+    if (!oldField) return;
+
+    const field = document.createElement("div");
+    field.className = "coach-field coach-field-full coach-theme-filters";
+    field.innerHTML = `
+      <div class="coach-theme-grid">
+        <div class="coach-field">
+          <label for="coach-themes-include">Include themes</label>
+          <input id="coach-themes-include" type="text" value="fork" placeholder="e.g. fork, pin, skewer" autocomplete="off">
+          <small>Enter multiple themes separated by commas. A puzzle can match any one of them. Leave blank to allow every theme.</small>
+        </div>
+        <div class="coach-field">
+          <label for="coach-themes-exclude">Exclude themes</label>
+          <input id="coach-themes-exclude" type="text" value="" placeholder="e.g. mateIn1, short" autocomplete="off">
+          <small>Any puzzle containing one of these themes will be skipped, even if it matches an included theme.</small>
+        </div>
+      </div>`;
+    oldField.replaceWith(field);
+  }
+
+  function readThemeList(id) {
+    return $(id).value
+      .split(/[,,;\n]+/)
+      .map(theme => theme.trim())
+      .filter(Boolean);
+  }
+
   async function checkService() {
     const status = $("coach-service-status");
     if (!status) return;
@@ -76,6 +107,7 @@
 
   const generator = $("coach-generator-form");
   if (generator) {
+    installThemeControls();
     generator.addEventListener("submit", async (event) => {
       event.preventDefault();
       const button = $("coach-generate-button");
@@ -86,7 +118,8 @@
       resultBox.textContent = "Scanning CSV files in their original NbPlays order. The search stops when the requested number of valid puzzles is found.";
       resultBox.className = "coach-result";
       const values = {
-        theme: $("coach-theme").value.trim(),
+        include_themes: readThemeList("coach-themes-include"),
+        exclude_themes: readThemeList("coach-themes-exclude"),
         count: Number($("coach-count").value),
         min_rating: Number($("coach-min-rating").value),
         max_rating: Number($("coach-max-rating").value),
