@@ -41,16 +41,25 @@ py -3 run_coach_service.py
 
 If your site is served from another domain, add that exact origin. Do not use a wildcard for a private local service.
 
+## Theme selection
+
+The Coach Dashboard has two theme fields:
+
+- **Include themes:** enter one or more Lichess theme tags separated by commas, such as `fork, pin, skewer`. A puzzle is kept if it has **at least one** of the included themes (OR logic). Leave this field blank to allow puzzles with any theme.
+- **Exclude themes:** enter tags separated by commas, such as `mateIn1, short`. A puzzle is skipped if it has **any** excluded theme. Exclusions take priority over inclusions.
+
+Theme matching is case-insensitive and matches complete Lichess theme tags, not partial words. You can remove a theme from either field at any time by deleting it from the text box.
+
 ## What Generate PGN does
 
 1. Checks that all 62 CSV files are present.
 2. Reads files 1 to 62, preserving the original row order. This assumes the complete source database was sorted by `NbPlays` descending before it was split into the 62 files.
-3. Applies the selected theme, rating range, maximum rating deviation, minimum popularity, maximum piece count and maximum FEN fullmove number.
+3. Applies the included/excluded theme rules, rating range, maximum rating deviation, minimum popularity, maximum piece count and maximum FEN fullmove number.
 4. Stops as soon as the requested number of valid, legal-solution puzzles has been found.
 5. Converts UCI moves to SAN with `python-chess`.
 6. Writes the PGN directly to the local Book folder.
 
-Default filters mirror the supplied PowerShell example: rating 2250-2550, rating deviation at most 80, popularity at least 92, no more than 8 pieces, and fullmove number at most 10. Theme defaults to `fork`; count defaults to 10.
+Default filters mirror the supplied PowerShell example: rating 2250-2550, rating deviation at most 80, popularity at least 92, no more than 8 pieces, and fullmove number at most 10. The include-themes field defaults to `fork`; count defaults to 10.
 
 ## Notes
 
