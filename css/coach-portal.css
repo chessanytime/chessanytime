@@ -1,0 +1,48 @@
+/* Chess AnyTime Coach Portal */
+#coach-login .coach-auth-card,
+#coach-dashboard .coach-dashboard-card {
+  max-width: 980px; margin: 34px auto 70px; padding: clamp(24px, 4vw, 42px);
+  background: #fff; border: 1px solid #e1e6ed; border-radius: 16px;
+  box-shadow: 0 18px 48px rgba(23,38,58,.07);
+}
+#coach-login .coach-auth-card { max-width: 480px; }
+.coach-portal-kicker { display:inline-flex; align-items:center; gap:9px; color:#9b7455; font-size:11px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
+.coach-portal-kicker span { font-size:19px; }
+#coach-login h2, #coach-dashboard h2 { margin:12px 0 8px; color:#172b45; }
+.coach-portal-lede { max-width:680px; margin:0 0 25px; color:#68768a; font-size:15px !important; }
+.coach-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:17px 20px; margin-top:25px; }
+.coach-field { display:flex; flex-direction:column; gap:7px; min-width:0; }
+.coach-field label { color:#34445a; font-size:13px; font-weight:700; }
+.coach-field input { width:100%; min-height:47px; box-sizing:border-box; padding:11px 13px; border:1px solid #d8dee7; border-radius:8px; background:#fff; color:#172b45; }
+.coach-field input:focus { outline:3px solid rgba(185,132,97,.17); border-color:#b98461; }
+.coach-field small { color:#8791a0; font-size:12px !important; }
+.coach-field-full { grid-column:1 / -1; }
+.coach-primary-button { display:inline-flex; justify-content:center; align-items:center; min-height:48px; padding:12px 21px; border:0; border-radius:8px; background:#172b45; color:#fff; font-weight:700; cursor:pointer; }
+.coach-primary-button:hover { background:#263e5d; }
+.coach-primary-button:disabled { opacity:.6; cursor:wait; }
+.coach-login-actions { margin-top:20px; }
+.coach-message, .coach-result { margin-top:16px; padding:13px 15px; border-radius:8px; color:#526176; background:#f4f6f8; font-size:14px; }
+.coach-message:empty { display:none; }
+.coach-message.is-error, .coach-result.is-error { color:#9c302d; background:#fff1f0; border:1px solid #f1d0ce; }
+.coach-message.is-success, .coach-result.is-success { color:#236247; background:#eef8f2; border:1px solid #d3eadd; }
+.coach-service-row { display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; margin:22px 0 27px; padding:15px 17px; background:#f5f7f9; border:1px solid #e6eaf0; border-radius:9px; }
+#coach-service-status { color:#9a5b27; font-size:13px; font-weight:700; }
+#coach-service-status.is-online { color:#26734d; }
+#coach-service-status.is-offline { color:#a43e39; }
+.coach-service-folder { color:#748196; font-size:12px; overflow-wrap:anywhere; }
+.coach-section-heading { margin:27px 0 5px; color:#172b45; font:800 1.25rem 'Bricolage Grotesque',sans-serif; }
+.coach-filter-note { color:#7b8797; font-size:13px !important; }
+.coach-generator-actions { margin-top:24px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+.coach-result[hidden] { display:none; }
+.coach-result p { margin:7px 0; font-size:14px !important; }
+.coach-result code { display:block; margin:10px 0; padding:10px; border-radius:6px; background:rgba(255,255,255,.75); color:inherit; white-space:normal; overflow-wrap:anywhere; }
+.coach-logout-button { padding:9px 15px; border:1px solid #d8dee7; border-radius:7px; background:#fff; color:#34445a; font-weight:700; cursor:pointer; }
+#tl { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+#tl a + a { padding-left:12px; border-left:1px solid rgba(120,135,155,.35); }
+@media(max-width:650px) {
+  .coach-form-grid { grid-template-columns:1fr; }
+  .coach-field-full { grid-column:auto; }
+  #coach-login .coach-auth-card, #coach-dashboard .coach-dashboard-card { margin:20px auto 45px; padding:22px 18px; }
+  #tl { gap:8px; }
+  #tl a + a { padding-left:8px; }
+}
