@@ -26,6 +26,8 @@ DEFAULT_ORIGINS = [
     "https://chessanytime.github.io",
     "https://chessanytime.com",
     "https://www.chessanytime.com",
+    "https://chessanytime.io",
+    "https://www.chessanytime.io",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
 ]
@@ -104,6 +106,7 @@ def make_pgn_entry(row: dict[str, str], exercise_number: int) -> str:
 
     game = chess.pgn.Game()
     game.setup(board)
+    game.headers.pop("Event", None)
     game.headers["Site"] = (row.get("GameUrl") or "?").strip() or "?"
     game.headers["Tournament"] = (row.get("OpeningTags") or "Unknown").strip() or "Unknown"
     game.headers["Date"] = "2025"
