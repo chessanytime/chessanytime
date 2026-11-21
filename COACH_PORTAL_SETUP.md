@@ -28,7 +28,7 @@ py -3 run_coach_service.py
 
 Enter the coach username when prompted (default: `shubham`) and enter the password when prompted. Password input is hidden. The username comparison ignores capitalization; the password remains case-sensitive.
 
-Keep the terminal window open while using the online Coach Portal. The service listens only on `127.0.0.1` and does not expose a general-purpose shell or PowerShell command runner.
+Keep the terminal window open while using the online Coach Portal. If Chrome asks whether Chess AnyTime may access your local network, allow it. The service listens only on `127.0.0.1` and does not expose a general-purpose shell or PowerShell command runner.
 
 ## Website connection / allowed origin
 
