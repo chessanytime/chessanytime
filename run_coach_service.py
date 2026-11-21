@@ -20,7 +20,7 @@ def main():
     os.environ.setdefault("PUZZLE_OUTPUT_DIR", r"C:\test\convert\Book")
     os.environ.setdefault(
         "COACH_ALLOWED_ORIGINS",
-        "https://chessanytime.github.io,https://chessanytime.com,https://www.chessanytime.com"
+        "https://chessanytime.github.io,https://chessanytime.com,https://www.chessanytime.com,https://chessanytime.io,https://www.chessanytime.io"
     )
 
     try:
