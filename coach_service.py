@@ -44,6 +44,7 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Authorization", "Content-Type"],
+    allow_private_network=True,
 )
 
 # Tokens exist only in memory and expire automatically.
