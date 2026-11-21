@@ -1,5 +1,7 @@
 import getpass
+import hashlib
 import os
+import secrets
 
 def main():
     print("\nChess AnyTime - Local Coach Service")
@@ -15,7 +17,11 @@ def main():
         return
 
     os.environ["COACH_USERNAME"] = username
-    os.environ["COACH_PASSWORD"] = password
+    salt = secrets.token_bytes(16)
+    password_hash = hashlib.scrypt(password.encode("utf-8"), salt=salt, n=2**14, r=8, p=1).hex()
+    os.environ["COACH_PASSWORD_HASH"] = password_hash
+    os.environ["COACH_PASSWORD_SALT"] = salt.hex()
+    del password
     os.environ.setdefault("PUZZLE_CSV_DIR", r"C:\test\convert")
     os.environ.setdefault("PUZZLE_OUTPUT_DIR", r"C:\test\convert\Book")
     os.environ.setdefault(
