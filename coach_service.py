@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field
 
 CSV_DIR = Path(os.environ.get("PUZZLE_CSV_DIR", r"C:\test\convert")).expanduser()
 OUTPUT_DIR = Path(os.environ.get("PUZZLE_OUTPUT_DIR", r"C:\test\convert\Book")).expanduser()
-EXPECTED_USERNAME = os.environ.get("COACH_USERNAME", "shubham").strip().casefold()
+EXPECTED_USERNAME = os.environ.get("COACH_USERNAME", "shubham").casefold()
 COACH_PASSWORD_HASH = os.environ.get("COACH_PASSWORD_HASH", "")
 COACH_PASSWORD_SALT = os.environ.get("COACH_PASSWORD_SALT", "")
 SESSION_SECONDS = 8 * 60 * 60
@@ -157,7 +157,7 @@ def health():
 def login(payload: LoginRequest):
     if not COACH_PASSWORD_HASH or not COACH_PASSWORD_SALT:
         raise HTTPException(status_code=503, detail="Coach password is not configured. Restart the local service and enter it when prompted.")
-    username_ok = hmac.compare_digest(payload.username.strip().casefold(), EXPECTED_USERNAME)
+    username_ok = hmac.compare_digest(payload.username.casefold(), EXPECTED_USERNAME)
     candidate_hash = hashlib.scrypt(payload.password.encode("utf-8"), salt=bytes.fromhex(COACH_PASSWORD_SALT), n=2**14, r=8, p=1).hex()
     password_ok = hmac.compare_digest(candidate_hash, COACH_PASSWORD_HASH)
     if not (username_ok and password_ok):
