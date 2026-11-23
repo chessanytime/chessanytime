@@ -1758,3 +1758,22 @@ footer.academy-footer {background:#13253a;color:#e3eaf1;text-align:left;padding:
 .footer-base,.footer-base div {display:flex;gap:10px 20px;align-items:center;flex-wrap:wrap}
 .footer-base {border-top:1px solid #435367;margin-top:32px;padding-top:18px;justify-content:space-between}
 @media(max-width:700px){.footer-columns{grid-template-columns:1fr;gap:20px}}
+
+/* Keep captions, helper text and form controls readable on narrow screens. */
+.pg .meta, .pg .board-help, footer .footer-base small,
+#home .academy-principles small, #programs .cp-hero-facts span,
+#programs .cp-feedback-track small, #videos #academy-video-source {
+  font-size: .9375rem;
+  line-height: 1.45;
+}
+#home .academy-life .moment-copy p, .pg form label,
+.pg form input:not([type="checkbox"]):not([type="radio"]),
+.pg form select, .pg form textarea {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+@media (max-width: 600px) {
+  #programs .cp-hero-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #programs .cp-hero-facts i { display: none; }
+  #programs .cp-hero-facts span { max-width: none; overflow-wrap: break-word; }
+}
