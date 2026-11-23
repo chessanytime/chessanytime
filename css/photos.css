@@ -33,7 +33,7 @@
 .community-event img { display:block; width:32%; max-width:220px; height:auto; border-radius:6px; }
 @media(max-width:650px) {
   #community .community-intro { grid-template-columns:1fr; gap:0; }
-  .community-intro img { max-height:220px; }
+  .community-intro img { max-height:none; }
   .album-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .community-album:first-of-type .album-grid figure:first-child { grid-column:1/-1; }
 }
