@@ -25,23 +25,12 @@
   font: bold 44px/1 Arial, sans-serif;
   text-shadow: 0 2px #d49300;
 }
-.level-card h3 { margin: 0; font: 600 1.4rem/1.25 Poppins, sans-serif; }
-.level-card h4 { margin: 16px 0 10px; font: 500 1.05rem/1.4 Poppins, sans-serif; }
-.level-card p { margin: 0; font: 400 1rem/1.55 Roboto, sans-serif; }
-.level-card ul { display: grid; gap: 13px; list-style: none; margin: 24px 0 0; padding: 0; }
-.level-card li { position: relative; padding-left: 24px; color: #48515b; font: 400 .96rem/1.5 Roboto, sans-serif; }
-.level-card li::before {
-  content: "›";
-  position: absolute;
-  top: .24em;
-  left: 0;
-  width: 16px;
-  border-radius: 50%;
-  background: #646c74;
-  color: white;
-  text-align: center;
-  font: bold 16px/16px Arial, sans-serif;
-}
+.level-card h3 { margin: 0; font: bold 1.5rem/1.2 Georgia, serif; }
+.level-card h4 { margin: 12px 0 4px; font: 600 .85rem/1.4 Roboto, sans-serif; }
+.level-card p { margin: 0; font: 400 .875rem/1.45 Roboto, sans-serif; }
+.level-card ul { display: grid; gap: 13px; list-style: disc outside; margin: 18px 0 0; padding-left: 1.1rem; }
+.level-card li { padding-left: .16rem; color: #48515b; font: 400 .96rem/1.5 Roboto, sans-serif; }
+.level-card li::marker { color: #956346; }
 @media (min-width: 1200px) {
   .level-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
