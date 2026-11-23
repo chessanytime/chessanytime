@@ -20,7 +20,7 @@
 .community-intro > div { padding:clamp(20px,4vw,48px); }
 #community .community-intro h2 { color:#fff; margin:0; }
 .community-intro p { margin:10px 0 20px; font-size:1.1rem; }
-.community-intro img { display:block; width:100%; height:auto; max-height:320px; object-fit:contain; object-position:bottom; align-self:end; }
+.community-intro img { display:block; width:100%; height:auto; max-height:none; object-fit:contain; object-position:center; align-self:center; }
 .community-album, .community-event { margin-top:clamp(28px,5vw,52px); }
 .community-album h3, .community-event h3 { font-size:clamp(1.35rem,3vw,1.85rem); margin:0 0 14px; }
 .album-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,2vw,20px); }
