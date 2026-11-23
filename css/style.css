@@ -1777,3 +1777,12 @@ footer.academy-footer {background:#13253a;color:#e3eaf1;text-align:left;padding:
   #programs .cp-hero-facts i { display: none; }
   #programs .cp-hero-facts span { max-width: none; overflow-wrap: break-word; }
 }
+
+#home .journey-step small, #about .card .m, #community .card .m,
+#videos .academy-video-info p, #programs .cp-include p {
+  font-size: 1rem;
+  line-height: 1.55;
+}
+#home .academy-hero-actions a, #videos .academy-video-tab,
+#home .journey-step b { font-size: 1rem; }
+#videos .academy-video-topics { flex-wrap: wrap; }

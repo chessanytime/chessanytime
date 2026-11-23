@@ -28,10 +28,10 @@ if(buttons[0])selectSkill(buttons[0]);
 }
 if(videoPage){
 const videos={
-basics:{id:"YdnvlntAQH8",title:"How to Play Chess: Chess Rules for Beginners",description:"Learn how the pieces move, how a game is won and the special rules every new player should know."},
-tactics:{id:"10IC86NSQZ8",title:"The Basic Tactics of Chess for Kids",description:"Explore tactical ideas and learn to recognise the patterns that can change a game."},
-checkmates:{id:"RZSRfvE0K_0",title:"Everything You Need to Know About Basic Checkmates",description:"Get familiar with essential mating patterns and the basic checkmates every player should practise."},
-endgames:{id:"UL8Jo4lc1Ms",title:"What Is the Endgame in Chess?",description:"Understand the final phase of a chess game and why king and pawn activity becomes so important."}};
+basics:{id:"YdnvlntAQH8",title:"How to Play Chess: Chess Rules for Beginners",description:"Learn the moves and play your first game."},
+tactics:{id:"10IC86NSQZ8",title:"The Basic Tactics of Chess for Kids",description:"Spot a fork or pin."},
+checkmates:{id:"RZSRfvE0K_0",title:"Everything You Need to Know About Basic Checkmates",description:"Practise common mating patterns."},
+endgames:{id:"UL8Jo4lc1Ms",title:"What Is the Endgame in Chess?",description:"Put your king and pawns to work."}};
 const tabs=[...videoPage.querySelectorAll("[data-video]")],player=videoPage.querySelector("#academy-video-player"),videoTitle=videoPage.querySelector("#academy-video-title"),videoDescription=videoPage.querySelector("#academy-video-description"),videoSource=videoPage.querySelector("#academy-video-source"),originalLink=videoPage.querySelector("#academy-video-original");
 function selectVideo(button){const item=videos[button.dataset.video];if(!item||!player)return;tabs.forEach(tab=>{const active=tab===button;tab.classList.toggle("is-active",active);tab.setAttribute("aria-pressed",String(active));});const src="https://www.youtube-nocookie.com/embed/"+item.id+"?rel=0&modestbranding=1";if(player.getAttribute("src")!==src)player.setAttribute("src",src);player.setAttribute("title",item.title+" by ChessKid");videoTitle.textContent=item.title;videoDescription.textContent=item.description;videoSource.textContent="FREE LESSON · CHESSKID";originalLink.href="https://www.youtube.com/watch?v="+item.id;}
 tabs.forEach((button,index)=>{button.addEventListener("click",()=>selectVideo(button));button.addEventListener("keydown",event=>{if(event.key!=="ArrowRight"&&event.key!=="ArrowLeft")return;event.preventDefault();const next=(index+(event.key==="ArrowRight"?1:-1)+tabs.length)%tabs.length;tabs[next].focus();selectVideo(tabs[next]);});});
