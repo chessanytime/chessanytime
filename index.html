@@ -7,6 +7,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/coach-portal.css">
+<link rel="stylesheet" href="css/curriculum.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"></head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
 <header><div class="w"><nav>
@@ -374,77 +375,73 @@
 
   <div class="cp-wrap cp-main">
     <section class="cp-section" id="cp-levels">
-      <div class="cp-section-heading">
-        <div><div class="cp-eyebrow">YOUR LEARNING PATH</div><h2>Choose your <em>course level.</em></h2></div>
-        <p>Explore the curriculum from foundations to competitive understanding. Select a level to see its objectives and lesson topics.</p>
-      </div>
-
-      <div class="cp-level-journey" data-curriculum-accordion>
-        <article class="cp-journey-card is-open" data-curriculum-card>
-          <button class="cp-journey-toggle" type="button" data-curriculum-toggle aria-expanded="true" aria-controls="cp-journey-beginner">
-            <span class="cp-journey-number">01</span>
-            <span class="cp-journey-heading"><small>LEVEL 01 · FOUNDATION</small><b>Beginner</b><em>Start with the fundamentals</em></span>
-            <span class="cp-journey-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="cp-journey-content" id="cp-journey-beginner">
-            <p>For students starting their chess journey and building a strong understanding of the fundamentals.</p>
-            <div class="cp-journey-facts">
-              <div><small>LEVEL STRUCTURE</small><b>48 classes</b><span>Two packages of 24 classes</span></div>
-              <div><small>SESSION LENGTH</small><b>45 minutes</b><span>Live, guided coaching</span></div>
-            </div>
-            <a class="cp-journey-link" href="#demo">Discuss this level <span aria-hidden="true">↗</span></a>
-          </div>
+      <h2 class="levels-title">What you’ll learn at each level</h2>
+      <div class="level-grid">
+        <article class="level-card">
+          <span class="level-stars" aria-hidden="true">★</span>
+          <h3>Beginner</h3>
+          <h4>Objectives</h4>
+          <p>Play a complete game with confidence, from setting up the board to finding checkmate.</p>
+          <ul>
+            <li>Set up the board, name squares and record moves.</li>
+            <li>Move each piece and recognise what it attacks.</li>
+            <li>Answer a threat by moving, blocking, defending or capturing.</li>
+            <li>Tell checkmate from stalemate and spot mate in one.</li>
+            <li>Use castling, promotion and en passant in play.</li>
+            <li>Spot undefended pieces and judge simple exchanges.</li>
+            <li>Develop pieces in the opening and find pins and double attacks.</li>
+            <li>Practise rook and queen mates, then review your own games.</li>
+          </ul>
         </article>
-
-        <article class="cp-journey-card" data-curriculum-card>
-          <button class="cp-journey-toggle" type="button" data-curriculum-toggle aria-expanded="false" aria-controls="cp-journey-intermediate">
-            <span class="cp-journey-number">02</span>
-            <span class="cp-journey-heading"><small>LEVEL 02 · DEVELOPMENT</small><b>Intermediate</b><em>Build on the basics</em></span>
-            <span class="cp-journey-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="cp-journey-content" id="cp-journey-intermediate" hidden>
-            <p>For students with a good grasp of the basics who are ready to develop their chess understanding further.</p>
-            <div class="cp-journey-facts">
-              <div><small>LEVEL STRUCTURE</small><b>48 classes</b><span>Two packages of 24 classes</span></div>
-              <div><small>SESSION LENGTH</small><b>60 minutes</b><span>Live, guided coaching</span></div>
-            </div>
-            <a class="cp-journey-link" href="#demo">Discuss this level <span aria-hidden="true">↗</span></a>
-          </div>
+        <article class="level-card">
+          <span class="level-stars" aria-hidden="true">★★</span>
+          <h3>Intermediate</h3>
+          <h4>Objectives</h4>
+          <p>Find tactical opportunities in real games and recognise when an ending can be won or drawn.</p>
+          <ul>
+            <li>Use pins, skewers and x-rays to win material.</li>
+            <li>Find double attacks, discovered checks and windmills.</li>
+            <li>Remove, distract or overload a defender.</li>
+            <li>Calculate mating threats and two-move finishes.</li>
+            <li>Use the back rank and coordinate rooks on the seventh rank.</li>
+            <li>Find pawn breakthroughs, key squares and zugzwang.</li>
+            <li>Choose when to simplify or underpromote.</li>
+            <li>Save difficult positions with stalemate or perpetual check.</li>
+          </ul>
         </article>
-
-        <article class="cp-journey-card" data-curriculum-card>
-          <button class="cp-journey-toggle" type="button" data-curriculum-toggle aria-expanded="false" aria-controls="cp-journey-advanced-one">
-            <span class="cp-journey-number">03</span>
-            <span class="cp-journey-heading"><small>LEVEL 03 · ADVANCED</small><b>Advanced Level 1</b><em>Sharpen calculation and strategy</em></span>
-            <span class="cp-journey-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="cp-journey-content" id="cp-journey-advanced-one" hidden>
-            <p>Build stronger calculation skills and a deeper understanding of positional chess.</p>
-            <div class="cp-journey-facts">
-              <div><small>LEVEL STRUCTURE</small><b>48 classes</b><span>Two packages of 24 classes</span></div>
-              <div><small>SESSION LENGTH</small><b>60 minutes</b><span>Live, guided coaching</span></div>
-            </div>
-            <a class="cp-journey-link" href="#demo">Discuss this level <span aria-hidden="true">↗</span></a>
-          </div>
+        <article class="level-card">
+          <span class="level-stars" aria-hidden="true">★★★</span>
+          <h3>Advanced 1</h3>
+          <h4>Objectives</h4>
+          <p>Decide when to attack and when to convert a positional advantage into a favourable ending.</p>
+          <ul>
+            <li>Evaluate queen against a pawn on the seventh rank.</li>
+            <li>Use corresponding squares and triangulation in pawn endings.</li>
+            <li>Turn a lead in development into an attack on the king.</li>
+            <li>Calculate kingside sacrifices and opposite-side pawn storms.</li>
+            <li>Use outposts and active defence to improve piece activity.</li>
+            <li>Weigh passed pawns against bishops and rooks.</li>
+            <li>Assess bishop and rook endings through pawn structure.</li>
+            <li>Build opening plans in the Ruy López, French, Caro-Kann and Sicilian.</li>
+          </ul>
         </article>
-
-        <article class="cp-journey-card" data-curriculum-card>
-          <button class="cp-journey-toggle" type="button" data-curriculum-toggle aria-expanded="false" aria-controls="cp-journey-advanced-two">
-            <span class="cp-journey-number">04</span>
-            <span class="cp-journey-heading"><small>LEVEL 04 · COMPETITIVE</small><b>Advanced Level 2</b><em>Deepen competitive understanding</em></span>
-            <span class="cp-journey-icon" aria-hidden="true">+</span>
-          </button>
-          <div class="cp-journey-content" id="cp-journey-advanced-two" hidden>
-            <p>Develop deeper chess understanding and strengthen competitive skills.</p>
-            <div class="cp-journey-facts">
-              <div><small>LEVEL STRUCTURE</small><b>48 classes</b><span>Two packages of 24 classes</span></div>
-              <div><small>SESSION LENGTH</small><b>60 minutes</b><span>Live, guided coaching</span></div>
-            </div>
-            <a class="cp-journey-link" href="#demo">Discuss this level <span aria-hidden="true">↗</span></a>
-          </div>
+        <article class="level-card">
+          <span class="level-stars" aria-hidden="true">★★★★</span>
+          <h3>Advanced 2</h3>
+          <h4>Objectives</h4>
+          <p>Build a tournament repertoire and use calculation to connect opening choices with middlegame plans and endgames.</p>
+          <ul>
+            <li>Prepare replies in the Ruy López, Najdorf and Italian Game.</li>
+            <li>Compare Indian defences, the Grünfeld and Benoni.</li>
+            <li>Explore the Catalan, English, Slav and Semi-Slav structures.</li>
+            <li>Test opening choices in practice games and analyse the results.</li>
+            <li>Calculate forcing lines that draw the opposing king out.</li>
+            <li>Improve piece placement and anticipate the opponent’s plan.</li>
+            <li>Use pawn majorities and undermine a strong pawn centre.</li>
+            <li>Activate the king, exploit two weaknesses and practise minor-piece mates.</li>
+          </ul>
         </article>
       </div>
-      <div class="cp-level-note"><span aria-hidden="true">✳</span> Students progress through the levels as their chess understanding develops.</div>
     </section>
 
     <section class="cp-includes-section">
@@ -496,6 +493,5 @@
 
 <script src="js/intro.js"></script><script src="js/blog.js"></script><script src="js/main.js"></script><script src="js/puzzle-data.js"></script><script src="js/puzzles.js"></script><script src="js/chessboard.js"></script><script src="js/student-portal.js"></script><script src="js/coach-portal.js"></script><script src="js/forms.js"></script><script src="js/init.js"></script>
 <script src="js/navigation.js"></script><script src="js/header.js"></script><script src="js/homepage.js"></script>
-<script src="js/programs.js"></script>
 <script src="js/home-experience.js"></script>
 </body></html>
