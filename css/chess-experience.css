@@ -1,0 +1,132 @@
+/* Chess AnyTime: cinematic homepage + focused puzzle workspace
+   Inspired by Chess Arena's cinematic presentation and Chessground's restrained board UX.
+   The existing puzzle rules and pointer interaction engine remain unchanged. */
+
+/* Homepage: a quiet cinematic atmosphere, not a game-like effects layer. */
+#home.academy-home>.academy-hero-wrap{
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(ellipse at 78% 42%,rgba(72,105,151,.24),transparent 36%),
+    radial-gradient(ellipse at 18% 12%,rgba(193,141,104,.10),transparent 32%),
+    linear-gradient(135deg,#101c30 0%,#0b1220 58%,#101928 100%);
+}
+#home.academy-home>.academy-hero-wrap::before,
+#home.academy-home>.academy-hero-wrap::after{
+  content:"";
+  position:absolute;
+  pointer-events:none;
+  z-index:-1;
+}
+#home.academy-home>.academy-hero-wrap::before{
+  width:min(58vw,760px);aspect-ratio:1;border-radius:50%;
+  right:-18%;top:-38%;
+  border:1px solid rgba(211,161,123,.12);
+  box-shadow:0 0 0 34px rgba(211,161,123,.025),0 0 0 78px rgba(211,161,123,.018);
+  animation:ca-orbit-drift 24s ease-in-out infinite alternate;
+}
+#home.academy-home>.academy-hero-wrap::after{
+  inset:0;
+  opacity:.3;
+  background-image:radial-gradient(1px 1px at 12% 24%,#e9c8a8 99%,transparent),radial-gradient(1px 1px at 68% 18%,#e9c8a8 99%,transparent),radial-gradient(1px 1px at 84% 72%,#e9c8a8 99%,transparent),radial-gradient(1px 1px at 42% 82%,#e9c8a8 99%,transparent),radial-gradient(1px 1px at 92% 38%,#e9c8a8 99%,transparent);
+  background-size:390px 310px;
+  animation:ca-star-drift 34s linear infinite;
+}
+#home .academy-hero-copy{animation:ca-copy-arrive .9s cubic-bezier(.2,.75,.25,1) both}
+#home .academy-hero-visual{animation:ca-visual-arrive 1.05s cubic-bezier(.2,.75,.25,1) .12s both}
+#home .hero-photo-frame{
+  transform:perspective(1100px) rotateY(-3deg) rotateZ(.7deg);
+  transform-origin:center;
+  transition:transform .65s cubic-bezier(.2,.75,.25,1),box-shadow .65s ease;
+}
+#home .academy-hero-visual:hover .hero-photo-frame{
+  transform:perspective(1100px) rotateY(0) rotateZ(0) translateY(-4px);
+  box-shadow:0 34px 86px rgba(0,0,0,.42);
+}
+#home .academy-hero-visual::before{
+  content:"♞";
+  position:absolute;z-index:2;right:-8px;top:-28px;
+  display:grid;place-items:center;width:68px;height:68px;
+  color:#e8c8a9;background:linear-gradient(145deg,#233650,#142238);
+  border:1px solid rgba(232,200,169,.42);border-radius:50%;
+  box-shadow:0 14px 34px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.12);
+  font:400 2rem/1 Georgia,serif;
+  animation:ca-knight-float 6s ease-in-out infinite;
+}
+#home .academy-hero-visual::after{
+  content:"";
+  position:absolute;z-index:0;left:3%;right:12%;top:12%;bottom:17%;
+  border:1px solid rgba(211,161,123,.2);
+  transform:translate(16px,16px);
+  pointer-events:none;
+}
+#home .hero-photo-frame{z-index:1}
+@keyframes ca-orbit-drift{from{transform:translate3d(0,0,0) rotate(0)}to{transform:translate3d(-22px,18px,0) rotate(12deg)}}
+@keyframes ca-star-drift{from{background-position:0 0}to{background-position:390px 310px}}
+@keyframes ca-copy-arrive{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes ca-visual-arrive{from{opacity:0;transform:translateY(18px) scale(.975)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes ca-knight-float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(3deg)}}
+
+/* Puzzle page: Chessground-inspired visual clarity around the existing board engine. */
+#puzzles>.w{max-width:1240px}
+#puzzles>.w>h2{font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.04em}
+#puzzles>.w>.sub{max-width:58ch;font-size:1rem;line-height:1.75}
+#puzzles .daily-bar{
+  border-radius:14px;padding:17px 20px;margin:0 0 22px;
+  background:linear-gradient(120deg,rgba(193,141,104,.10),var(--bg2) 58%);
+  box-shadow:0 10px 28px rgba(0,0,0,.07);
+}
+#puzzles .daily-bar strong{font:700 1rem 'Poppins',Georgia,serif;letter-spacing:-.01em}
+#puzzles .daily-bar .meta{margin-top:3px}
+#puzzles .daily-bar .btn{min-height:42px}
+#puzzles .pz{grid-template-columns:minmax(0, min(68vw,720px)) minmax(250px,1fr);gap:clamp(18px,3vw,34px)}
+#puzzles .board-frame{
+  padding:clamp(10px,1.6vw,18px);
+  background:linear-gradient(145deg,#202a3b,#111a29);
+  border:1px solid rgba(255,255,255,.12);border-radius:18px;
+  box-shadow:0 20px 50px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.08);
+}
+#puzzles #bd{
+  border-radius:5px;overflow:hidden;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  background:#b58863;
+}
+#puzzles #bd .sq{transition:filter .14s ease}
+#puzzles #bd .sq:hover{filter:brightness(1.055)}
+#puzzles #bd .sq.sel::before{background:rgba(246,246,105,.78)}
+#puzzles #bd .sq.last::before{background:rgba(205,210,106,.56)}
+#puzzles #bd .sq.dot::after{width:25%;height:25%;background:rgba(20,28,38,.27)}
+#puzzles #bd .pc{filter:drop-shadow(0 1px 1px rgba(0,0,0,.14))}
+#puzzles .board-help{line-height:1.65;padding:0 4px;color:var(--mut)}
+#puzzles .side{
+  position:sticky;top:110px;padding:clamp(18px,2.2vw,26px);
+  border-radius:16px;box-shadow:0 12px 32px rgba(0,0,0,.07);
+}
+#puzzles #st{font-size:clamp(1.25rem,2vw,1.65rem);letter-spacing:-.025em}
+#puzzles #mt{line-height:1.7}
+#puzzles .side .row{margin:20px 0}
+#puzzles .side #bh{min-width:112px}
+#puzzles .side a{text-underline-offset:3px}
+#puzzles #bd:focus-visible{outline:3px solid var(--ac2);outline-offset:4px}
+@media(max-width:900px){
+  #puzzles .pz{grid-template-columns:minmax(0,1fr)}
+  #puzzles .side{position:static}
+  #puzzles .board-frame{max-width:min(100%,720px);margin-inline:auto}
+}
+@media(max-width:560px){
+  #home.academy-home>.academy-hero-wrap{padding-top:44px}
+  #home .academy-hero-visual::before{width:52px;height:52px;right:0;top:-17px;font-size:1.55rem}
+  #home .academy-hero-visual::after{transform:translate(9px,10px)}
+  #home .hero-photo-frame{transform:none}
+  #puzzles .daily-bar{padding:14px;align-items:flex-start}
+  #puzzles .daily-bar .btn{width:100%}
+  #puzzles .board-frame{padding:7px;border-radius:12px}
+  #puzzles .side{padding:17px}
+}
+@media(prefers-reduced-motion:reduce){
+  #home.academy-home>.academy-hero-wrap::before,
+  #home.academy-home>.academy-hero-wrap::after,
+  #home .academy-hero-copy,#home .academy-hero-visual,
+  #home .academy-hero-visual::before{animation:none!important}
+  #home .hero-photo-frame{transition:none}
+}
