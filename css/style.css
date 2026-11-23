@@ -1786,3 +1786,35 @@ footer.academy-footer {background:#13253a;color:#e3eaf1;text-align:left;padding:
 #home .academy-hero-actions a, #videos .academy-video-tab,
 #home .journey-step b { font-size: 1rem; }
 #videos .academy-video-topics { flex-wrap: wrap; }
+
+
+/* Homepage-only restoration: November 22, 2026 */
+#home { font-family: 'Figtree', system-ui, sans-serif; }
+#home h1, #home h2, #home h3 { font-family: 'Bricolage Grotesque', Georgia, sans-serif; }
+#home .academy-hero h1 {
+  font: 800 clamp(3.25rem,6.5vw,6.2rem)/.99 'Bricolage Grotesque',Georgia,serif !important;
+  letter-spacing: -.055em;
+}
+#home .academy-section-heading h2, #home .benefits-heading h2 {
+  font: 800 clamp(2.35rem,4.2vw,4rem)/1.03 'Bricolage Grotesque',Georgia,serif !important;
+  letter-spacing: -.045em;
+}
+#home .hero-photo-caption b { font: 700 1.45rem 'Bricolage Grotesque',Georgia,serif; }
+#home .moment-art-caption { font: 800 1.18rem 'Bricolage Grotesque',Georgia,serif; }
+#home .moment-copy h3 { font: 800 1.15rem 'Bricolage Grotesque',Georgia,serif; }
+#home .academy-community-band h2 { font: 800 clamp(1.5rem,2.7vw,2.35rem)/1.1 'Bricolage Grotesque',Georgia,serif; }
+#home .journey-step>b { font: 800 1.3rem 'Bricolage Grotesque',Georgia,serif !important; }
+#home .academy-hero-actions a { font-size: .9rem !important; }
+#home .academy-principles small { font-size: .76rem !important; }
+#home .academy-life .moment-copy p { font-size: 16px !important; line-height: 1.7 !important; }
+#home .journey-step>small { font-size: .83rem !important; line-height: 1.6 !important; }
+#home .benefit-active-detail h3 { font: 800 clamp(1.9rem,3.2vw,2.75rem)/1.05 'Bricolage Grotesque',Georgia,serif; }
+#home .benefit-orbit-core>b { font: 800 .58rem 'Bricolage Grotesque',Georgia,serif; }
+#home .mind-intro h2 { font: 800 clamp(3rem,5.5vw,5.5rem)/.96 'Bricolage Grotesque',Georgia,serif; }
+#home .mind-square[data-rank-label]:before, #home .mind-square[data-file-label]:after { font-family: Figtree,sans-serif; }
+#home .mind-skill b { font: 700 .82rem Figtree,sans-serif; }
+#home .mind-skill-detail h3 { font: 800 clamp(1.8rem,3vw,2.65rem)/1.02 'Bricolage Grotesque',Georgia,serif; }
+#home .mind-benefits-footer b { font: 700 1.05rem 'Bricolage Grotesque',Georgia,serif; }
+@media (max-width: 620px) {
+  #home .journey-step>b { font-size: 1.12rem !important; margin-top: 17px !important; }
+}
