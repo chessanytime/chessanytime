@@ -1,0 +1,33 @@
+.life-skills{position:relative;isolation:isolate;overflow:hidden;min-height:780px;padding:48px clamp(22px,5vw,90px);background:radial-gradient(ellipse at 80% 45%,#182c48,#090f21 62%);color:#f1f4fa;scroll-margin-top:100px}
+.life-skills::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,transparent 9.9%,#c2d6fa0b 10%,transparent 10.1%,transparent 89.9%,#c2d6fa0b 90%,transparent 90.1%);z-index:-1}
+.life-skills-heading{position:relative;z-index:2;max-width:60%;pointer-events:none}
+.life-skills .hub-kicker{color:#d7b47c;letter-spacing:.14em}
+#home .life-skills h2{font-size:clamp(4rem,8.7vw,10rem)!important;line-height:1.12;font-weight:800;margin:38px 0 12px;color:#e5efff12;-webkit-text-stroke:1px #9bb6df55;letter-spacing:-.06em}
+.life-skills-heading>p{color:#c4cfe0;font-size:clamp(1.05rem,1.7vw,1.4rem);line-height:1.7;max-width:40ch;margin:0}
+.life-king-stage{position:absolute;width:36%;max-width:500px;right:10%;top:100px;bottom:0;display:flex;align-items:flex-end;justify-content:center;pointer-events:none}
+.life-king{position:relative;z-index:1;width:100%;height:100%;max-height:650px;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 0 32px #74baff18);animation:ca-king-hover 7s ease-in-out infinite}
+.life-ring{position:absolute;width:88%;aspect-ratio:1;top:15%;border:1px solid #a0e9e98c;border-radius:50%;box-shadow:0 0 16px #69cde321,inset 0 0 16px #69cde321}
+.life-ring::before{content:"";position:absolute;inset:-11px;border:5px solid transparent;border-top-color:#efd7a0;border-bottom-color:#efd7a0;border-radius:50%;filter:drop-shadow(0 0 6px #efd7a066);animation:ca-ring-orbit 24s linear infinite}
+.life-ring::after{content:"";position:absolute;inset:12px;border:1px solid #a0e9e966;border-radius:50%;transform:rotateX(25deg)}
+.life-skill-card{position:absolute;z-index:3;display:grid;justify-items:center;gap:9px;width:130px;min-height:125px;padding:15px 10px;border:1px solid #d7b47c66;border-radius:12px;color:#e7effc;background:linear-gradient(135deg,#24334bcc,#141e30e6);box-shadow:0 12px 30px #0003;cursor:pointer;animation:ca-skill-float 7s ease-in-out infinite;transition:background .2s,border-color .2s;--card-turn:0deg}
+.life-skill-card:hover,.life-skill-card[aria-pressed="true"]{background:linear-gradient(135deg,#304562,#1a2b44);border-color:#f1d297;box-shadow:0 0 24px #e9b77f22}
+.life-skill-card:focus-visible{outline:3px solid #b5dcff;outline-offset:5px}
+.life-skill-card svg{width:54px;height:54px;stroke:#b6dafa;stroke-width:2;fill:none;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 3px 3px #0004)}
+.life-skill-card span{font:600 .85rem Figtree,sans-serif;text-align:center}
+.skill-focus{right:3%;top:55px;animation-delay:-1s}
+.skill-memory{left:39%;top:51%;animation-delay:-3s;width:116px;min-height:112px}
+.skill-planning{left:8%;bottom:26px;animation-delay:-2s}
+.skill-creativity{left:28%;bottom:24px;animation-delay:-4s}
+.skill-solving{right:34%;bottom:60px;animation-delay:-5s}
+.skill-patience{right:2%;bottom:145px;animation-delay:-2.5s}
+.life-skill-description{position:relative;z-index:2;margin-top:24px;max-width:35ch;min-height:90px;color:#a5b8d1;font-size:.95rem;line-height:1.65}
+.life-skill-description strong{display:block;color:#e9b77f;font-size:1rem;margin-bottom:4px}
+.life-cube{position:absolute;z-index:0;width:24px;height:24px;background:linear-gradient(135deg,#dbeffc,#6194bc);border-radius:5px;box-shadow:5px 5px 0 #416284;transform:rotate(28deg);animation:ca-skill-float 9s ease-in-out infinite}
+.life-cube.one{left:8%;top:24%;--card-turn:28deg;opacity:.6}.life-cube.two{right:17%;top:5%;--card-turn:-25deg;background:linear-gradient(135deg,#fff2d4,#c0a77f);opacity:.7}.life-cube.three{right:10%;bottom:18%;--card-turn:16deg;opacity:.6}
+@keyframes ca-ring-orbit{to{transform:rotate(360deg)}}
+@keyframes ca-king-hover{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes ca-skill-float{0%,100%{transform:translateY(0) rotate(var(--card-turn))}50%{transform:translateY(-12px) rotate(var(--card-turn))}}
+@media(min-width:1700px){.life-skills{min-height:860px}.life-king{max-height:740px}.life-skill-card{width:150px;min-height:140px}}
+@media(max-width:1050px){.life-skills{min-height:730px}.life-king-stage{right:9%;width:40%;top:150px}.life-skills-heading{max-width:66%}.life-skill-card{width:108px;min-height:108px}.life-skill-card svg{width:42px;height:42px}.skill-memory{left:36%;top:52%}.skill-solving{right:32%;bottom:32px}.skill-creativity{left:23%;bottom:110px}.skill-patience{right:2%;bottom:125px}}
+@media(max-width:680px){.life-skills{padding:32px 22px;min-height:0}.life-skills-heading{max-width:none}#home .life-skills h2{font-size:clamp(3.5rem,13vw,5.5rem)!important;margin-top:24px}.life-skills-heading>p{font-size:1.05rem}.life-skill-description{min-height:110px;margin-top:16px}.life-king-stage{position:relative;inset:auto;width:80%;max-width:300px;height:340px;margin:8px auto 24px}.life-ring{top:12%}.life-skill-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.life-skill-card{position:relative;inset:auto;width:100%;min-height:110px;animation:none}.life-skill-card svg{width:40px;height:40px}.life-skill-card span{font-size:.75rem}.life-cube.one{top:42%;left:8%}.life-cube.two{top:48%;right:12%}.life-cube.three{display:none}}
+@media(prefers-reduced-motion:reduce){.life-king,.life-skill-card,.life-cube,.life-ring::before{animation:none}.life-skill-card{transition:none}}

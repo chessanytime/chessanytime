@@ -1,5 +1,4 @@
 let g,cur,idx,sel,last,flip,done,failed,hintSq;let boardMarks=[],activeGesture=null;
-const localDate=()=>{const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
 function load(i){if(!PUZZLES[i])return;cur=PUZZLES[i];startPuzzle()}
 function startPuzzle(){g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;boardMarks=[];activeGesture=null;clearGhost();flip=g.turn()==='b';

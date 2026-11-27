@@ -1,525 +1,78 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Chess AnyTime | Your Chess Community</title>
-<meta name="description" content="A chess community for players of all levels. Join tournaments, meetups, practice games, free resources and chess discussions, or explore the Chess AnyTime Academy." />
+<meta name="referrer" content="no-referrer">
+<title>Your Chess Community | Chess AnyTime</title>
+<meta name="description" content="A chess community for players of all levels. Join events, meetups and practice games, discover free chess resources, or explore our academy.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/coach-portal.css">
+<link rel="stylesheet" href="css/lichess-login.css">
 <link rel="stylesheet" href="css/curriculum.css">
 <link rel="stylesheet" href="css/photos.css">
 <link rel="stylesheet" href="css/chess-experience.css">
-<link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><style id="community-first-design">
-:root{--hub-ink:#14283b;--hub-gold:#e9b77f;--hub-paper:#f5eee4;--hub-muted:#c6d2dc}
-header>.w{max-width:1440px}header nav,header.is-scrolled nav{gap:7px;min-height:84px;height:auto;flex-wrap:wrap}header .brand{margin-right:auto}header .brand small{letter-spacing:.10em}header nav a.l{padding:9px 10px}header .ca-join-nav{background:#e9b77f!important;color:#16283a!important}header .header-utility{display:flex;gap:8px;flex-wrap:wrap}
-#home.ca-hub{padding:0 0 72px;font-family:Figtree,system-ui,sans-serif}#home.ca-hub h1,#home.ca-hub h2,#home.ca-hub h3,.hub-page-intro h1{font-family:'Bricolage Grotesque',Georgia,sans-serif;letter-spacing:-.035em}
-.hub-shell{width:min(1240px,100%);margin:auto;padding:0 clamp(18px,4vw,52px)}
-.hub-hero{background:radial-gradient(ellipse at 74% 0%,#30475c,#172b40 52%,#102236 100%);color:#fff;padding:clamp(40px,7vw,90px) 0 clamp(42px,7vw,82px)}
-.hub-hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(28px,6vw,80px);align-items:center}
-.hub-kicker{display:inline-flex;align-items:center;gap:9px;font-size:.75rem;font-weight:800;letter-spacing:.15em;color:inherit;line-height:1.5;opacity:.9}
-.hub-hero .hub-kicker,.hub-activity .hub-kicker,.hub-academy .hub-kicker,.community-intro .hub-kicker{color:var(--hub-gold)}.hub-kicker i{width:8px;height:8px;border-radius:50%;background:#e9b77f;box-shadow:0 0 0 5px #e9b77f25}
-#home.ca-hub .hub-copy h1{font-size:clamp(3.2rem,6.7vw,6.6rem);line-height:.99;margin:20px 0 22px;font-weight:800;color:#fff}#home.ca-hub .hub-copy h1 em{color:var(--hub-gold);font-style:normal}
-.hub-copy p,.hub-page-intro p{font-size:clamp(1.05rem,1.6vw,1.25rem);line-height:1.65;max-width:48ch;margin:0 0 25px}.hub-copy p{color:var(--hub-muted)}
-.hub-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.hub-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:48px;padding:12px 19px;border-radius:9px;font-weight:750;font-size:1rem;text-decoration:none!important;transition:transform .18s ease,box-shadow .18s ease}.hub-btn.primary{background:#e9b77f;color:#172b40!important}.hub-btn.secondary{border:1px solid currentColor;color:inherit!important}.hub-btn:hover{transform:translateY(-2px);box-shadow:0 6px 22px #0002}
-.hub-tags{display:flex;gap:10px 17px;flex-wrap:wrap;margin-top:28px;color:#d8e0e7;font-size:.84rem}
-.hub-hero-photo{position:relative;isolation:isolate;overflow:hidden;border-radius:22px;background:#20394c;border:1px solid #e9b77f55;box-shadow:0 22px 50px #0004}.hub-hero-photo img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}.hub-photo-note{position:absolute;inset:auto 0 0;background:linear-gradient(transparent,#0e1c2ae8);padding:44px 25px 23px;color:#fff}.hub-photo-note span{display:block;font-size:.72rem;letter-spacing:.14em;color:#e9b77f}.hub-photo-note strong{font-size:clamp(1.15rem,2.2vw,1.8rem)}
-.hub-quick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--ln);border-radius:14px;background:var(--bg2);margin-top:24px;overflow:hidden}.hub-quick a{display:flex;gap:12px;align-items:center;padding:19px 13px;text-decoration:none;border-right:1px solid var(--ln);min-width:0}.hub-quick a:last-child{border-right:0}.hub-quick a:hover{background:#e9b77f20}.hub-glyph{font:2.1rem Georgia,serif;color:var(--ac);flex:none}.hub-quick b,.hub-quick small{display:block}.hub-quick small{color:var(--mut);font-size:.83rem!important}.hub-quick i{margin-left:auto;font-style:normal;color:var(--mut)}
-.hub-section{margin-top:clamp(42px,7vw,82px)}.hub-heading{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:25px}.hub-heading h2,#home .hub-activity h2,#home .hub-academy h2{font-size:clamp(2rem,4.1vw,3.5rem);line-height:1.05;margin:10px 0 0}.hub-heading p{max-width:36ch;color:var(--mut);margin:0;font-size:1.04rem}.hub-feature-grid,.hub-resource-grid,.hub-event-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.hub-feature{display:flex;flex-direction:column;text-decoration:none!important;border:1px solid var(--ln);background:var(--bg2);border-radius:16px;overflow:hidden;transition:transform .2s,box-shadow .2s}.hub-feature:hover,.hub-resource-grid a:hover{transform:translateY(-4px);box-shadow:0 14px 32px #0002}.hub-feature img{display:block;width:100%;aspect-ratio:4/3;height:auto;object-fit:cover;object-position:center 35%}.hub-feature>div{padding:21px;flex:1}.hub-feature>div>span,.hub-event-grid article>span,.hub-feed a>span{font-size:.72rem;letter-spacing:.12em;font-weight:800;color:var(--ac)}.hub-feature h3,.hub-resource-grid h3,.hub-event-grid h3{font-size:clamp(1.25rem,2vw,1.65rem);margin:10px 0}.hub-feature p,.hub-resource-grid p,.hub-event-grid p{color:var(--mut);margin:0 0 15px;line-height:1.55}.hub-feature b,.hub-resource-grid b{font-size:.93rem}
-.hub-activity,.hub-academy{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,5vw,58px);align-items:center;background:linear-gradient(130deg,#192e43,#263d51);color:#fff;border-radius:20px;padding:clamp(25px,4.5vw,54px)}.hub-activity p,.hub-academy p{color:#d1dbe4;margin:14px 0 22px;line-height:1.65;font-size:1.07rem}.hub-feed{display:grid;gap:10px}.hub-feed a{display:grid;grid-template-columns:1fr auto;gap:3px 12px;background:#ffffff0c;padding:15px 17px;border:1px solid #ffffff23;border-radius:10px;text-decoration:none}.hub-feed a:hover{background:#ffffff16}.hub-feed a>span,.hub-feed a>b,.hub-feed a>small{grid-column:1}.hub-feed a>span{color:#e9b77f}.hub-feed a>small{color:#c9d5e0}.hub-feed a>i{grid-column:2;grid-row:1/4;align-self:center;font-style:normal}
-.hub-resource-grid>a,.hub-event-grid article{display:block;background:var(--bg2);border:1px solid var(--ln);border-radius:14px;padding:23px;text-decoration:none!important;transition:transform .2s,box-shadow .2s}.hub-resource-grid>a>span{font:2.3rem Georgia,serif;color:var(--ac)}.hub-academy{grid-template-columns:1.4fr .6fr}.hub-academy-art{display:grid;place-items:center;color:#e9b77f;font:clamp(6rem,14vw,12rem)/1 Georgia,serif;text-shadow:0 10px 35px #0005}.hub-academy-art span{font:800 .68rem/1.5 Figtree,sans-serif;letter-spacing:.13em;text-align:center}
-.hub-page-intro{padding:clamp(26px,5vw,54px);border:1px solid var(--ln);border-radius:18px;background:var(--bg2);margin-bottom:32px}.hub-page-intro h1{font-size:clamp(2.5rem,5vw,4.6rem);line-height:1.04;margin:12px 0 16px}.hub-page-intro p{color:var(--mut);max-width:60ch}.hub-community-links{margin-top:26px}.hub-event-grid{margin:18px 0 45px}.hub-event-links{display:flex;flex-wrap:wrap;gap:8px}.hub-event-links a{border:1px solid var(--ln);border-radius:7px;padding:7px 9px;font-size:.9rem;text-decoration:none}.hub-event-links a:hover{border-color:var(--ac)}#about #chess-benefits{margin-top:45px}
-@media(max-width:1000px){header nav,header.is-scrolled nav{min-height:0;padding:10px 0}header .brand{flex:1 1 48%}header .header-utility{order:4}header .ca-join-nav{order:0}header nav a.l,header .resources-menu{order:3}.hub-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-quick a:nth-child(2){border-right:0}.hub-quick a:nth-child(-n+2){border-bottom:1px solid var(--ln)}}
-@media(max-width:680px){.hub-hero-grid,.hub-activity,.hub-academy{grid-template-columns:1fr}.hub-heading{align-items:start;flex-direction:column;gap:12px}.hub-feature-grid,.hub-resource-grid,.hub-event-grid{grid-template-columns:1fr}.hub-feature img{aspect-ratio:16/10}.hub-quick a{padding:12px 10px;gap:8px}.hub-glyph{font-size:1.65rem}.hub-quick small{font-size:.75rem!important}.hub-quick i{display:none}.hub-academy-art{display:none}.hub-photo-note{padding:35px 18px 18px}header nav a.l,header .resources-menu summary{font-size:13px!important;padding:6px 8px}header .brand{font-size:1.15rem}header .brand img,header.is-scrolled .brand img{width:44px;height:44px;flex-basis:44px}header .header-utility{flex-basis:100%;justify-content:flex-end}header .ca-join-nav{padding:9px 11px;font-size:.83rem}}
-@media(prefers-reduced-motion:reduce){.hub-btn,.hub-feature,.hub-resource-grid a{transition:none}.hub-btn:hover,.hub-feature:hover,.hub-resource-grid a:hover{transform:none}}
+<link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
-/* Wide-screen layout: use the available desktop canvas without sacrificing readability. */
-@media (min-width:1001px){
-  :root{--site-gutter:clamp(30px,3.3vw,72px);--site-max:1920px}
-  .hub-shell,header>.w,footer.academy-footer>.w,
-  #community>.w,#tournaments>.w,#blog>.w,#about>.w,#contact>.w,#portal>.w{
-    width:100%;max-width:var(--site-max);margin-inline:auto;padding-inline:var(--site-gutter);
-  }
-  .hub-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,100px)}
-  .hub-copy p{max-width:56ch;font-size:clamp(1.1rem,1.35vw,1.4rem)}
-  #home.ca-hub .hub-copy h1{font-size:clamp(3.2rem,5.1vw,6.4rem);line-height:1.02}
-  .hub-hero-photo img{aspect-ratio:3/2;max-height:580px;object-position:center}
-  .hub-hero{padding-block:clamp(42px,5vw,90px)}
-  .hub-quick a{padding:clamp(17px,1.6vw,28px) clamp(14px,1.7vw,30px)}
-  .hub-quick b{font-size:clamp(1rem,1.15vw,1.2rem)}
-  .hub-quick small{font-size:.94rem!important}
-  .hub-heading p{max-width:48ch;font-size:1.1rem}
-  .hub-feature-grid,.hub-resource-grid,.hub-event-grid{gap:clamp(20px,2vw,36px)}
-  .hub-feature img{aspect-ratio:16/10;max-height:370px}
-  .hub-feature>div,.hub-resource-grid>a,.hub-event-grid article{padding:clamp(22px,2.1vw,38px)}
-  .hub-feature p,.hub-resource-grid p,.hub-event-grid p{font-size:1.06rem;max-width:55ch}
-  .hub-activity,.hub-academy{gap:clamp(36px,5vw,100px)}
-  .hub-feed a{padding:20px 24px}
-  #community .community-intro{grid-template-columns:1.15fr .85fr;min-height:0}
-  #community .community-intro img{max-height:620px;object-fit:contain}
-  #community .community-intro>div{padding:clamp(32px,5vw,90px)}
-  #community .album-grid{gap:clamp(18px,2vw,32px)}
-  #tournaments .event-photos{grid-template-columns:repeat(4,minmax(0,1fr))}
-  #programs .cp-wrap{width:calc(100% - 2 * var(--site-gutter));max-width:calc(var(--site-max) - 2 * var(--site-gutter))}
-  #videos .academy-video-inner,#videos .academy-video-page-hero-inner,#videos .academy-video-page-more{max-width:var(--site-max)}
-  #about .cab-wrap{max-width:calc(var(--site-max) - 2 * var(--site-gutter))}
-  #puzzles>.w{max-width:1500px;width:100%;padding-inline:var(--site-gutter)}
-  #puzzles .pz{grid-template-columns:minmax(0, min(58vw,720px)) minmax(0,1fr)}
-  #contact .band{max-width:none}
-}
-@media(min-width:1450px){
-  #home.ca-hub .hub-copy h1{font-size:clamp(4rem,5.2vw,6.4rem)}
-  .hub-hero-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}
-  #community .album-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-  #blog .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
-}
-
-/* Footer is navigation, not page-heading content. Override global heading/nav rules. */
-footer.academy-footer .footer-main{align-items:start;gap:clamp(24px,4vw,64px)}
-footer.academy-footer nav.footer-nav{height:auto;min-height:0;padding:0;display:grid;align-items:start;align-content:start;justify-items:start;gap:28px}
-footer.academy-footer .footer-link-group{align-self:start;min-width:0}
-footer.academy-footer .footer-link-group h2{font:700 1.12rem/1.35 Poppins,Arial,sans-serif!important;letter-spacing:0!important;margin:0 0 14px!important}
-footer.academy-footer .footer-cta-copy h2{font-size:clamp(1.55rem,2.3vw,2.25rem)!important;line-height:1.2!important}
-footer.academy-footer nav.footer-socials{height:auto;min-height:0;padding:0}
-footer.academy-footer .footer-brand p{max-width:38ch}
-@media(min-width:901px){footer.academy-footer .footer-main{grid-template-columns:minmax(0,1fr) minmax(0,3fr)}footer.academy-footer nav.footer-nav{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:650px){footer.academy-footer nav.footer-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}}
-</style>
-</head><body>
+<link rel="stylesheet" href="css/home-animation.css">
+<link rel="stylesheet" href="css/life-skills.css">
+</head>
+<body id="top" data-page="home">
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
 <header><div class="w"><nav>
-<a class="brand" href="#home"><img src="data:image/png;base64,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" alt=""><span>Chess AnyTime<small>Chess community</small></span></a>
-<a class="l" href="#home" data-p="home">Home</a><a class="l" href="#community" data-p="community">Community</a><a class="l" href="#tournaments" data-p="tournaments">Events</a><details class="resources-menu"><summary>Resources <span aria-hidden="true">▾</span></summary><div class="resources-dropdown"><a href="#puzzles" data-p="puzzles">Daily puzzle</a><a href="#blog" data-p="blog">Articles</a><a href="#videos" data-p="videos">Chess videos</a></div></details><a class="l" href="#about" data-p="about">Academy</a><a class="l" href="#contact" data-p="contact">Contact</a>
-<div class="header-utility" id="tl"><a href="#login">Student Login</a><a href="#coach-login">Coach Login</a></div><a class="btn ca-join-nav" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp</a></nav></div></header>
-
-<section class="pg ca-hub" id="home">
-<div class="hub-hero"><div class="hub-shell hub-hero-grid">
-<div class="hub-copy"><span class="hub-kicker"><i></i> A COMMUNITY BUILT AROUND CHESS</span><h1>64 squares.<br><em>One community.</em></h1><p>Whether you play your first game or your thousandth, there’s a seat for you here. Find opponents, compete, share ideas and enjoy chess together.</p><div class="hub-actions"><a class="hub-btn primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span>↗</span></a><a class="hub-btn secondary" href="#tournaments">Explore events <span>→</span></a></div><div class="hub-tags"><span>♟ All skill levels</span><span>♜ Online &amp; over the board</span><span>♞ Learn together</span></div></div>
+<a class="brand" href="index.html"><img src="images/brand-logo.png" alt=""><span>Chess AnyTime<small>Chess community</small></span></a>
+<a class="l" href="index.html" data-p="home">Home</a><a class="l" href="community.html" data-p="community">Community</a><a class="l" href="events.html" data-p="tournaments">Events</a><details class="resources-menu"><summary>Resources <span aria-hidden="true">▾</span></summary><div class="resources-dropdown"><a href="puzzles.html" data-p="puzzles">Daily puzzle</a><a href="blog.html" data-p="blog">Articles</a><a href="videos.html" data-p="videos">Chess videos</a></div></details><a class="l" href="academy.html" data-p="about">Academy</a><a class="l" href="contact.html" data-p="contact">Contact</a>
+<div class="header-utility" id="tl"><a href="login.html">Log in with Lichess</a></div><a class="btn ca-join-nav" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp</a></nav></div></header>
+<main class="pg ca-hub" id="home">
+<div class="hub-hero">
+<div class="hub-floating-chess" aria-hidden="true"><span class="hub-floating-piece piece-king"></span><span class="hub-floating-piece piece-knight"></span><span class="hub-floating-piece piece-rook"></span><span class="hub-floating-piece piece-pawn"></span><span class="hub-floating-piece piece-bishop"></span></div>
+<div class="hub-shell hub-hero-grid">
+<div class="hub-copy"><span class="hub-kicker"><i></i> A COMMUNITY BUILT AROUND CHESS</span><h1>64 squares.<br><em>One community.</em></h1><p>Whether you play your first game or your thousandth, there’s a seat for you here. Find opponents, compete, share ideas and enjoy chess together.</p><div class="hub-actions"><a class="hub-btn primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span>↗</span></a><a class="hub-btn secondary" href="events.html">Explore events <span>→</span></a></div><div class="hub-tags"><span>♟ All skill levels</span><span>♜ Online &amp; over the board</span><span>♞ Learn together</span></div></div>
 <div class="hub-hero-photo"><img src="images/academy/handshake.webp" width="800" height="600" alt="Two chess players shaking hands across the chessboard" fetchpriority="high"><div class="hub-photo-note"><span>BEYOND THE 64 SQUARES</span><strong>Good games. Great company.</strong></div></div>
 </div></div>
+<section class="life-skills" id="life-skills" aria-labelledby="life-skills-title">
+  <div class="life-skills-heading"><span class="hub-kicker">MORE THAN A GAME</span><h2 id="life-skills-title">Chess.<br>A life skill.</h2><p>Every position is a chance to think ahead, explore ideas and make your own decisions.</p></div>
+  <div class="life-skill-description" id="life-skill-description" role="status" aria-live="polite"></div>
+  <div class="life-king-stage" aria-hidden="true"><div class="life-ring"></div><img class="life-king" src="images/life-skill-king.svg" width="340" height="560" alt="" loading="lazy"></div>
+  <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
+    <symbol id="skill-focus-icon" viewBox="0 0 64 64"><circle cx="32" cy="32" r="23"/><circle cx="32" cy="32" r="13"/><circle cx="32" cy="32" r="3"/><path d="M32 3v12m0 34v12M3 32h12m34 0h12"/></symbol>
+    <symbol id="skill-memory-icon" viewBox="0 0 64 64"><path d="M30 14c-7-9-19-1-17 8-10 4-9 17-2 21-2 10 13 17 19 9V14zm4 0c7-9 19-1 17 8 10 4 9 17 2 21 2 10-13 17-19 9V14zM17 22c9-1 9 9 3 12m-7 9c6-5 14-1 11 5m23-26c-9-1-9 9-3 12m7 9c-6-5-14-1-11 5"/></symbol>
+    <symbol id="skill-planning-icon" viewBox="0 0 64 64"><rect x="8" y="7" width="14" height="14" rx="3"/><rect x="42" y="43" width="14" height="14" rx="3"/><path d="M22 14h20a7 7 0 0 1 7 7v10M49 31l-5-5m5 5 5-5M42 50H22a7 7 0 0 1-7-7V32m0 0-5 5m5-5 5 5"/><circle cx="49" cy="14" r="3"/><circle cx="15" cy="50" r="3"/></symbol>
+    <symbol id="skill-creativity-icon" viewBox="0 0 64 64"><path d="M22 43c0-7-8-10-8-21a18 18 0 0 1 36 0c0 11-8 14-8 21H22zm0 5h20m-17 6h14m-10 5h6M32 1v5M4 21h6m44 0h6M9 5l5 5m36 0 5-5M27 43V29l-4-5m14 19V29l4-5"/></symbol>
+    <symbol id="skill-solving-icon" viewBox="0 0 64 64"><path d="M9 10h17c-3 8 1 13 6 13s9-5 6-13h17v17c-8-3-13 1-13 6s5 9 13 6v16H38c3-8-1-13-6-13s-9 5-6 13H9V39c8 3 13-1 13-6S17 24 9 27V10z"/></symbol>
+    <symbol id="skill-patience-icon" viewBox="0 0 64 64"><circle cx="32" cy="34" r="23"/><path d="M32 18v16l10 7M25 4h14m-7 0v7M10 12l-5 6m49-6 5 6"/></symbol>
+  </defs></svg>
+  <div class="life-skill-cards" role="group" aria-label="Explore chess life skills">
+    <button class="life-skill-card skill-focus" data-life-skill="focus" type="button" aria-pressed="true"><svg aria-hidden="true"><use href="#skill-focus-icon"/></svg><span>Focus</span></button>
+    <button class="life-skill-card skill-memory" data-life-skill="memory" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-memory-icon"/></svg><span>Memory</span></button>
+    <button class="life-skill-card skill-planning" data-life-skill="planning" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-planning-icon"/></svg><span>Planning</span></button>
+    <button class="life-skill-card skill-creativity" data-life-skill="creativity" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-creativity-icon"/></svg><span>Creativity</span></button>
+    <button class="life-skill-card skill-solving" data-life-skill="solving" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-solving-icon"/></svg><span>Problem-solving</span></button>
+    <button class="life-skill-card skill-patience" data-life-skill="patience" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-patience-icon"/></svg><span>Patience</span></button>
+  </div>
+  <span class="life-cube one" aria-hidden="true"></span><span class="life-cube two" aria-hidden="true"></span><span class="life-cube three" aria-hidden="true"></span>
+</section>
 <div class="hub-shell">
 <div class="hub-quick" aria-label="Explore Chess AnyTime">
-<a href="#tournaments"><span class="hub-glyph">♜</span><span><b>Compete</b><small>Tournaments &amp; events</small></span><i>↗</i></a>
-<a href="#community"><span class="hub-glyph">♞</span><span><b>Connect</b><small>Meetups &amp; practice</small></span><i>↗</i></a>
-<a href="#puzzles"><span class="hub-glyph">♟</span><span><b>Challenge yourself</b><small>Daily chess puzzle</small></span><i>↗</i></a>
-<a href="#blog"><span class="hub-glyph">♝</span><span><b>Discover</b><small>Ideas &amp; articles</small></span><i>↗</i></a>
+<a href="events.html"><span class="hub-glyph">♜</span><span><b>Compete</b><small>Tournaments &amp; events</small></span><i>↗</i></a>
+<a href="community.html"><span class="hub-glyph">♞</span><span><b>Connect</b><small>Meetups &amp; practice</small></span><i>↗</i></a>
+<a href="puzzles.html"><span class="hub-glyph">♟</span><span><b>Challenge yourself</b><small>Daily chess puzzle</small></span><i>↗</i></a>
+<a href="blog.html"><span class="hub-glyph">♝</span><span><b>Discover</b><small>Ideas &amp; articles</small></span><i>↗</i></a>
 </div>
 <section class="hub-section"><div class="hub-heading"><div><span class="hub-kicker">THE COMMUNITY IN ACTION</span><h2>There’s always a next move.</h2></div><p>From online tournaments to friendly café games, find your way to be part of the chess community.</p></div>
 <div class="hub-feature-grid">
-<a class="hub-feature" href="#tournaments"><img src="images/academy/clock-game.webp" width="600" height="800" alt="Players competing with a chess clock" loading="lazy"><div><span>PLAY &amp; COMPETE</span><h3>Tournaments</h3><p>Swiss events, practice matches and competitive chess.</p><b>Explore events ↗</b></div></a>
-<a class="hub-feature" href="#community"><img src="images/academy/park-game.webp" width="800" height="600" alt="Two players enjoying chess outdoors" loading="lazy"><div><span>MEET &amp; CONNECT</span><h3>Over-the-board meetups</h3><p>Play a game, meet someone new and share your love of chess.</p><b>Meet the community ↗</b></div></a>
-<a class="hub-feature" href="#community"><img src="images/academy/table-game.webp" width="800" height="600" alt="Two players studying a chess position" loading="lazy"><div><span>PRACTISE &amp; SHARE</span><h3>Games and discussions</h3><p>Find practice partners, explore positions and learn from one another.</p><b>Get involved ↗</b></div></a></div></section>
-<section class="hub-section hub-activity"><div><span class="hub-kicker">FROM THE EVENT ARCHIVE</span><h2>Chess brings us together.</h2><p>Explore past events and get involved in the next one. Event announcements are shared in our WhatsApp community.</p><a class="hub-btn primary" href="#tournaments">View events &amp; results ↗</a></div><div class="hub-feed">
-<a href="#tournaments"><span>24–26 NOV 2026</span><b>World Championship Swiss series</b><small>Online rapid chess · Event archive</small><i>→</i></a>
-<a href="#tournaments"><span>SEPT 2026</span><b>Classical practice Swiss</b><small>Community practice · Event archive</small><i>→</i></a>
-<a href="#community"><span>COMMUNITY</span><b>Meetups &amp; friendly games</b><small>Photos and shared memories</small><i>→</i></a>
+<a class="hub-feature" href="events.html"><img src="images/academy/clock-game.webp" width="600" height="800" alt="Players competing with a chess clock" loading="lazy"><div><span>PLAY &amp; COMPETE</span><h3>Tournaments</h3><p>Swiss events, practice matches and competitive chess.</p><b>Explore events ↗</b></div></a>
+<a class="hub-feature" href="community.html"><img src="images/academy/park-game.webp" width="800" height="600" alt="Two players enjoying chess outdoors" loading="lazy"><div><span>MEET &amp; CONNECT</span><h3>Over-the-board meetups</h3><p>Play a game, meet someone new and share your love of chess.</p><b>Meet the community ↗</b></div></a>
+<a class="hub-feature" href="community.html"><img src="images/academy/table-game.webp" width="800" height="600" alt="Two players studying a chess position" loading="lazy"><div><span>PRACTISE &amp; SHARE</span><h3>Games and discussions</h3><p>Find practice partners, explore positions and learn from one another.</p><b>Get involved ↗</b></div></a></div></section>
+<section class="hub-section hub-activity"><div><span class="hub-kicker">FROM THE EVENT ARCHIVE</span><h2>Chess brings us together.</h2><p>Explore past events and get involved in the next one. Event announcements are shared in our WhatsApp community.</p><a class="hub-btn primary" href="events.html">View events &amp; results ↗</a></div><div class="hub-feed">
+<a href="events.html"><span>24–26 NOV 2026</span><b>World Championship Swiss series</b><small>Online rapid chess · Event archive</small><i>→</i></a>
+<a href="events.html"><span>SEPT 2026</span><b>Classical practice Swiss</b><small>Community practice · Event archive</small><i>→</i></a>
+<a href="community.html"><span>COMMUNITY</span><b>Meetups &amp; friendly games</b><small>Photos and shared memories</small><i>→</i></a>
 </div></section>
 <section class="hub-section"><div class="hub-heading"><div><span class="hub-kicker">OPEN TO EVERYONE</span><h2>Your chess toolbox.</h2></div><p>Explore chess at your own pace, whether or not you take lessons with us.</p></div><div class="hub-resource-grid">
-<a href="#puzzles"><span>♞</span><h3>Daily puzzle</h3><p>Find the best move in today’s Lichess challenge.</p><b>Solve a puzzle →</b></a>
-<a href="#blog"><span>✦</span><h3>Chess articles</h3><p>Explore strategies, ideas and stories about the game.</p><b>Read the blog →</b></a>
-<a href="#videos"><span>▷</span><h3>Video library</h3><p>Discover free chess videos and learning resources.</p><b>Watch &amp; learn →</b></a></div></section>
-<section class="hub-section hub-academy"><div><span class="hub-kicker">ONE PART OF THE COMMUNITY</span><h2>Chess AnyTime Academy</h2><p>Want structured guidance? Our academy offers personalised coaching, game analysis and a four-level curriculum. Explore the learning path whenever you are ready.</p><div class="hub-actions"><a class="hub-btn primary" href="#about">Discover the academy →</a><a class="hub-btn secondary" href="#programs">View curriculum</a></div></div><div class="hub-academy-art" aria-hidden="true">♞<span>LEARN · PRACTISE · PROGRESS</span></div></section>
-</div></section>
-<section class="pg academy-video-page" id="videos"><div class="academy-video-page-hero"><div class="academy-video-page-hero-inner"><h1>Chess video lessons</h1><p>Watch free lessons on tactics, checkmates and endgames.</p></div></div><div class="academy-video-section" id="academy-videos">
-    <div class="academy-video-inner">
-      <div class="academy-video-heading">
-        
-        <h2>Choose a topic</h2>
-        
-        <div class="academy-video-topics" role="group" aria-label="Choose a chess video">
-          <button class="academy-video-tab is-active" type="button" data-video="basics" aria-pressed="true"><span>01</span> Chess basics</button>
-          <button class="academy-video-tab" type="button" data-video="tactics" aria-pressed="false"><span>02</span> Tactics</button>
-          <button class="academy-video-tab" type="button" data-video="checkmates" aria-pressed="false"><span>03</span> Checkmates</button>
-          <button class="academy-video-tab" type="button" data-video="endgames" aria-pressed="false"><span>04</span> Endgames</button>
-        </div>
-        <div class="academy-video-info" aria-live="polite">
-          <span id="academy-video-source">FREE LESSON · CHESSKID</span>
-          <h3 id="academy-video-title">How to Play Chess: Chess Rules for Beginners</h3>
-          <p id="academy-video-description">Learn the moves and play your first game.</p>
-          <a id="academy-video-original" href="https://www.youtube.com/watch?v=YdnvlntAQH8" target="_blank" rel="noopener noreferrer">Watch on YouTube ↗</a>
-        </div>
-      </div>
-      <div class="academy-video-player-wrap">
-        <div class="academy-video-frame">
-          <iframe id="academy-video-player" src="https://www.youtube-nocookie.com/embed/YdnvlntAQH8?rel=0" title="Free chess lesson: How to Play Chess by ChessKid" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-  </div><div class="academy-video-page-more"><div><span class="section-kicker">KEEP EXPLORING</span><h2>More free chess learning.</h2></div><a href="https://www.chesskid.com/learn/articles/video-series-guide" target="_blank" rel="noopener noreferrer"><span>CHESSKID</span><b>Browse more ChessKid lessons ↗</b></a><a href="https://lichess.org/video?tags=beginner%2Ftactics" target="_blank" rel="noopener noreferrer"><span>LICHESS</span><b>Explore free Lichess videos ↗</b></a></div></section>
-
-<section class="pg" id="about"><div class="w"><div class="hub-page-intro"><span class="hub-kicker">CHESS ANYTIME ACADEMY</span><h1>Grow your game with guidance.</h1><p>Our academy is the structured learning arm of Chess AnyTime. Coach Shubham works with players rated below 2100 using positions from their own games.</p><div class="hub-actions"><a class="hub-btn primary" href="#programs">Explore the curriculum →</a><a class="hub-btn secondary" href="#demo">Book a demo class</a></div></div><div class="grid"><div class="card"><h3>Personalised lessons</h3><p class="m">One-to-one lessons at your level.</p></div><div class="card"><h3>Game analysis</h3><p class="m">Find the turning point in your last game.</p></div><div class="card"><h3>Endgames and strategy</h3><p class="m">Practise finishes you can use in a game.</p></div></div></div><!-- Chess AnyTime benefits: autoplay 3D deck with solar-system board -->
-<section class="cab" id="chess-benefits" aria-label="Benefits of playing chess">
-<style>
-.cab{--gold:#f2b94b;--ivory:#fff4dc;color:var(--ivory);background:radial-gradient(ellipse at 18% 35%,#382713 0,#17110b 48%,#0d0b08 100%);padding:100px 24px 120px;box-sizing:border-box;overflow:clip}
-.cab *{box-sizing:border-box}.cab-wrap{max-width:1440px;margin:0 auto}
-.cab-head{max-width:820px;margin:0 auto 54px;text-align:center}.cab-head h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.02;letter-spacing:-.035em;margin:0 0 16px;color:var(--ivory)}.cab-head p{margin:0 auto;color:#e0cfa9;font-size:clamp(1.05rem,1.8vw,1.3rem);max-width:36em;line-height:1.6}
-.cab-experience{display:grid;grid-template-columns:minmax(390px,1.12fr) minmax(450px,.88fr);gap:clamp(28px,4vw,64px);align-items:start}
-.cab-visual-column{position:relative;min-height:630px;display:flex;align-items:center;justify-content:center}.cab-orbit-scene{position:relative;width:min(100%,590px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate}
-.cab-orbit{position:absolute;z-index:1;border:1px solid rgba(242,185,75,.24);border-radius:50%;animation:cab-spin 26s linear infinite}.cab-orbit.one{width:78%;height:78%}.cab-orbit.two{width:98%;height:98%;border-style:dashed;animation-duration:42s;animation-direction:reverse}.cab-orbit:before,.cab-orbit:after{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px #f2b94b99}.cab-orbit:before{top:12%;left:17%}.cab-orbit:after{right:9%;bottom:22%;width:8px;height:8px}
-.cab-solar-system{position:absolute;inset:-5%;z-index:0;pointer-events:none;filter:drop-shadow(0 0 10px #e6a63b22)}.cab-solar-sun{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff4b0 0 18%,#f4b544 42%,#d87920 72%,transparent 74%);box-shadow:0 0 22px #ffbd4a99,0 0 48px #f2a43b55}.cab-planet-orbit{position:absolute;left:50%;top:50%;border:1px solid #f3c77a38;border-radius:50%;transform:translate(-50%,-50%);animation:cab-planet-spin linear infinite}.cab-planet-orbit.a{width:86%;height:86%;animation-duration:18s}.cab-planet-orbit.b{width:108%;height:108%;animation-duration:27s;animation-direction:reverse}.cab-planet-orbit.c{width:128%;height:128%;animation-duration:38s}.cab-planet{position:absolute;left:50%;top:-7px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff0bf,#e3a33d 48%,#8a4e1c 100%);box-shadow:0 0 13px #f2b94b88}.cab-planet-orbit.b .cab-planet{width:18px;height:18px;top:auto;bottom:10%;background:radial-gradient(circle at 30% 28%,#d7efff,#6c9cba 48%,#24445b 100%);box-shadow:0 0 12px #72b9e988}.cab-planet-orbit.c .cab-planet{width:10px;height:10px;top:50%;left:auto;right:-5px;background:radial-gradient(circle at 30% 28%,#ffe2d0,#d56f50 52%,#71351f 100%)}
-.cab-board{position:relative;z-index:3;width:72%;aspect-ratio:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);transform:rotate(-8deg);border:10px solid #6b4828;border-radius:15px;box-shadow:0 32px 76px #000b,0 0 0 1px #f2b94b66;overflow:hidden;animation:cab-float 5s ease-in-out infinite}.cab-board span{display:grid;place-items:center;font-family:Georgia,serif;font-size:clamp(2.3rem,5.5vw,4.8rem);line-height:1}.cab-board span:nth-child(odd){background:#e9d5ad;color:#2b1b0d}.cab-board span:nth-child(even){background:#79502d;color:#fff0d0}.cab-board span:nth-child(5),.cab-board span:nth-child(10),.cab-board span:nth-child(15){background:#f2b94b;color:#24160d}
-.cab-orbit-caption{position:absolute;bottom:2%;left:50%;transform:translateX(-50%);white-space:nowrap;color:#d6bd94;font-size:11px;font-weight:700;letter-spacing:.2em}.cab-visual-note{position:absolute;top:5%;right:-1%;padding:13px 17px;border:1px solid #f2b94b55;background:#20180fee;border-radius:12px;color:#f6dfb9;font-size:12px;letter-spacing:.08em;box-shadow:0 12px 30px #0007;animation:cab-note 4s ease-in-out infinite}.cab-visual-note b{display:block;color:var(--gold);font-size:18px;letter-spacing:0;margin-top:3px}
-.cab-progress{position:absolute;bottom:12%;left:0;display:flex;align-items:center;gap:10px;color:#e4d2b0;font-size:12px;font-weight:700;letter-spacing:.12em}.cab-progress-track{width:112px;height:4px;background:#ffffff2b;border-radius:9px;overflow:hidden}.cab-progress-track i{display:block;width:0;height:100%;background:var(--gold);transition:width .35s ease}
-.cab-deck-column{position:relative;min-width:0}.cab-scroll-track{position:relative;height:auto!important}.cab-stage{position:relative;height:72vh;min-height:520px;display:flex;align-items:center;justify-content:center;perspective:900px;perspective-origin:50% 42%;transform-style:preserve-3d}.cab-deck{position:relative;width:100%;max-width:700px;height:88%;max-height:600px;margin:0 auto;transform-style:preserve-3d}
-.cab-card{--bg:#ecd9b0;--fg:#2a170b;--disc:#1a110a;--piece:#fff4dc;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(38px,4.4vw,62px);border-radius:30px;background:linear-gradient(145deg,#f4e6c9,var(--bg));color:var(--fg);border:1px solid #fff9;box-shadow:0 42px 100px #000b,0 10px 24px #0007;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,140px,-220px) rotateY(-22deg) rotateX(-9deg) scale(.84);transform-origin:50% 50%;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity;overflow:hidden}.cab-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,#ffffff30,transparent 42%,#00000008)}.cab-card:nth-child(even){--bg:#8b5a2b;--fg:#fff4dc;--disc:#f2b94b;--piece:#2a170b;background:linear-gradient(145deg,#a66e38,#75471f)}.cab-card:after{content:"";position:absolute;inset:10px -5px -7px 10px;border-radius:30px;border:1px solid #ffffff35;transform:translateZ(-18px);box-shadow:18px 20px 0 -8px #0005;pointer-events:none}.cab-card.is-visible{visibility:visible}
-.cab-card .cab-card-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:clamp(25px,3.5vw,38px)}.cab-card .cab-index{font-size:15px!important;font-weight:800;letter-spacing:.2em;opacity:.85}.cab-card .cab-disc{width:clamp(84px,8vw,112px);height:clamp(84px,8vw,112px);flex:0 0 auto;border-radius:50%;background:var(--disc);display:grid;place-items:center;box-shadow:0 14px 30px #0004}.cab-card .cab-disc span{font-family:Georgia,serif;font-size:clamp(3.5rem,5.4vw,4.8rem);line-height:1;color:var(--piece);transform:translateY(-4px)}.cab-card.benefit-four .cab-disc span{transform:translateY(5px)}.cab-card h3{position:relative;z-index:1;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(3.2rem,5vw,4.6rem)!important;line-height:1.02;letter-spacing:-.04em;margin:0 0 24px;color:inherit;max-width:12ch}.cab-card p{position:relative;z-index:1;font-size:clamp(1.45rem,2vw,1.7rem)!important;line-height:1.55;max-width:31em;margin:0;color:inherit;opacity:1}.cab-card .cab-card-foot{position:relative;z-index:1;margin-top:clamp(30px,4vw,44px);display:flex;align-items:center;gap:12px;font-size:13px!important;font-weight:800;letter-spacing:.15em;opacity:.82}.cab-card .cab-card-foot:before{content:"";width:36px;height:1px;background:currentColor}.cab-card.last{--bg:#f2b94b;--fg:#24160d;--disc:#24160d;--piece:#f2b94b;background:linear-gradient(145deg,#ffda8a,#f2b94b)}
-@keyframes cab-spin{to{transform:rotate(360deg)}}@keyframes cab-planet-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes cab-float{0%,100%{translate:0 0}50%{translate:0 -15px}}@keyframes cab-note{0%,100%{translate:0 0}50%{translate:0 -9px}}
-@media(max-width:900px){.cab{padding:78px 18px 96px}.cab-experience{grid-template-columns:1fr;gap:8px}.cab-visual-column{min-height:390px;height:390px}.cab-orbit-scene{width:380px;max-width:88vw}.cab-board{width:70%}.cab-orbit-caption{bottom:1%}.cab-visual-note{top:2%;right:3%}.cab-progress{bottom:10%;left:3%}.cab-stage{height:72vh;min-height:500px}.cab-deck{width:94%;height:88%;max-height:560px}.cab-card{padding:34px}.cab-card h3{font-size:clamp(2.8rem,7vw,4rem)!important}.cab-card p{font-size:clamp(1.35rem,3vw,1.6rem)!important}}
-@media(max-width:520px){.cab-head{margin-bottom:30px}.cab-visual-column{min-height:300px;height:300px}.cab-orbit-scene{width:290px}.cab-solar-system{inset:-2%}.cab-board{width:70%;border-width:7px}.cab-board span{font-size:clamp(2.1rem,9vw,3rem)}.cab-visual-note{padding:9px 11px;font-size:10px;right:-2%}.cab-visual-note b{font-size:15px}.cab-progress{bottom:8%;left:-1%;font-size:10px}.cab-progress-track{width:82px}.cab-stage{height:66vh;min-height:460px}.cab-deck{width:96%;height:91%}.cab-card{padding:26px 23px;border-radius:22px}.cab-card .cab-card-top{margin-bottom:24px}.cab-card .cab-disc{width:70px;height:70px}.cab-card .cab-disc span{font-size:3.2rem}.cab-card h3{font-size:clamp(2.45rem,10vw,3.25rem)!important;margin-bottom:18px}.cab-card p{font-size:1.28rem!important;line-height:1.55}.cab-card .cab-index{font-size:12px!important}.cab-card .cab-card-foot{margin-top:25px;font-size:11px!important}}
-@media(prefers-reduced-motion:reduce){.cab-orbit,.cab-board,.cab-visual-note,.cab-planet-orbit{animation:none!important}.cab-progress-track i{transition:none!important}.cab-card{transition:none!important}}
-</style>
-<div class="cab-wrap">
-  <div class="cab-head"><h2>What chess does for you</h2><p>Six ways to develop your thinking through chess, one thoughtful move at a time.</p></div>
-  <div class="cab-experience">
-    <div class="cab-visual-column" aria-hidden="true"><div class="cab-orbit-scene">
-      <div class="cab-solar-system"><div class="cab-solar-sun"></div><div class="cab-planet-orbit a"><i class="cab-planet"></i></div><div class="cab-planet-orbit b"><i class="cab-planet"></i></div><div class="cab-planet-orbit c"><i class="cab-planet"></i></div></div>
-      <div class="cab-orbit one"></div><div class="cab-orbit two"></div>
-      <div class="cab-board"><span>♜</span><span>♞</span><span>♝</span><span>♛</span><span>♟</span><span>♙</span><span>♘</span><span>♗</span><span>♕</span><span>♖</span><span>♙</span><span>♟</span><span>♞</span><span>♗</span><span>♖</span><span>♔</span></div>
-      <div class="cab-visual-note">A LITTLE THINKING<b>BIG GROWTH</b></div><div class="cab-progress"><span id="cab-progress-label">01 / 06</span><span class="cab-progress-track"><i id="cab-progress-fill"></i></span></div><div class="cab-orbit-caption">LEARN · THINK · IMPROVE</div>
-    </div></div>
-    <div class="cab-deck-column"><div class="cab-scroll-track" id="cab-scroll-track"><div class="cab-stage" id="cab-stage"><div class="cab-deck" id="cab-deck" aria-live="polite"></div></div></div></div>
-  </div>
-</div>
-<script>
-(function(){
-  var root=document.getElementById('chess-benefits'),deck=root&&root.querySelector('#cab-deck');
-  if(!root||!deck)return;
-  var pieces=['♞','♜','♟','♗','♝','♙'];
-  var items=[
-    ['Sharper memory','Remember piece patterns, tactical ideas and details from positions you have seen before.'],
-    ['Deeper focus','Stay with a position, notice the small details and give one problem your full attention.'],
-    ['Smarter planning','Compare candidate moves and think through how your opponent is likely to respond.'],
-    ['Better problem-solving','Spot threats, calculate different options and work towards a practical solution.'],
-    ['More creativity','Find unexpected ideas and discover imaginative ways to use your pieces.'],
-    ['Real patience','Take your time, evaluate the position and avoid rushing into the first move you see.']
-  ];
-  var cards=items.map(function(item,i){
-    var card=document.createElement('article');
-    card.className='cab-card'+(i===5?' last':'')+(i===3?' benefit-four':'');
-    card.setAttribute('aria-label','Benefit '+(i+1)+': '+item[0]);
-    card.setAttribute('aria-hidden','true');
-    card.innerHTML='<div class="cab-card-top"><span class="cab-index">BENEFIT / 0'+(i+1)+'</span><div class="cab-disc"><span>'+pieces[i]+'</span></div></div><h3>'+item[0]+'</h3><p>'+item[1]+'</p><div class="cab-card-foot">CHESS ANYTIME · '+String(i+1).padStart(2,'0')+' / 06</div>';
-    deck.appendChild(card);return card;
-  });
-  var firstClone=cards[0].cloneNode(true);firstClone.classList.add('cab-loop-clone');firstClone.setAttribute('aria-hidden','true');deck.appendChild(firstClone);cards.push(firstClone);
-  var label=root.querySelector('#cab-progress-label'),fill=root.querySelector('#cab-progress-fill');
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current=0,target=0,raf=0;
-  function render(){
-    cards.forEach(function(card,i){
-      var delta=i-current,distance=Math.min(1.35,Math.abs(delta)),y,z,ry,rx,scale,opacity;
-      if(delta>=0){y=distance*116;z=-distance*190;ry=-distance*22;rx=-distance*10;scale=1-distance*.105;opacity=1-distance*.34;}
-      else{y=-distance*148;z=-distance*235;ry=distance*25;rx=distance*12;scale=1-distance*.12;opacity=1-distance*.38;}
-      if(Math.abs(delta)>1.12)opacity=0;
-      card.style.transform='translate3d(0,'+y+'px,'+z+'px) rotateY('+ry+'deg) rotateX('+rx+'deg) scale('+scale+')';
-      card.style.opacity=String(opacity);card.style.zIndex=String(200-Math.round(Math.abs(delta)*20));
-      card.classList.toggle('is-visible',Math.abs(delta)<1.18);
-      card.setAttribute('aria-hidden',Math.abs(delta)<.52&&i!==6?'false':'true');
-      card.style.pointerEvents=Math.abs(delta)<.48&&i!==6?'auto':'none';
-    });
-    var shown=(Math.round(current)%6)+1;if(label)label.textContent=String(shown).padStart(2,'0')+' / 06';
-    if(fill)fill.style.width=(current>=5?100:current/5*100)+'%';
-  }
-  function animate(){
-    raf=0;current+=(target-current)*.12;
-    if(Math.abs(target-current)<.001){current=target;if(target===6){current=0;target=0;}render();return;}
-    render();raf=requestAnimationFrame(animate);
-  }
-  function showNext(){
-    if(raf)return;target=target>=6?0:target+1;
-    if(reduced){current=target;if(current===6)current=target=0;render();return;}
-    raf=requestAnimationFrame(animate);
-  }
-  render();window.setInterval(showNext,4800);
-})();
-</script>
-</section>
-
-<div class="w"><div class="band"><div><h3>Explore the learning path</h3><p>Four levels, structured lessons and practice.</p></div><a class="btn" href="#programs">View curriculum</a></div></div></section>
-
-<section class="pg" id="community"><div class="w">
-<div class="community-intro"><div><span class="hub-kicker">A SEAT FOR EVERY PLAYER</span><h2>Chess is better together.</h2><p>Pull up a chair. Find practice partners, discuss games, join our activities and connect with fellow chess lovers, regardless of your rating.</p><a class="btn" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener">Join our WhatsApp community ↗</a></div>
-<img src="images/academy/homepage.webp" width="1536" height="2048" alt="Chess players facing each other across a chessboard at an outdoor meetup"></div>
-<div class="hub-resource-grid hub-community-links"><a href="#tournaments"><span>♜</span><h3>Play together</h3><p>Explore online events and competition.</p><b>Events →</b></a><a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer"><span>♞</span><h3>Find chess friends</h3><p>Meet practice partners and join the conversation.</p><b>Open WhatsApp ↗</b></a><a href="#blog"><span>♝</span><h3>Share ideas</h3><p>Read articles and discover new perspectives.</p><b>Explore articles →</b></a></div><section class="community-album"><h3>Meetups</h3>
-<div class="album-grid"><figure><img src="images/academy/park-game.webp" width="800" height="600" loading="lazy" decoding="async" alt="Two players playing chess on a tiled bench outdoors"><figcaption>Chess in the park</figcaption></figure>
-<figure><img src="images/academy/handshake.webp" width="800" height="600" loading="lazy" decoding="async" alt="Two players shaking hands across a chessboard"><figcaption>Across the board</figcaption></figure>
-<figure><img src="images/academy/indoor-game.webp" width="800" height="600" loading="lazy" decoding="async" alt="Two players studying a position beside an orange wall"><figcaption>A café game</figcaption></figure></div></section>
-<section class="community-album"><h3>Practice games</h3>
-<div class="album-grid"><img src="images/academy/calculation.webp" width="600" height="800" loading="lazy" decoding="async" alt="Player considering a move with a hand at his chin">
-<img src="images/academy/practice.webp" width="600" height="800" loading="lazy" decoding="async" alt="Smiling player reaching towards a chessboard">
-<img src="images/academy/window-game.webp" width="600" height="800" loading="lazy" decoding="async" alt="Player seated at the board by a window"></div>
-<details><summary>More practice photos (5)</summary><div class="album-grid"><img src="images/academy/table-game.webp" width="800" height="600" loading="lazy" decoding="async" alt="Two players concentrating across a café table">
-<img src="images/academy/outdoor-position.webp" width="600" height="800" loading="lazy" decoding="async" alt="Player studying a position outdoors">
-<img src="images/academy/wooden-board.webp" width="800" height="600" loading="lazy" decoding="async" alt="Wooden pieces in a middlegame position">
-<img src="images/academy/at-the-board.webp" width="600" height="800" loading="lazy" decoding="async" alt="Player seated behind a green and white board">
-<img src="images/academy/thinking.webp" width="800" height="600" loading="lazy" decoding="async" alt="Player thinking with a hand on his forehead"></div></details></section>
-<section class="community-event"><img src="images/academy/presentation.webp" width="800" height="647" loading="lazy" alt="Trophy presentation"><div><h3>Tournament days</h3><a href="#tournaments">See tournament photos</a></div></section>
-<div class="band"><div><h3>Join us online</h3><p class="sub" style="margin:0">Join our WhatsApp community for discussions and updates, and follow us on YouTube and Twitch.</p></div><div class="row" style="margin:0"><a class="btn" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener">WhatsApp</a><a class="btn g" href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener">YouTube</a><a class="btn g" href="https://twitch.tv/chessanytime" target="_blank" rel="noopener">Twitch</a></div></div>
-</div></section>
-
-<section class="pg" id="tournaments"><div class="w">
-<div class="hub-page-intro"><span class="hub-kicker">PLAY · COMPETE · CONNECT</span><h1>Tournaments &amp; events</h1><p>Online competitions, practice matches and over-the-board meetups. Follow our community for new event announcements.</p><div class="hub-actions"><a class="hub-btn primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Get event announcements on WhatsApp ↗</a><a class="hub-btn secondary" href="#community">Meet the community</a></div></div>
-<h2>Past events</h2><div class="hub-event-grid">
-<article><span>24–26 NOV 2026 · ONLINE</span><h3>World Championship Rapid Swiss</h3><p>15+10 rapid chess · 5-round Swiss events</p><div class="hub-event-links"><a href="https://lichess.org/swiss/oy5PXh5p" target="_blank" rel="noopener noreferrer">Game 1 event ↗</a><a href="https://lichess.org/swiss/vkvkxww6" target="_blank" rel="noopener noreferrer">Game 2 event ↗</a><a href="https://lichess.org/swiss/vkruej27" target="_blank" rel="noopener noreferrer">Game 3 event ↗</a></div></article>
-<article><span>SEPT 2026 · ONLINE</span><h3>Classical practice Swiss</h3><p>Community practice games and Swiss pairings.</p></article>
-<article><span>JULY 2026 · COMMUNITY</span><h3>Team match</h3><p>Four teams: Knight, Bishop, Rook and Queen.</p></article>
-</div><h2>Moments from tournament days</h2><div class="event-photos">
-<figure><img src="images/academy/clock-game.webp" width="600" height="800" loading="lazy" decoding="async" alt="Two players at a chessboard beside a running clock"><figcaption>At the board</figcaption></figure>
-<figure><img src="images/academy/presentation.webp" width="800" height="647" loading="lazy" decoding="async" alt="Three people holding a gold trophy"><figcaption>Trophy presentation</figcaption></figure>
-<figure><img src="images/academy/trophy-group.webp" width="800" height="600" loading="lazy" decoding="async" alt="Group photo with three trophies"><figcaption>After the games</figcaption></figure>
-<figure><img src="images/academy/war-of-pawns.webp" width="600" height="800" loading="lazy" decoding="async" alt="War of Pawns trophy for first place in the below-1600 category"><figcaption>War of Pawns · First place, below 1600</figcaption></figure>
-</div></div></section>
-
-<section class="pg" id="blog"><div class="w"><h2>Chess AnyTime Blog</h2><p class="sub">Ideas, analysis, stories and perspectives from the world of chess.</p><div class="grid" id="bl"></div></div></section>
-
-<section class="pg" id="post"><div class="w"><article class="art"><a href="#blog" class="back">&larr; All articles</a><h1 id="pt"></h1><div class="meta" id="pd"></div><div class="body" id="pb"></div><div class="band"><div><h3>Keep the conversation going.</h3><p class="sub" style="margin:0">Connect with other chess enthusiasts and share your ideas.</p></div><a class="btn" href="#community">Explore community</a></div></article></div></section>
-
-<section class="pg" id="login"><div class="w"><h2>Student login</h2><p class="sub">Sign in to see your homework.</p>
-<form id="lf"><input id="li" aria-label="Student ID" placeholder="Student ID" required autocomplete="username"><input id="lc" type="password" aria-label="Password" placeholder="Password" required autocomplete="current-password"><button class="btn" type="submit">Log in</button><p class="meta" id="lm" role="status">Preview: use student ID demo and password 1234.</p></form></div></section>
-
-<section class="pg" id="portal"><div class="w"><h2 id="pw"></h2><p class="sub">Choose an assignment to open it on the board.</p><div class="arch" id="hw"></div><div class="row"><button class="btn g" id="lo">Log out</button></div></div></section>
-
-<section class="pg" id="coach-login">
-  <div class="w">
-    <div class="coach-auth-card">
-      <div class="coach-portal-kicker"><span aria-hidden="true">♞</span> PRIVATE COACH AREA</div>
-      <h2>Coach Login</h2>
-      <p class="coach-portal-lede">Sign in to access your private coaching tools and chess puzzle database.</p>
-      <form id="coach-login-form">
-        <div class="coach-field">
-          <label for="coach-username">Username</label>
-          <input id="coach-username" name="username" type="text" autocomplete="username" placeholder="Coach username" required>
-          <small>Username is not case-sensitive.</small>
-        </div>
-        <div class="coach-field" style="margin-top:16px">
-          <label for="coach-password">Password</label>
-          <input id="coach-password" name="password" type="password" autocomplete="current-password" placeholder="Password" required>
-        </div>
-        <div class="coach-login-actions">
-          <button class="coach-primary-button" type="submit">Log in to Coach Portal</button>
-        </div>
-        <p class="coach-message" id="coach-login-message" role="status" aria-live="polite"></p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<section class="pg" id="coach-dashboard">
-  <div class="w">
-    <div class="coach-dashboard-card">
-      <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
-        <div>
-          <div class="coach-portal-kicker"><span aria-hidden="true">♞</span> COACH WORKSPACE</div>
-          <h2>Puzzle Book Generator</h2>
-          <p class="coach-portal-lede">Filter your local Lichess database and create a PGN file directly in your Book folder.</p>
-        </div>
-        <button class="coach-logout-button" id="coach-logout" type="button">Log out</button>
-      </div>
-
-      <div class="coach-service-row">
-        <div>
-          <strong id="coach-service-status">Checking your computer…</strong>
-          <div class="coach-service-folder">PGN destination: <span id="coach-output-folder">C:\test\convert\Book</span></div>
-        </div>
-        <span class="coach-filter-note">Your 62 CSV files stay on this PC.</span>
-      </div>
-
-      <form id="coach-generator-form">
-        <h3 class="coach-section-heading">Puzzle selection</h3>
-        <p class="coach-filter-note">The database is read in its existing NbPlays-high-to-low order. Generation stops as soon as the requested number of valid matches is found.</p>
-        <div class="coach-form-grid">
-          <div class="coach-field">
-            <label for="coach-theme">Theme (leave blank for any theme)</label>
-            <input id="coach-theme" type="text" value="fork" placeholder="e.g. fork">
-          </div>
-          <div class="coach-field">
-            <label for="coach-count">Number of puzzles</label>
-            <input id="coach-count" type="number" min="1" max="5000" value="10" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-min-rating">Minimum rating</label>
-            <input id="coach-min-rating" type="number" min="0" max="4000" value="2250" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-max-rating">Maximum rating</label>
-            <input id="coach-max-rating" type="number" min="0" max="4000" value="2550" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-max-rd">Maximum rating deviation</label>
-            <input id="coach-max-rd" type="number" min="0" max="1000" value="80" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-min-popularity">Minimum popularity</label>
-            <input id="coach-min-popularity" type="number" min="0" max="100" value="92" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-max-pieces">Maximum pieces on board</label>
-            <input id="coach-max-pieces" type="number" min="2" max="32" value="8" required>
-          </div>
-          <div class="coach-field">
-            <label for="coach-max-fullmove">Maximum fullmove number</label>
-            <input id="coach-max-fullmove" type="number" min="1" max="500" value="10" required>
-          </div>
-          <div class="coach-field coach-field-full">
-            <label for="coach-filename">Output PGN filename</label>
-            <input id="coach-filename" type="text" value="ChessAnyTime_Puzzles.pgn" maxlength="100" required>
-            <small>The file will be saved in your local Book folder. Only the filename is accepted, not a different folder path.</small>
-          </div>
-        </div>
-        <div class="coach-generator-actions">
-          <button class="coach-primary-button" id="coach-generate-button" type="submit">Generate PGN</button>
-          <span class="coach-filter-note">UCI solutions are converted to SAN and checked for legal moves.</span>
-        </div>
-      </form>
-      <div class="coach-result" id="coach-generation-result" role="status" aria-live="polite" hidden></div>
-    </div>
-  </div>
-</section>
-
-<section class="pg ca-programs" id="programs">
-  <div class="cp-hero">
-    <div class="cp-wrap cp-hero-inner">
-      <div class="cp-hero-copy">
-        <div class="cp-kicker"><span>♞</span> THE CHESS ANYTIME LEARNING PATH</div>
-        <h1>Course curriculum<br><em>&amp; schedule.</em></h1>
-        <p>Choose a level or try a demo with the coach.</p>
-        <div class="cp-hero-actions">
-          <a class="cp-btn cp-btn-primary" href="#demo">Book a demo class <span aria-hidden="true">↗</span></a>
-          <a class="cp-hero-link" href="#cp-levels">Explore the programmes <span aria-hidden="true">↓</span></a>
-        </div>
-        <div class="cp-hero-facts">
-          <div><b>24</b><span>classes per package</span></div>
-          <i aria-hidden="true"></i>
-          <div><b>4</b><span>learning levels</span></div>
-          <i aria-hidden="true"></i>
-          <div><b>4 months</b><span>maximum package validity</span></div>
-        </div>
-      </div>
-      <div class="cp-hero-art" aria-hidden="true">
-        <div class="cp-art-glow"></div>
-        <div class="cp-board">
-          <span>♜</span><span></span><span>♞</span><span></span><span>♝</span><span></span>
-          <span></span><span>♟</span><span></span><span>♛</span><span></span><span>♟</span>
-          <span>♟</span><span></span><span>♙</span><span></span><span>♙</span><span></span>
-          <span></span><span>♙</span><span></span><span>♘</span><span></span><span>♙</span>
-          <span>♖</span><span></span><span>♘</span><span></span><span>♗</span><span></span>
-          <span></span><span>♙</span><span></span><span>♕</span><span></span><span>♙</span>
-        </div>
-        <div class="cp-art-note"><span class="cp-note-icon">✦</span><span><b>One step at a time</b><small>Learn · Practise · Progress</small></span></div>
-        <div class="cp-art-number">01 <span>/ 04</span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cp-wrap cp-main">
-    <section class="cp-section" id="cp-levels">
-      <h2 class="levels-title">What you’ll learn at each level</h2>
-      <div class="level-grid">
-        <article class="level-card">
-          <span class="level-stars" role="img" aria-label="Knight">♞</span>
-          <h3>Beginner</h3>
-          <h4>Objectives</h4>
-          <p>Learn to play from setup to checkmate.</p>
-          <ul>
-            <li>Set up the board and record moves.</li>
-            <li>Learn how each piece moves and attacks.</li>
-            <li>Escape threats by moving, blocking or capturing.</li>
-            <li>Spot checkmate and stalemate.</li>
-            <li>Castle, promote and capture en passant.</li>
-            <li>Find loose pieces and good exchanges.</li>
-            <li>Develop pieces and spot pins and forks.</li>
-            <li>Practise rook and queen mates. Review your games.</li>
-          </ul>
-        </article>
-        <article class="level-card">
-          <span class="level-stars" role="img" aria-label="Rook">♜</span>
-          <h3>Intermediate</h3>
-          <h4>Objectives</h4>
-          <p>Spot tactics and judge basic endgames.</p>
-          <ul>
-            <li>Win material with pins, skewers and x-rays.</li>
-            <li>Spot double attacks, discovered checks and windmills.</li>
-            <li>Distract or overload a defender.</li>
-            <li>Find mating threats and mates in two.</li>
-            <li>Use the back rank and seventh rank.</li>
-            <li>Find key squares, breakthroughs and zugzwang.</li>
-            <li>Know when to simplify or underpromote.</li>
-            <li>Save draws by stalemate or perpetual check.</li>
-          </ul>
-        </article>
-        <article class="level-card">
-          <span class="level-stars" role="img" aria-label="Queen">♛</span>
-          <h3>Advanced 1</h3>
-          <h4>Objectives</h4>
-          <p>Plan attacks and convert positional advantages.</p>
-          <ul>
-            <li>Study queen against a seventh-rank pawn.</li>
-            <li>Use triangulation and corresponding squares.</li>
-            <li>Attack with a lead in development.</li>
-            <li>Calculate sacrifices and opposite-side pawn storms.</li>
-            <li>Find outposts and active defences.</li>
-            <li>Assess passed pawns against bishops and rooks.</li>
-            <li>Read pawn structures in piece endings.</li>
-            <li>Explore Ruy López, French, Caro-Kann and Sicilian plans.</li>
-          </ul>
-        </article>
-        <article class="level-card">
-          <span class="level-stars" role="img" aria-label="King">♚</span>
-          <h3>Advanced 2</h3>
-          <h4>Objectives</h4>
-          <p>Build an opening repertoire and calculate tournament lines.</p>
-          <ul>
-            <li>Prepare Ruy López, Najdorf and Italian lines.</li>
-            <li>Compare Indian defences, Grünfeld and Benoni.</li>
-            <li>Study Catalan, English and Slav structures.</li>
-            <li>Test your openings in practice games.</li>
-            <li>Calculate lines that expose the king.</li>
-            <li>Improve your pieces and anticipate threats.</li>
-            <li>Use pawn majorities and challenge the centre.</li>
-            <li>Activate the king and exploit two weaknesses.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section class="cp-includes-section">
-      <div class="cp-section-heading">
-        <div><div class="cp-eyebrow">MORE THAN THE LIVE CLASS</div><h2>Support that keeps <em>learning moving.</em></h2></div>
-        
-      </div>
-      <div class="cp-includes-grid">
-        <article class="cp-include"><span class="cp-include-icon">♟</span><div><b>Interactive puzzle homework</b><p>Solve positions from your coach.</p></div><span class="cp-include-num">01</span></article>
-        <article class="cp-include"><span class="cp-include-icon">▤</span><div><b>Puzzle book</b><p>Practise tactics at your own pace.</p></div><span class="cp-include-num">02</span></article>
-        <article class="cp-include"><span class="cp-include-icon">♜</span><div><b>Free weekend tournaments</b><p>Try your new skills in a game.</p></div><span class="cp-include-num">03</span></article>
-        <article class="cp-include"><span class="cp-include-icon">↗</span><div><b>Parent progress feedback</b><p>Hear how your child is doing.</p><span class="cp-feedback-track"><i></i><i></i><i></i><small>Every 8 classes</small></span></div><span class="cp-include-num">04</span></article>
-      </div>
-    </section>
-
-    <section class="course-schedule" id="course-schedule" aria-labelledby="schedule-title">
-      <h2 id="schedule-title">Class schedule &amp; fees</h2>
-      <p>48 classes per level, in two packages of 24. Each package usually takes three months and is valid for four. Parents and coach agree on class times.</p>
-      <table><caption>Live coaching by course level</caption><thead><tr><th scope="col">Course level</th><th scope="col">Class length</th></tr></thead><tbody>
-        <tr><th scope="row">Beginner</th><td>45 minutes</td></tr>
-        <tr><th scope="row">Intermediate</th><td>45 minutes</td></tr>
-        <tr><th scope="row">Advanced 1</th><td>50 minutes</td></tr>
-        <tr><th scope="row">Advanced 2</th><td>50 minutes</td></tr>
-      </tbody></table>
-      <p>Ask about openings and fees.</p>
-      <div class="schedule-actions"><a class="cp-btn cp-btn-dark" href="#contact">Ask about fees</a><a href="#demo">Book a demo class</a></div>
-    </section>
-  </div>
-</section>
-
-<section class="pg" id="puzzles"><div class="w"><h2>Chess puzzles</h2><p class="sub">Solve today’s Lichess puzzle.</p><div class="daily-bar"><div><strong>Lichess Daily Puzzle</strong><div class="meta" id="daily-info">Loading today’s puzzle…</div></div><button class="btn" id="daily-load" type="button">Load daily puzzle</button></div>
-<div class="pz"><div><div class="board-frame"><div id="bd" aria-label="Chess board"></div></div><div class="board-help">Drag or tap pieces to move · Right-drag to draw arrows · Right-click to mark a square · Shift red, Ctrl blue, Alt yellow</div></div>
-<div class="side"><div id="st"></div><div class="meta" id="mt"></div>
-<div class="row"><button class="btn g" id="bh">Hint</button></div><div class="meta">Daily puzzles are provided by <a href="https://lichess.org/training/daily" target="_blank" rel="noopener">Lichess</a>.</div></div></div></div></section>
-
-<section class="pg" id="demo"><div class="w"><h2>Book a demo class</h2><p class="sub">Leave your details. We’ll contact you to arrange a demo.</p>
-<form id="df"><input id="dp" aria-label="Parent name" placeholder="Parent name" required autocomplete="name"><input id="dk" aria-label="Kid name" placeholder="Kid name" required><input id="dn" type="tel" aria-label="Phone number" placeholder="Phone number" required pattern="[0-9+ ]{10,15}" title="Enter a valid phone number" autocomplete="tel"><button class="btn" type="submit">Book my demo class</button><p class="meta" id="dm" role="status"></p></form></div></section>
-
-<section class="pg" id="contact"><div class="w"><h2>Get in touch</h2><p class="sub">For community activities, events, collaborations or academy enquiries, Email <a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a> or call <a href="tel:+919911966706">+91 99119 66706</a>. You can also write to <a href="mailto:chessanytime@yahoo.com">chessanytime@yahoo.com</a>.</p>
-<div class="band" style="margin:24px 0 30px"><div><h3>Connect with the community</h3><p class="sub" style="margin:0">Join our WhatsApp community for chess discussions and event updates.</p></div><a class="btn" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp community ↗</a></div><h3>Academy enrolment</h3><form id="cf"><input id="cn" placeholder="Student name" required><select id="cp"><option>Beginner Foundation</option><option>Intermediate Tactics</option><option>Championship Masterclass</option></select><button class="btn" type="submit">Send on WhatsApp</button></form></div></section>
+<a href="puzzles.html"><span>♞</span><h3>Daily puzzle</h3><p>Find the best move in today’s Lichess challenge.</p><b>Solve a puzzle →</b></a>
+<a href="blog.html"><span>✦</span><h3>Chess articles</h3><p>Explore strategies, ideas and stories about the game.</p><b>Read the blog →</b></a>
+<a href="videos.html"><span>▷</span><h3>Video library</h3><p>Discover free chess videos and learning resources.</p><b>Watch &amp; learn →</b></a></div></section>
+<section class="hub-section hub-academy"><div><span class="hub-kicker">ONE PART OF THE COMMUNITY</span><h2>Chess AnyTime Academy</h2><p>Want structured guidance? Our academy offers personalised coaching, game analysis and a four-level curriculum. Explore the learning path whenever you are ready.</p><div class="hub-actions"><a class="hub-btn primary" href="academy.html">Discover the academy →</a><a class="hub-btn secondary" href="curriculum.html">View curriculum</a></div></div><div class="hub-academy-art" aria-hidden="true">♞<span>LEARN · PRACTISE · PROGRESS</span></div></section>
+</div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
     <section class="footer-cta" aria-labelledby="footer-cta-title">
@@ -530,13 +83,13 @@ footer.academy-footer .footer-brand p{max-width:38ch}
       </div>
       <div class="footer-cta-actions">
         <a class="footer-cta-primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span aria-hidden="true">↗</span></a>
-        <a class="footer-cta-secondary" href="#tournaments">Explore events</a>
+        <a class="footer-cta-secondary" href="events.html">Explore events</a>
       </div>
     </section>
 
     <div class="footer-main">
       <div class="footer-brand">
-        <a class="footer-brand-lockup" href="#home" aria-label="Chess AnyTime home">
+        <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home">
           <span class="footer-brand-mark" aria-hidden="true">♞</span>
           <span>Chess <b>AnyTime</b></span>
         </a>
@@ -547,25 +100,25 @@ footer.academy-footer .footer-brand p{max-width:38ch}
       <nav class="footer-nav" aria-label="Footer navigation">
         <div class="footer-link-group">
           <h2>Community</h2>
-          <a href="#community">Meetups &amp; practice</a>
-          <a href="#tournaments">Events &amp; tournaments</a>
+          <a href="community.html">Meetups &amp; practice</a>
+          <a href="events.html">Events &amp; tournaments</a>
           <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp community</a>
-          <a href="#contact">Get in touch</a>
+          <a href="contact.html">Get in touch</a>
         </div>
         <div class="footer-link-group">
           <h2>Learn &amp; play</h2>
-          <a href="#puzzles">Chess puzzles</a>
-          <a href="#videos">Video lessons</a>
-          <a href="#blog">Chess articles</a>
-          <a href="#about">Chess AnyTime Academy</a>
-          <a href="#programs">Curriculum</a>
-          <a href="#demo">Book a demo class</a>
+          <a href="puzzles.html">Chess puzzles</a>
+          <a href="videos.html">Video lessons</a>
+          <a href="blog.html">Chess articles</a>
+          <a href="academy.html">Chess AnyTime Academy</a>
+          <a href="curriculum.html">Curriculum</a>
+          <a href="demo.html">Book a demo class</a>
         </div>
         <div class="footer-link-group">
           <h2>Get in touch</h2>
           <a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a>
           <a href="tel:+919911966706">+91 99119 66706</a>
-          <a href="#contact">Contact</a>
+          <a href="contact.html">Contact</a>
         </div>
       </nav>
     </div>
@@ -580,12 +133,15 @@ footer.academy-footer .footer-brand p{max-width:38ch}
         <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">WhatsApp</a>
         <a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a>
       </nav>
-      <a class="footer-top-link" href="#home">Back to top <span aria-hidden="true">↑</span></a>
+      <a class="footer-top-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </div>
   </div>
 </footer>
-
-<script src="js/intro.js"></script><script src="js/blog.js"></script><script src="js/main.js"></script><script src="js/puzzle-data.js"></script><script src="js/puzzles.js"></script><script src="js/chessboard.js"></script><script src="js/student-portal.js"></script><script src="js/coach-portal.js"></script><script src="js/forms.js"></script><script src="js/init.js"></script>
-<script src="js/navigation.js"></script><script src="js/header.js"></script><script src="js/homepage.js"></script>
-<script src="js/home-experience.js"></script>
+<script src="js/main.js"></script>
+<script src="js/navigation.js"></script>
+<script src="js/header.js"></script>
+<script src="js/intro.js"></script>
+<script src="js/home-animation.js"></script>
+<script src="js/life-skills.js"></script>
+<script src="js/init.js"></script>
 </body></html>

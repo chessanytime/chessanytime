@@ -16,7 +16,7 @@ nav a.l.on,nav a.l:hover{color:var(--tx);background:var(--bg2)}
 .btn{display:inline-block;padding:11px 20px;border-radius:10px;background:var(--ac);color:#fff;font-weight:600;text-decoration:none;border:0;cursor:pointer;font:600 .95rem Roboto}
 .btn.g{background:transparent;border:1px solid var(--ln);color:var(--tx)}
 :focus-visible{outline:3px solid var(--ac2);outline-offset:2px}
-section.pg{display:none;padding:48px 0 64px}section.pg.on{display:block}
+main.pg{display:block;padding:48px 0 64px}
 .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
 .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800}.hero h1 span{color:var(--ac)}
 .hero p{color:var(--mut);max-width:48ch;margin:18px 0 26px;font-size:1.08rem}
@@ -946,7 +946,7 @@ header.is-scrolled .brand img{width:43px;height:43px;flex-basis:43px}
 }
 
 /* Chess videos under Resources > Chess Videos */
-#videos.academy-video-page{display:none;padding:0;background:#f5f2ec;color:#182940}#videos.academy-video-page.on{display:block}
+#videos.academy-video-page{display:block;padding:0;background:#f5f2ec;color:#182940}
 #videos .academy-video-page-hero{background:linear-gradient(115deg,#101c30,#0b1422 70%,#1a2e45);color:#fff;padding:68px clamp(20px,6vw,90px) 62px;position:relative;overflow:hidden}
 #videos .academy-video-page-hero:after{content:"♞";position:absolute;right:9%;top:50%;transform:translateY(-55%);font:clamp(11rem,22vw,20rem)/1 Georgia,serif;color:rgba(255,255,255,.045)}
 #videos .academy-video-page-hero-inner{max-width:1320px;margin:0 auto;position:relative;z-index:1}

@@ -1,0 +1,17 @@
+.lichess-auth-card{max-width:620px;margin:24px auto;padding:clamp(24px,4vw,42px);border:1px solid var(--ln);border-radius:16px;background:var(--bg2)}
+.lichess-auth-card h2{font-size:clamp(1.8rem,4vw,2.6rem)}
+.lichess-auth-card .meta{margin-top:22px;line-height:1.7}
+.lichess-message{color:var(--mut);line-height:1.6}
+.lichess-message:empty{display:none}
+.lichess-message.is-error{padding:12px 16px;border:1px solid #f1d0ce;border-radius:8px;background:#fff1f0;color:#9c302d}
+.lichess-profile-heading{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin:20px 0}
+.lichess-profile-heading h2,.lichess-profile-heading h3{margin:0}
+.lichess-ratings{display:flex;gap:12px;flex-wrap:wrap;margin:24px 0}
+.lichess-rating,.lichess-game{padding:18px;border:1px solid var(--ln);border-radius:12px;background:var(--bg2)}
+.lichess-rating strong,.lichess-rating span{display:block}
+.lichess-rating span{color:var(--mut);font-size:.9rem}
+.lichess-games{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:16px;margin:20px 0 40px}
+.lichess-game h4{font-size:1rem;margin:0 0 10px;overflow-wrap:anywhere}
+.lichess-game p{font-size:.9rem;margin:6px 0;color:var(--mut)}
+.lichess-game a{display:inline-block;margin-top:10px}
+.lichess-auth-card button:disabled{opacity:.6;cursor:wait}
