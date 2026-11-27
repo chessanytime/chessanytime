@@ -4,33 +4,46 @@
 <title>Your Chess Community | Chess AnyTime</title>
 <meta name="description" content="A chess community for players of all levels. Join events, meetups and practice games, discover free chess resources, or explore our academy.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&amp;family=Figtree:wght@400;500;600&amp;family=Poppins:wght@500;600;700;800&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/lichess-login.css">
-<link rel="stylesheet" href="css/curriculum.css">
-<link rel="stylesheet" href="css/photos.css">
-<link rel="stylesheet" href="css/chess-experience.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
 <link rel="stylesheet" href="css/home-animation.css">
-<link rel="stylesheet" href="css/life-skills.css">
+<!-- <link rel="stylesheet" href="css/life-skills.css"> -->
+<link rel="stylesheet" href="css/site-sections.css">
 </head>
 <body id="top" data-page="home">
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
-<header><div class="w"><nav>
-<a class="brand" href="index.html"><img src="images/brand-logo.png" alt=""><span>Chess AnyTime<small>Chess community</small></span></a>
-<a class="l" href="index.html" data-p="home">Home</a><a class="l" href="community.html" data-p="community">Community</a><a class="l" href="events.html" data-p="tournaments">Events</a><details class="resources-menu"><summary>Resources <span aria-hidden="true">▾</span></summary><div class="resources-dropdown"><a href="puzzles.html" data-p="puzzles">Daily puzzle</a><a href="blog.html" data-p="blog">Articles</a><a href="videos.html" data-p="videos">Chess videos</a></div></details><a class="l" href="academy.html" data-p="about">Academy</a><a class="l" href="contact.html" data-p="contact">Contact</a>
-<div class="header-utility" id="tl"><a href="login.html">Log in with Lichess</a></div><a class="btn ca-join-nav" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp</a></nav></div></header>
+<header><div class="w"><nav aria-label="Main navigation">
+<a class="brand" href="index.html" aria-label="Chess AnyTime home"><img src="images/brand-logo.png" width="44" height="44" alt="" decoding="async"><span>Chess AnyTime<small>Chess community</small></span></a>
+<button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button>
+<div class="primary-navigation" id="primary-navigation">
+  <a class="l" href="community.html" data-p="community">Community</a>
+  <a class="l" href="academy.html" data-p="about">Academy</a>
+  <details class="resources-menu"><summary>Explore <span aria-hidden="true">▾</span></summary><div class="resources-dropdown">
+    <span class="nav-group-label">Play &amp; discover</span>
+    <a href="events.html" data-p="tournaments">Events &amp; tournaments</a>
+    <a href="puzzles.html" data-p="puzzles">Daily puzzle</a>
+    <a href="blog.html" data-p="blog">Chess articles</a>
+    <a href="videos.html" data-p="videos">Video lessons</a>
+    <span class="nav-group-label">Academy &amp; support</span>
+    <a href="curriculum.html" data-p="programs">Curriculum</a>
+    <a href="demo.html" data-p="demo">Book a demo</a>
+    <a href="contact.html" data-p="contact">Contact</a>
+  </div></details>
+</div>
+<div class="header-utility" id="tl"><a href="login.html" aria-label="Log in with Lichess">Log in</a></div>
+</nav></div></header>
 <main class="pg ca-hub" id="home">
 <div class="hub-hero">
 <div class="hub-floating-chess" aria-hidden="true"><span class="hub-floating-piece piece-king"></span><span class="hub-floating-piece piece-knight"></span><span class="hub-floating-piece piece-rook"></span><span class="hub-floating-piece piece-pawn"></span><span class="hub-floating-piece piece-bishop"></span></div>
 <div class="hub-shell hub-hero-grid">
 <div class="hub-copy"><span class="hub-kicker"><i></i> A COMMUNITY BUILT AROUND CHESS</span><h1>64 squares.<br><em>One community.</em></h1><p>Whether you play your first game or your thousandth, there’s a seat for you here. Find opponents, compete, share ideas and enjoy chess together.</p><div class="hub-actions"><a class="hub-btn primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span>↗</span></a><a class="hub-btn secondary" href="events.html">Explore events <span>→</span></a></div><div class="hub-tags"><span>♟ All skill levels</span><span>♜ Online &amp; over the board</span><span>♞ Learn together</span></div></div>
-<div class="hub-hero-photo"><img src="images/academy/handshake.webp" width="800" height="600" alt="Two chess players shaking hands across the chessboard" fetchpriority="high"><div class="hub-photo-note"><span>BEYOND THE 64 SQUARES</span><strong>Good games. Great company.</strong></div></div>
+<div class="hub-hero-photo"><img src="images/academy/handshake.webp" width="800" height="600" alt="Two chess players shaking hands across the chessboard" fetchpriority="high" srcset="images/academy/handshake-400.webp 400w, images/academy/handshake.webp 800w" sizes="(max-width: 680px) calc(100vw - 36px), 50vw" decoding="async"><div class="hub-photo-note"><span>BEYOND THE 64 SQUARES</span><strong>Good games. Great company.</strong></div></div>
 </div></div>
+<!-- Parked second homepage hero. Restore this section and its stylesheet/script references together.
 <section class="life-skills" id="life-skills" aria-labelledby="life-skills-title">
-  <div class="life-skills-heading"><span class="hub-kicker">MORE THAN A GAME</span><h2 id="life-skills-title">Chess.<br>A life skill.</h2><p>Every position is a chance to think ahead, explore ideas and make your own decisions.</p></div>
-  <div class="life-skill-description" id="life-skill-description" role="status" aria-live="polite"></div>
+  <div class="life-skills-heading"><span class="hub-kicker">MORE THAN A GAME</span><h2 id="life-skills-title">Build skills, one move at a time.</h2><p>Every position is a chance to think ahead, explore ideas and make your own decisions.</p></div>
   <div class="life-king-stage" aria-hidden="true"><div class="life-ring"></div><img class="life-king" src="images/life-skill-king.svg" width="340" height="560" alt="" loading="lazy"></div>
   <svg width="0" height="0" aria-hidden="true" style="position:absolute"><defs>
     <symbol id="skill-focus-icon" viewBox="0 0 64 64"><circle cx="32" cy="32" r="23"/><circle cx="32" cy="32" r="13"/><circle cx="32" cy="32" r="3"/><path d="M32 3v12m0 34v12M3 32h12m34 0h12"/></symbol>
@@ -48,8 +61,10 @@
     <button class="life-skill-card skill-solving" data-life-skill="solving" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-solving-icon"/></svg><span>Problem-solving</span></button>
     <button class="life-skill-card skill-patience" data-life-skill="patience" type="button" aria-pressed="false"><svg aria-hidden="true"><use href="#skill-patience-icon"/></svg><span>Patience</span></button>
   </div>
+  <div class="life-skill-description" id="life-skill-description" role="status" aria-live="polite"></div>
   <span class="life-cube one" aria-hidden="true"></span><span class="life-cube two" aria-hidden="true"></span><span class="life-cube three" aria-hidden="true"></span>
 </section>
+-->
 <div class="hub-shell">
 <div class="hub-quick" aria-label="Explore Chess AnyTime">
 <a href="events.html"><span class="hub-glyph">♜</span><span><b>Compete</b><small>Tournaments &amp; events</small></span><i>↗</i></a>
@@ -57,11 +72,15 @@
 <a href="puzzles.html"><span class="hub-glyph">♟</span><span><b>Challenge yourself</b><small>Daily chess puzzle</small></span><i>↗</i></a>
 <a href="blog.html"><span class="hub-glyph">♝</span><span><b>Discover</b><small>Ideas &amp; articles</small></span><i>↗</i></a>
 </div>
+<section class="event-announcement" aria-labelledby="next-event-title">
+  <div><span class="hub-kicker">COMMUNITY EVENT UPDATES</span><h2 id="next-event-title">Be ready for the next event.</h2><p>No next event date is published here yet. Join our WhatsApp community for confirmed dates, formats and joining details.</p></div>
+  <div class="hub-actions"><a class="hub-btn primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Get event updates ↗</a><a href="events.html">Past events</a></div>
+</section>
 <section class="hub-section"><div class="hub-heading"><div><span class="hub-kicker">THE COMMUNITY IN ACTION</span><h2>There’s always a next move.</h2></div><p>From online tournaments to friendly café games, find your way to be part of the chess community.</p></div>
 <div class="hub-feature-grid">
-<a class="hub-feature" href="events.html"><img src="images/academy/clock-game.webp" width="600" height="800" alt="Players competing with a chess clock" loading="lazy"><div><span>PLAY &amp; COMPETE</span><h3>Tournaments</h3><p>Swiss events, practice matches and competitive chess.</p><b>Explore events ↗</b></div></a>
-<a class="hub-feature" href="community.html"><img src="images/academy/park-game.webp" width="800" height="600" alt="Two players enjoying chess outdoors" loading="lazy"><div><span>MEET &amp; CONNECT</span><h3>Over-the-board meetups</h3><p>Play a game, meet someone new and share your love of chess.</p><b>Meet the community ↗</b></div></a>
-<a class="hub-feature" href="community.html"><img src="images/academy/table-game.webp" width="800" height="600" alt="Two players studying a chess position" loading="lazy"><div><span>PRACTISE &amp; SHARE</span><h3>Games and discussions</h3><p>Find practice partners, explore positions and learn from one another.</p><b>Get involved ↗</b></div></a></div></section>
+<a class="hub-feature" href="events.html"><img src="images/academy/clock-game.webp" width="600" height="800" alt="Players competing with a chess clock" loading="lazy" srcset="images/academy/clock-game-400.webp 400w, images/academy/clock-game.webp 600w" sizes="(max-width: 680px) calc(100vw - 36px), 33vw" decoding="async"><div><span>PLAY &amp; COMPETE</span><h3>Tournaments</h3><p>Swiss events, practice matches and competitive chess.</p><b>Explore events ↗</b></div></a>
+<a class="hub-feature" href="community.html"><img src="images/academy/park-game.webp" width="800" height="600" alt="Two players enjoying chess outdoors" loading="lazy" srcset="images/academy/park-game-400.webp 400w, images/academy/park-game.webp 800w" sizes="(max-width: 680px) calc(100vw - 36px), 33vw" decoding="async"><div><span>MEET &amp; CONNECT</span><h3>Over-the-board meetups</h3><p>Play a game, meet someone new and share your love of chess.</p><b>Meet the community ↗</b></div></a>
+<a class="hub-feature" href="community.html"><img src="images/academy/table-game.webp" width="800" height="600" alt="Two players studying a chess position" loading="lazy" srcset="images/academy/table-game-400.webp 400w, images/academy/table-game.webp 800w" sizes="(max-width: 680px) calc(100vw - 36px), 33vw" decoding="async"><div><span>PRACTISE &amp; SHARE</span><h3>Games and discussions</h3><p>Find practice partners, explore positions and learn from one another.</p><b>Get involved ↗</b></div></a></div></section>
 <section class="hub-section hub-activity"><div><span class="hub-kicker">FROM THE EVENT ARCHIVE</span><h2>Chess brings us together.</h2><p>Explore past events and get involved in the next one. Event announcements are shared in our WhatsApp community.</p><a class="hub-btn primary" href="events.html">View events &amp; results ↗</a></div><div class="hub-feed">
 <a href="events.html"><span>24–26 NOV 2026</span><b>World Championship Swiss series</b><small>Online rapid chess · Event archive</small><i>→</i></a>
 <a href="events.html"><span>SEPT 2026</span><b>Classical practice Swiss</b><small>Community practice · Event archive</small><i>→</i></a>
@@ -71,69 +90,26 @@
 <a href="puzzles.html"><span>♞</span><h3>Daily puzzle</h3><p>Find the best move in today’s Lichess challenge.</p><b>Solve a puzzle →</b></a>
 <a href="blog.html"><span>✦</span><h3>Chess articles</h3><p>Explore strategies, ideas and stories about the game.</p><b>Read the blog →</b></a>
 <a href="videos.html"><span>▷</span><h3>Video library</h3><p>Discover free chess videos and learning resources.</p><b>Watch &amp; learn →</b></a></div></section>
-<section class="hub-section hub-academy"><div><span class="hub-kicker">ONE PART OF THE COMMUNITY</span><h2>Chess AnyTime Academy</h2><p>Want structured guidance? Our academy offers personalised coaching, game analysis and a four-level curriculum. Explore the learning path whenever you are ready.</p><div class="hub-actions"><a class="hub-btn primary" href="academy.html">Discover the academy →</a><a class="hub-btn secondary" href="curriculum.html">View curriculum</a></div></div><div class="hub-academy-art" aria-hidden="true">♞<span>LEARN · PRACTISE · PROGRESS</span></div></section>
+<section class="hub-section hub-academy"><div><span class="hub-kicker">ONE PART OF THE COMMUNITY</span><h2>Chess AnyTime Academy</h2><p>Want structured guidance? Our academy offers personalised coaching, game analysis and a four-level curriculum. Explore the learning path whenever you are ready.</p><div class="hub-actions"><a class="hub-btn primary" href="academy.html#coach-profile">Meet the coach →</a><a class="hub-btn secondary" href="curriculum.html">View curriculum</a><a href="academy.html#academy-faq">Read the FAQ</a></div></div><div class="hub-academy-art" aria-hidden="true">♞<span>LEARN · PRACTISE · PROGRESS</span></div></section>
 </div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
-    <section class="footer-cta" aria-labelledby="footer-cta-title">
-      <div class="footer-cta-copy">
-        <span class="footer-kicker">YOUR NEXT MOVE STARTS HERE</span>
-        <h2 id="footer-cta-title">Ready to make your next move?</h2>
-        <p>Find your people, play more chess and be part of a community that loves the game.</p>
-      </div>
-      <div class="footer-cta-actions">
-        <a class="footer-cta-primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span aria-hidden="true">↗</span></a>
-        <a class="footer-cta-secondary" href="events.html">Explore events</a>
-      </div>
-    </section>
-
     <div class="footer-main">
       <div class="footer-brand">
-        <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home">
-          <span class="footer-brand-mark" aria-hidden="true">♞</span>
-          <span>Chess <b>AnyTime</b></span>
-        </a>
-        <p>A home for chess enthusiasts: tournaments, meetups, practice, resources and a dedicated academy.</p>
-        <span class="footer-brand-note">LEARN · PLAY · IMPROVE · TOGETHER</span>
+        <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home"><span class="footer-brand-mark" aria-hidden="true">♞</span><span>Chess <b>AnyTime</b></span></a>
+        <p>Play, learn and connect through chess.</p>
+        <a class="footer-community-link" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
       </div>
-
       <nav class="footer-nav" aria-label="Footer navigation">
-        <div class="footer-link-group">
-          <h2>Community</h2>
-          <a href="community.html">Meetups &amp; practice</a>
-          <a href="events.html">Events &amp; tournaments</a>
-          <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp community</a>
-          <a href="contact.html">Get in touch</a>
-        </div>
-        <div class="footer-link-group">
-          <h2>Learn &amp; play</h2>
-          <a href="puzzles.html">Chess puzzles</a>
-          <a href="videos.html">Video lessons</a>
-          <a href="blog.html">Chess articles</a>
-          <a href="academy.html">Chess AnyTime Academy</a>
-          <a href="curriculum.html">Curriculum</a>
-          <a href="demo.html">Book a demo class</a>
-        </div>
-        <div class="footer-link-group">
-          <h2>Get in touch</h2>
-          <a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a>
-          <a href="tel:+919911966706">+91 99119 66706</a>
-          <a href="contact.html">Contact</a>
-        </div>
+        <div class="footer-link-group"><h2>Explore</h2><a href="community.html">Community</a><a href="events.html">Events</a><a href="academy.html">Academy</a></div>
+        <div class="footer-link-group"><h2>Learn &amp; play</h2><a href="puzzles.html">Daily puzzle</a><a href="videos.html">Video lessons</a><a href="blog.html">Articles</a><a href="curriculum.html">Curriculum</a><a href="demo.html">Book a demo</a></div>
+        <div class="footer-link-group"><h2>Contact</h2><a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a><a href="tel:+919911966706">+91 99119 66706</a><a href="contact.html">Get in touch</a></div>
       </nav>
     </div>
-
     <div class="footer-bottom">
       <small>© 2026 Chess AnyTime</small>
-      <nav class="footer-socials" aria-label="Social media">
-        <a href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://instagram.com/chessanytime" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://lichess.org/@/Shubham-Singh" target="_blank" rel="noopener noreferrer">Lichess</a>
-        <a href="https://twitch.tv/chessanytime" target="_blank" rel="noopener noreferrer">Twitch</a>
-        <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a>
-      </nav>
-      <a class="footer-top-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      <nav class="footer-socials" aria-label="Social media"><a href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://instagram.com/chessanytime" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://lichess.org/@/Shubham-Singh" target="_blank" rel="noopener noreferrer">Lichess</a><a href="https://twitch.tv/chessanytime" target="_blank" rel="noopener noreferrer">Twitch</a><a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a></nav>
+      <a class="footer-top-link" href="#top">Back to top ↑</a>
     </div>
   </div>
 </footer>
@@ -142,6 +118,9 @@
 <script src="js/header.js"></script>
 <script src="js/intro.js"></script>
 <script src="js/home-animation.js"></script>
-<script src="js/life-skills.js"></script>
+<!-- <script src="js/life-skills.js"></script> -->
 <script src="js/init.js"></script>
+<a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)">
+<svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg>
+<span>Join WhatsApp</span></a>
 </body></html>

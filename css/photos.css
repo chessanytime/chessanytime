@@ -16,11 +16,17 @@
 @media (max-width:740px) { .community-photos {grid-template-columns:repeat(2,minmax(0,1fr));} }
 @media (max-width:520px) { .photo-stories,.event-photos {grid-template-columns:1fr;} }
 
-#community .community-intro { display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:20px; background:#172941; color:#fff; border-radius:14px; overflow:hidden; }
+#community .community-intro { position:relative;isolation:isolate;display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:20px; background:linear-gradient(130deg,#fff8ec,#f1e4cd); color:#17283b; border-radius:14px; overflow:hidden; }
+#community .community-intro::before{content:"";position:absolute;left:-35px;bottom:-85px;width:clamp(260px,29vw,420px);aspect-ratio:6/7;background:url("../images/academy-queen-watermark.svg") center/contain no-repeat;opacity:.07;transform:rotate(-12deg);pointer-events:none;z-index:-1}
+.community-bookmark{position:absolute;top:0;right:22px;width:44px;height:65px;display:grid;place-items:center;padding-bottom:12px;background:#e9b77f;color:#23354a;font:2rem/1 Georgia,serif;clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);pointer-events:none}
+#community .community-intro .hub-kicker{color:#856039}
 .community-intro > div { padding:clamp(20px,4vw,48px); }
-#community .community-intro h2 { color:#fff; margin:0; }
+#community .community-intro h2 { color:#17283b; margin:16px 0 0;font-size:clamp(2.1rem,3.5vw,3.7rem)!important;letter-spacing:-.035em; }
 .community-intro p { margin:10px 0 20px; font-size:1.1rem; }
 .community-intro img { display:block; width:100%; height:auto; max-height:none; object-fit:contain; object-position:center; align-self:center; }
+.community-hero-photo{width:min(100%,600px);margin:0 auto;padding:24px;min-width:0}
+#community .community-hero-photo img{aspect-ratio:4/3;border-radius:12px;box-shadow:0 12px 28px #59462a20}
+.community-hero-photo figcaption{margin-top:12px;text-align:center;color:#705d44;font-size:.85rem}
 .community-album, .community-event { margin-top:clamp(28px,5vw,52px); }
 .community-album h3, .community-event h3 { font-size:clamp(1.35rem,3vw,1.85rem); margin:0 0 14px; }
 .album-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(10px,2vw,20px); }
@@ -28,9 +34,28 @@
 .album-grid img { display:block; width:100%; height:auto; aspect-ratio:4/3; object-fit:cover; object-position:center 40%; border-radius:8px; }
 .community-album:nth-of-type(2) > .album-grid img { aspect-ratio:3/4; }
 .album-grid figcaption { margin-top:6px; font-size:1rem; }
+.album-grid img.photo-uncropped{object-fit:contain;background:var(--bg2)}
 .community-album summary { width:fit-content; padding:14px 0; cursor:pointer; font-weight:600; }
 .community-event { display:flex; align-items:center; gap:clamp(16px,3vw,36px); padding:16px; border:1px solid var(--ln); border-radius:12px; }
 .community-event img { display:block; width:32%; max-width:220px; height:auto; border-radius:6px; }
+.meetup-archive{margin-top:clamp(36px,5vw,64px)}
+.meetup-intro{max-width:65ch;color:var(--mut)}
+.meetup-entry{margin-top:24px;padding:clamp(16px,2.5vw,30px);border:1px solid var(--ln);border-radius:16px;background:var(--bg2);scroll-margin-top:110px}
+.meetup-entry-heading{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+.meetup-entry-heading>div{min-width:0}
+.meetup-entry-heading h3{font-size:clamp(1.35rem,2.2vw,1.8rem)!important;margin:10px 0}
+.meetup-entry-heading p{margin:0;color:var(--mut);overflow-wrap:anywhere}
+.meetup-entry-heading>a{flex:none;font-size:.9rem;text-underline-offset:4px}
+.meetup-photo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.meetup-photo-grid-pair{grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;margin-inline:auto}
+.meetup-photo-grid figure{margin:0;min-width:0}
+.meetup-photo-grid figure>a{display:block;border-radius:8px}
+.meetup-photo-grid img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:contain;background:var(--bg);border-radius:8px}
+.meetup-photo-grid figcaption{margin-top:10px;font-size:.9rem;line-height:1.6}
+.meetup-photo-grid a:focus-visible{outline:3px solid var(--ac2);outline-offset:4px}
+.meetup-photo-grid figcaption a{text-underline-offset:3px}
+@media(max-width:1000px){.meetup-photo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.meetup-entry-heading{align-items:flex-start;flex-direction:column}}
+@media(max-width:650px){.meetup-photo-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:650px) {
   #community .community-intro { grid-template-columns:1fr; gap:0; }
   .community-intro img { max-height:none; }

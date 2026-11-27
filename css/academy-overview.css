@@ -1,0 +1,28 @@
+.hub-page-intro.academy-overview{position:relative;isolation:isolate;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:center}
+.academy-overview::before{content:"";position:absolute;left:-28px;bottom:-70px;width:clamp(230px,26vw,390px);aspect-ratio:6/7;background:url("../images/academy-queen-watermark.svg") center/contain no-repeat;opacity:.075;transform:rotate(-12deg);pointer-events:none;z-index:-1}
+.academy-overview::after{content:"";position:absolute;left:39%;top:-100px;width:clamp(180px,19vw,280px);aspect-ratio:6/7;background:url("../images/academy-queen-watermark.svg") center/contain no-repeat;opacity:.035;transform:rotate(16deg);pointer-events:none;z-index:-1}
+.academy-overview-copy h1{font-size:clamp(2.2rem,3.5vw,3.8rem)!important;line-height:1.08}
+.academy-overview-copy>p{font-size:1.05rem;line-height:1.75}
+.academy-overview-copy .hub-kicker{font-size:.7rem;color:var(--ac)}
+.academy-overview-copy .hub-actions{gap:10px}
+.academy-overview-copy .hub-btn{font-size:.9rem;padding:11px 15px}
+.academy-benefits{padding:24px;min-width:0;border:1px solid #e9b77f44;border-radius:16px;background:linear-gradient(135deg,#1b2b3e,#102032);color:#f6eee2;scroll-margin-top:100px}
+#about .academy-overview #chess-benefits{margin:0}
+.academy-benefits-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
+.academy-benefits-heading h2{font-size:1.1rem!important;margin:0;color:#f6eee2}
+.academy-benefit-counter{flex:none;color:#d4b37d;font-size:.75rem;letter-spacing:.12em}
+.academy-benefit-detail{padding:22px;min-height:218px;border:1px solid #f8ead0;border-radius:11px;background:linear-gradient(135deg,#fff2d8,#ecd9b3);color:#32261a}
+.academy-benefit-symbol{display:grid;place-items:center;width:45px;height:45px;margin-bottom:13px;border-radius:50%;background:#192a3d;color:#e9b77f;font:2rem/1 Georgia,serif}
+.academy-benefit-detail h3{font-size:clamp(1.3rem,1.7vw,1.65rem)!important;line-height:1.2;margin:0 0 9px;color:#32261a}
+.academy-benefit-detail p{font-size:.95rem;line-height:1.7;margin:0;color:#574736;max-width:none}
+.academy-benefit-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:18px}
+.academy-benefit-options button{min-height:39px;padding:8px 6px;border:1px solid #c5d2e52e;border-radius:7px;background:#ffffff06;color:#dbe5ef;font:600 .8rem Figtree,sans-serif;cursor:pointer}
+.academy-benefit-options button:hover{background:#ffffff12}
+.academy-benefit-options button[aria-pressed="true"]{border-color:#e9b77f;background:#e9b77f;color:#18283a}
+.academy-benefit-options button:focus-visible{outline:3px solid #a9d0f2;outline-offset:3px}
+.academy-benefit-playback{display:block;margin:12px 0 0 auto;padding:7px 9px;border:1px solid #c5d2e52e;border-radius:7px;background:transparent;color:#d4b37d;font:600 .75rem Figtree,sans-serif;cursor:pointer}
+.academy-benefit-playback[hidden]{display:none}
+.academy-benefit-playback:hover{background:#ffffff12}
+.academy-benefit-playback:focus-visible{outline:3px solid #a9d0f2;outline-offset:3px}
+@media(max-width:1000px){.hub-page-intro.academy-overview{grid-template-columns:minmax(0,1fr)}.academy-benefits{max-width:660px;width:100%}.academy-benefit-detail{min-height:200px}}
+@media(max-width:520px){.academy-benefits{padding:18px}.academy-benefits-heading{gap:8px}.academy-benefits-heading h2{font-size:1rem!important}.academy-benefit-detail{padding:18px;min-height:240px}.academy-benefit-options{grid-template-columns:repeat(2,minmax(0,1fr))}.academy-benefit-options button{min-height:42px}}

@@ -16,7 +16,8 @@ function renderMe() {
   const header = document.getElementById("tl");
   const link = document.createElement("a");
   link.href = me ? "account.html" : "login.html";
-  link.textContent = me ? me.username + " \u00b7 My games" : "Log in with Lichess";
+  link.textContent = me ? "My games" : "Log in";
+  link.setAttribute("aria-label", me ? me.username + ": view your games" : "Log in with Lichess");
   header.replaceChildren(link);
 }
 

@@ -4,175 +4,95 @@
 <title>Chess AnyTime Academy | Chess AnyTime</title>
 <meta name="description" content="Personalised chess coaching, game analysis and a structured learning path at Chess AnyTime Academy.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&amp;family=Figtree:wght@400;500;600&amp;family=Poppins:wght@500;600;700;800&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/lichess-login.css">
-<link rel="stylesheet" href="css/curriculum.css">
-<link rel="stylesheet" href="css/photos.css">
-<link rel="stylesheet" href="css/chess-experience.css">
+<link rel="stylesheet" href="css/site-sections.css">
+<link rel="stylesheet" href="css/academy-overview.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
 </head>
 <body id="top" data-page="about">
-<header><div class="w"><nav>
-<a class="brand" href="index.html"><img src="images/brand-logo.png" alt=""><span>Chess AnyTime<small>Chess community</small></span></a>
-<a class="l" href="index.html" data-p="home">Home</a><a class="l" href="community.html" data-p="community">Community</a><a class="l" href="events.html" data-p="tournaments">Events</a><details class="resources-menu"><summary>Resources <span aria-hidden="true">▾</span></summary><div class="resources-dropdown"><a href="puzzles.html" data-p="puzzles">Daily puzzle</a><a href="blog.html" data-p="blog">Articles</a><a href="videos.html" data-p="videos">Chess videos</a></div></details><a class="l" href="academy.html" data-p="about">Academy</a><a class="l" href="contact.html" data-p="contact">Contact</a>
-<div class="header-utility" id="tl"><a href="login.html">Log in with Lichess</a></div><a class="btn ca-join-nav" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp</a></nav></div></header>
-<main class="pg" id="about"><div class="w"><div class="hub-page-intro"><span class="hub-kicker">CHESS ANYTIME ACADEMY</span><h1>Grow your game with guidance.</h1><p>Our academy is the structured learning arm of Chess AnyTime. Coach Shubham works with players rated below 2100 using positions from their own games.</p><div class="hub-actions"><a class="hub-btn primary" href="curriculum.html">Explore the curriculum →</a><a class="hub-btn secondary" href="demo.html">Book a demo class</a></div></div><div class="grid"><div class="card"><h3>Personalised lessons</h3><p class="m">One-to-one lessons at your level.</p></div><div class="card"><h3>Game analysis</h3><p class="m">Find the turning point in your last game.</p></div><div class="card"><h3>Endgames and strategy</h3><p class="m">Practise finishes you can use in a game.</p></div></div></div><!-- Chess AnyTime benefits: autoplay 3D deck with solar-system board -->
-<section class="cab" id="chess-benefits" aria-label="Benefits of playing chess">
-<style>
-.cab{--gold:#f2b94b;--ivory:#fff4dc;color:var(--ivory);background:radial-gradient(ellipse at 18% 35%,#382713 0,#17110b 48%,#0d0b08 100%);padding:100px 24px 120px;box-sizing:border-box;overflow:clip}
-.cab *{box-sizing:border-box}.cab-wrap{max-width:1440px;margin:0 auto}
-.cab-head{max-width:820px;margin:0 auto 54px;text-align:center}.cab-head h2{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-weight:800;font-size:clamp(2.6rem,5.5vw,4.6rem);line-height:1.02;letter-spacing:-.035em;margin:0 0 16px;color:var(--ivory)}.cab-head p{margin:0 auto;color:#e0cfa9;font-size:clamp(1.05rem,1.8vw,1.3rem);max-width:36em;line-height:1.6}
-.cab-experience{display:grid;grid-template-columns:minmax(390px,1.12fr) minmax(450px,.88fr);gap:clamp(28px,4vw,64px);align-items:start}
-.cab-visual-column{position:relative;min-height:630px;display:flex;align-items:center;justify-content:center}.cab-orbit-scene{position:relative;width:min(100%,590px);aspect-ratio:1;display:grid;place-items:center;isolation:isolate}
-.cab-orbit{position:absolute;z-index:1;border:1px solid rgba(242,185,75,.24);border-radius:50%;animation:cab-spin 26s linear infinite}.cab-orbit.one{width:78%;height:78%}.cab-orbit.two{width:98%;height:98%;border-style:dashed;animation-duration:42s;animation-direction:reverse}.cab-orbit:before,.cab-orbit:after{content:"";position:absolute;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 24px #f2b94b99}.cab-orbit:before{top:12%;left:17%}.cab-orbit:after{right:9%;bottom:22%;width:8px;height:8px}
-.cab-solar-system{position:absolute;inset:-5%;z-index:0;pointer-events:none;filter:drop-shadow(0 0 10px #e6a63b22)}.cab-solar-sun{position:absolute;left:50%;top:50%;width:24px;height:24px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,#fff4b0 0 18%,#f4b544 42%,#d87920 72%,transparent 74%);box-shadow:0 0 22px #ffbd4a99,0 0 48px #f2a43b55}.cab-planet-orbit{position:absolute;left:50%;top:50%;border:1px solid #f3c77a38;border-radius:50%;transform:translate(-50%,-50%);animation:cab-planet-spin linear infinite}.cab-planet-orbit.a{width:86%;height:86%;animation-duration:18s}.cab-planet-orbit.b{width:108%;height:108%;animation-duration:27s;animation-direction:reverse}.cab-planet-orbit.c{width:128%;height:128%;animation-duration:38s}.cab-planet{position:absolute;left:50%;top:-7px;width:13px;height:13px;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fff0bf,#e3a33d 48%,#8a4e1c 100%);box-shadow:0 0 13px #f2b94b88}.cab-planet-orbit.b .cab-planet{width:18px;height:18px;top:auto;bottom:10%;background:radial-gradient(circle at 30% 28%,#d7efff,#6c9cba 48%,#24445b 100%);box-shadow:0 0 12px #72b9e988}.cab-planet-orbit.c .cab-planet{width:10px;height:10px;top:50%;left:auto;right:-5px;background:radial-gradient(circle at 30% 28%,#ffe2d0,#d56f50 52%,#71351f 100%)}
-.cab-board{position:relative;z-index:3;width:72%;aspect-ratio:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);transform:rotate(-8deg);border:10px solid #6b4828;border-radius:15px;box-shadow:0 32px 76px #000b,0 0 0 1px #f2b94b66;overflow:hidden;animation:cab-float 5s ease-in-out infinite}.cab-board span{display:grid;place-items:center;font-family:Georgia,serif;font-size:clamp(2.3rem,5.5vw,4.8rem);line-height:1}.cab-board span:nth-child(odd){background:#e9d5ad;color:#2b1b0d}.cab-board span:nth-child(even){background:#79502d;color:#fff0d0}.cab-board span:nth-child(5),.cab-board span:nth-child(10),.cab-board span:nth-child(15){background:#f2b94b;color:#24160d}
-.cab-orbit-caption{position:absolute;bottom:2%;left:50%;transform:translateX(-50%);white-space:nowrap;color:#d6bd94;font-size:11px;font-weight:700;letter-spacing:.2em}.cab-visual-note{position:absolute;top:5%;right:-1%;padding:13px 17px;border:1px solid #f2b94b55;background:#20180fee;border-radius:12px;color:#f6dfb9;font-size:12px;letter-spacing:.08em;box-shadow:0 12px 30px #0007;animation:cab-note 4s ease-in-out infinite}.cab-visual-note b{display:block;color:var(--gold);font-size:18px;letter-spacing:0;margin-top:3px}
-.cab-progress{position:absolute;bottom:12%;left:0;display:flex;align-items:center;gap:10px;color:#e4d2b0;font-size:12px;font-weight:700;letter-spacing:.12em}.cab-progress-track{width:112px;height:4px;background:#ffffff2b;border-radius:9px;overflow:hidden}.cab-progress-track i{display:block;width:0;height:100%;background:var(--gold);transition:width .35s ease}
-.cab-deck-column{position:relative;min-width:0}.cab-scroll-track{position:relative;height:auto!important}.cab-stage{position:relative;height:72vh;min-height:520px;display:flex;align-items:center;justify-content:center;perspective:900px;perspective-origin:50% 42%;transform-style:preserve-3d}.cab-deck{position:relative;width:100%;max-width:700px;height:88%;max-height:600px;margin:0 auto;transform-style:preserve-3d}
-.cab-card{--bg:#ecd9b0;--fg:#2a170b;--disc:#1a110a;--piece:#fff4dc;position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:clamp(38px,4.4vw,62px);border-radius:30px;background:linear-gradient(145deg,#f4e6c9,var(--bg));color:var(--fg);border:1px solid #fff9;box-shadow:0 42px 100px #000b,0 10px 24px #0007;opacity:0;visibility:hidden;pointer-events:none;transform:translate3d(0,140px,-220px) rotateY(-22deg) rotateX(-9deg) scale(.84);transform-origin:50% 50%;transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity;overflow:hidden}.cab-card:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,#ffffff30,transparent 42%,#00000008)}.cab-card:nth-child(even){--bg:#8b5a2b;--fg:#fff4dc;--disc:#f2b94b;--piece:#2a170b;background:linear-gradient(145deg,#a66e38,#75471f)}.cab-card:after{content:"";position:absolute;inset:10px -5px -7px 10px;border-radius:30px;border:1px solid #ffffff35;transform:translateZ(-18px);box-shadow:18px 20px 0 -8px #0005;pointer-events:none}.cab-card.is-visible{visibility:visible}
-.cab-card .cab-card-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:clamp(25px,3.5vw,38px)}.cab-card .cab-index{font-size:15px!important;font-weight:800;letter-spacing:.2em;opacity:.85}.cab-card .cab-disc{width:clamp(84px,8vw,112px);height:clamp(84px,8vw,112px);flex:0 0 auto;border-radius:50%;background:var(--disc);display:grid;place-items:center;box-shadow:0 14px 30px #0004}.cab-card .cab-disc span{font-family:Georgia,serif;font-size:clamp(3.5rem,5.4vw,4.8rem);line-height:1;color:var(--piece);transform:translateY(-4px)}.cab-card.benefit-four .cab-disc span{transform:translateY(5px)}.cab-card h3{position:relative;z-index:1;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(3.2rem,5vw,4.6rem)!important;line-height:1.02;letter-spacing:-.04em;margin:0 0 24px;color:inherit;max-width:12ch}.cab-card p{position:relative;z-index:1;font-size:clamp(1.45rem,2vw,1.7rem)!important;line-height:1.55;max-width:31em;margin:0;color:inherit;opacity:1}.cab-card .cab-card-foot{position:relative;z-index:1;margin-top:clamp(30px,4vw,44px);display:flex;align-items:center;gap:12px;font-size:13px!important;font-weight:800;letter-spacing:.15em;opacity:.82}.cab-card .cab-card-foot:before{content:"";width:36px;height:1px;background:currentColor}.cab-card.last{--bg:#f2b94b;--fg:#24160d;--disc:#24160d;--piece:#f2b94b;background:linear-gradient(145deg,#ffda8a,#f2b94b)}
-@keyframes cab-spin{to{transform:rotate(360deg)}}@keyframes cab-planet-spin{to{transform:translate(-50%,-50%) rotate(360deg)}}@keyframes cab-float{0%,100%{translate:0 0}50%{translate:0 -15px}}@keyframes cab-note{0%,100%{translate:0 0}50%{translate:0 -9px}}
-@media(max-width:900px){.cab{padding:78px 18px 96px}.cab-experience{grid-template-columns:1fr;gap:8px}.cab-visual-column{min-height:390px;height:390px}.cab-orbit-scene{width:380px;max-width:88vw}.cab-board{width:70%}.cab-orbit-caption{bottom:1%}.cab-visual-note{top:2%;right:3%}.cab-progress{bottom:10%;left:3%}.cab-stage{height:72vh;min-height:500px}.cab-deck{width:94%;height:88%;max-height:560px}.cab-card{padding:34px}.cab-card h3{font-size:clamp(2.8rem,7vw,4rem)!important}.cab-card p{font-size:clamp(1.35rem,3vw,1.6rem)!important}}
-@media(max-width:520px){.cab-head{margin-bottom:30px}.cab-visual-column{min-height:300px;height:300px}.cab-orbit-scene{width:290px}.cab-solar-system{inset:-2%}.cab-board{width:70%;border-width:7px}.cab-board span{font-size:clamp(2.1rem,9vw,3rem)}.cab-visual-note{padding:9px 11px;font-size:10px;right:-2%}.cab-visual-note b{font-size:15px}.cab-progress{bottom:8%;left:-1%;font-size:10px}.cab-progress-track{width:82px}.cab-stage{height:66vh;min-height:460px}.cab-deck{width:96%;height:91%}.cab-card{padding:26px 23px;border-radius:22px}.cab-card .cab-card-top{margin-bottom:24px}.cab-card .cab-disc{width:70px;height:70px}.cab-card .cab-disc span{font-size:3.2rem}.cab-card h3{font-size:clamp(2.45rem,10vw,3.25rem)!important;margin-bottom:18px}.cab-card p{font-size:1.28rem!important;line-height:1.55}.cab-card .cab-index{font-size:12px!important}.cab-card .cab-card-foot{margin-top:25px;font-size:11px!important}}
-@media(prefers-reduced-motion:reduce){.cab-orbit,.cab-board,.cab-visual-note,.cab-planet-orbit{animation:none!important}.cab-progress-track i{transition:none!important}.cab-card{transition:none!important}}
-</style>
-<div class="cab-wrap">
-  <div class="cab-head"><h2>What chess does for you</h2><p>Six ways to develop your thinking through chess, one thoughtful move at a time.</p></div>
-  <div class="cab-experience">
-    <div class="cab-visual-column" aria-hidden="true"><div class="cab-orbit-scene">
-      <div class="cab-solar-system"><div class="cab-solar-sun"></div><div class="cab-planet-orbit a"><i class="cab-planet"></i></div><div class="cab-planet-orbit b"><i class="cab-planet"></i></div><div class="cab-planet-orbit c"><i class="cab-planet"></i></div></div>
-      <div class="cab-orbit one"></div><div class="cab-orbit two"></div>
-      <div class="cab-board"><span>♜</span><span>♞</span><span>♝</span><span>♛</span><span>♟</span><span>♙</span><span>♘</span><span>♗</span><span>♕</span><span>♖</span><span>♙</span><span>♟</span><span>♞</span><span>♗</span><span>♖</span><span>♔</span></div>
-      <div class="cab-visual-note">A LITTLE THINKING<b>BIG GROWTH</b></div><div class="cab-progress"><span id="cab-progress-label">01 / 06</span><span class="cab-progress-track"><i id="cab-progress-fill"></i></span></div><div class="cab-orbit-caption">LEARN · THINK · IMPROVE</div>
-    </div></div>
-    <div class="cab-deck-column"><div class="cab-scroll-track" id="cab-scroll-track"><div class="cab-stage" id="cab-stage"><div class="cab-deck" id="cab-deck" aria-live="polite"></div></div></div></div>
-  </div>
+<header><div class="w"><nav aria-label="Main navigation">
+<a class="brand" href="index.html" aria-label="Chess AnyTime home"><img src="images/brand-logo.png" width="44" height="44" alt="" decoding="async"><span>Chess AnyTime<small>Chess community</small></span></a>
+<button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg><span>Menu</span></button>
+<div class="primary-navigation" id="primary-navigation">
+  <a class="l" href="community.html" data-p="community">Community</a>
+  <a class="l" href="academy.html" data-p="about">Academy</a>
+  <details class="resources-menu"><summary>Explore <span aria-hidden="true">▾</span></summary><div class="resources-dropdown">
+    <span class="nav-group-label">Play &amp; discover</span>
+    <a href="events.html" data-p="tournaments">Events &amp; tournaments</a>
+    <a href="puzzles.html" data-p="puzzles">Daily puzzle</a>
+    <a href="blog.html" data-p="blog">Chess articles</a>
+    <a href="videos.html" data-p="videos">Video lessons</a>
+    <span class="nav-group-label">Academy &amp; support</span>
+    <a href="curriculum.html" data-p="programs">Curriculum</a>
+    <a href="demo.html" data-p="demo">Book a demo</a>
+    <a href="contact.html" data-p="contact">Contact</a>
+  </div></details>
 </div>
-<script>
-(function(){
-  var root=document.getElementById('chess-benefits'),deck=root&&root.querySelector('#cab-deck');
-  if(!root||!deck)return;
-  var pieces=['♞','♜','♟','♗','♝','♙'];
-  var items=[
-    ['Sharper memory','Remember piece patterns, tactical ideas and details from positions you have seen before.'],
-    ['Deeper focus','Stay with a position, notice the small details and give one problem your full attention.'],
-    ['Smarter planning','Compare candidate moves and think through how your opponent is likely to respond.'],
-    ['Better problem-solving','Spot threats, calculate different options and work towards a practical solution.'],
-    ['More creativity','Find unexpected ideas and discover imaginative ways to use your pieces.'],
-    ['Real patience','Take your time, evaluate the position and avoid rushing into the first move you see.']
-  ];
-  var cards=items.map(function(item,i){
-    var card=document.createElement('article');
-    card.className='cab-card'+(i===5?' last':'')+(i===3?' benefit-four':'');
-    card.setAttribute('aria-label','Benefit '+(i+1)+': '+item[0]);
-    card.setAttribute('aria-hidden','true');
-    card.innerHTML='<div class="cab-card-top"><span class="cab-index">BENEFIT / 0'+(i+1)+'</span><div class="cab-disc"><span>'+pieces[i]+'</span></div></div><h3>'+item[0]+'</h3><p>'+item[1]+'</p><div class="cab-card-foot">CHESS ANYTIME · '+String(i+1).padStart(2,'0')+' / 06</div>';
-    deck.appendChild(card);return card;
-  });
-  var firstClone=cards[0].cloneNode(true);firstClone.classList.add('cab-loop-clone');firstClone.setAttribute('aria-hidden','true');deck.appendChild(firstClone);cards.push(firstClone);
-  var label=root.querySelector('#cab-progress-label'),fill=root.querySelector('#cab-progress-fill');
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var current=0,target=0,raf=0;
-  function render(){
-    cards.forEach(function(card,i){
-      var delta=i-current,distance=Math.min(1.35,Math.abs(delta)),y,z,ry,rx,scale,opacity;
-      if(delta>=0){y=distance*116;z=-distance*190;ry=-distance*22;rx=-distance*10;scale=1-distance*.105;opacity=1-distance*.34;}
-      else{y=-distance*148;z=-distance*235;ry=distance*25;rx=distance*12;scale=1-distance*.12;opacity=1-distance*.38;}
-      if(Math.abs(delta)>1.12)opacity=0;
-      card.style.transform='translate3d(0,'+y+'px,'+z+'px) rotateY('+ry+'deg) rotateX('+rx+'deg) scale('+scale+')';
-      card.style.opacity=String(opacity);card.style.zIndex=String(200-Math.round(Math.abs(delta)*20));
-      card.classList.toggle('is-visible',Math.abs(delta)<1.18);
-      card.setAttribute('aria-hidden',Math.abs(delta)<.52&&i!==6?'false':'true');
-      card.style.pointerEvents=Math.abs(delta)<.48&&i!==6?'auto':'none';
-    });
-    var shown=(Math.round(current)%6)+1;if(label)label.textContent=String(shown).padStart(2,'0')+' / 06';
-    if(fill)fill.style.width=(current>=5?100:current/5*100)+'%';
-  }
-  function animate(){
-    raf=0;current+=(target-current)*.12;
-    if(Math.abs(target-current)<.001){current=target;if(target===6){current=0;target=0;}render();return;}
-    render();raf=requestAnimationFrame(animate);
-  }
-  function showNext(){
-    if(raf)return;target=target>=6?0:target+1;
-    if(reduced){current=target;if(current===6)current=target=0;render();return;}
-    raf=requestAnimationFrame(animate);
-  }
-  render();window.setInterval(showNext,4800);
-})();
-</script>
+<div class="header-utility" id="tl"><a href="login.html" aria-label="Log in with Lichess">Log in</a></div>
+</nav></div></header>
+<main class="pg" id="about"><div class="w"><div class="hub-page-intro academy-overview">
+  <div class="academy-overview-copy"><span class="hub-kicker">CHESS ANYTIME ACADEMY</span><h1>Grow your game with guidance.</h1><p>Our academy is the structured learning arm of Chess AnyTime. Coach Shubham works with players rated below 2100 using positions from their own games.</p><div class="hub-actions"><a class="hub-btn primary" href="demo.html">Request a demo</a><a class="hub-btn secondary" href="curriculum.html">Explore the curriculum</a></div></div>
+  <section class="academy-benefits" id="chess-benefits" aria-labelledby="academy-benefits-title">
+    <div class="academy-benefits-heading"><h2 id="academy-benefits-title">Beyond the board</h2><span class="academy-benefit-counter" id="academy-benefit-counter">01 / 06</span></div>
+    <div class="academy-benefit-detail" id="academy-benefit-detail" role="status" aria-live="polite" aria-atomic="true"><span class="academy-benefit-symbol" id="academy-benefit-symbol" aria-hidden="true">♞</span><h3 id="academy-benefit-title">Sharper memory</h3><p id="academy-benefit-description">Remember piece patterns, tactical ideas and details from positions you have seen before.</p></div>
+    <div class="academy-benefit-options" role="group" aria-label="Explore the benefits of playing chess">
+      <button type="button" data-benefit="memory" aria-pressed="true">Memory</button>
+      <button type="button" data-benefit="focus" aria-pressed="false">Focus</button>
+      <button type="button" data-benefit="planning" aria-pressed="false">Planning</button>
+      <button type="button" data-benefit="solving" aria-pressed="false">Problem-solving</button>
+      <button type="button" data-benefit="creativity" aria-pressed="false">Creativity</button>
+      <button type="button" data-benefit="patience" aria-pressed="false">Patience</button>
+    </div>
+    <button type="button" class="academy-benefit-playback" id="academy-benefit-playback" hidden>Pause rotation</button>
+  </section>
+</div><div class="grid"><div class="card"><h3>Personalised lessons</h3><p class="m">One-to-one lessons at your level.</p></div><div class="card"><h3>Game analysis</h3><p class="m">Find the turning point in your last game.</p></div><div class="card"><h3>Endgames and strategy</h3><p class="m">Practise finishes you can use in a game.</p></div></div>
+<section class="coach-profile" id="coach-profile" aria-labelledby="coach-profile-title">
+  <div class="coach-avatar" aria-hidden="true">♞</div>
+  <div><span class="hub-kicker">PERSONALISED CHESS GUIDANCE</span><h2 id="coach-profile-title">Meet Coach Shubham</h2><p>Coach Shubham works with players rated below 2100 through one-to-one lessons and analysis of their own games. The focus is on understanding turning points, practising tactics and building practical endgame and strategy skills.</p>
+    <div class="coach-focus" aria-label="Coaching focus"><span>Your own games</span><span>Tactics &amp; calculation</span><span>Endgames &amp; strategy</span><span>Four learning levels</span></div>
+    <div class="hub-actions"><a class="hub-btn primary" href="demo.html">Request a demo</a><a class="hub-btn secondary" href="contact.html">Ask the coach</a></div>
+  </div>
 </section>
+<section class="academy-faq" id="academy-faq" aria-labelledby="academy-faq-title">
+  <h2 id="academy-faq-title">Before you join</h2><p>A few practical answers about coaching and the community.</p>
+  <details><summary>Which level should I choose?</summary><p>The curriculum has Beginner, Intermediate, Advanced 1 and Advanced 2 levels. Ask the coach to help choose a suitable starting point based on your current experience. See the <a href="curriculum.html">course curriculum</a> for each level's learning objectives.</p></details>
+  <details><summary>How are lessons arranged?</summary><p>The academy offers personalised one-to-one coaching. Beginner and Intermediate classes are 45 minutes; Advanced 1 and Advanced 2 classes are 50 minutes. Parents and the coach agree on class times. Contact the coach to confirm the available lesson format and schedule before booking.</p></details>
+  <details><summary>What are the fees?</summary><p>Current fees are not published on this website. <a href="contact.html">Ask about fees and availability</a> before making a booking. The curriculum lists packages of 24 classes, with a maximum validity of four months per package.</p></details>
+  <details><summary>How do I request a demo class?</summary><p>Complete the <a href="demo.html">demo request form</a>. It opens WhatsApp so you can send your request to the coaching team. The coach will confirm timing and any applicable demo terms; submitting the form does not automatically confirm a booking.</p></details>
+  <details><summary>Do I need coaching to join the community?</summary><p>No. The community welcomes all skill levels. You can join discussions, explore free puzzles and videos, and follow event announcements without enrolling in the academy. <a href="community.html">Explore the community</a>.</p></details>
+</section>
+</div>
 
 <div class="w"><div class="band"><div><h3>Explore the learning path</h3><p>Four levels, structured lessons and practice.</p></div><a class="btn" href="curriculum.html">View curriculum</a></div></div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
-    <section class="footer-cta" aria-labelledby="footer-cta-title">
-      <div class="footer-cta-copy">
-        <span class="footer-kicker">YOUR NEXT MOVE STARTS HERE</span>
-        <h2 id="footer-cta-title">Ready to make your next move?</h2>
-        <p>Find your people, play more chess and be part of a community that loves the game.</p>
-      </div>
-      <div class="footer-cta-actions">
-        <a class="footer-cta-primary" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join the WhatsApp community <span aria-hidden="true">↗</span></a>
-        <a class="footer-cta-secondary" href="events.html">Explore events</a>
-      </div>
-    </section>
-
     <div class="footer-main">
       <div class="footer-brand">
-        <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home">
-          <span class="footer-brand-mark" aria-hidden="true">♞</span>
-          <span>Chess <b>AnyTime</b></span>
-        </a>
-        <p>A home for chess enthusiasts: tournaments, meetups, practice, resources and a dedicated academy.</p>
-        <span class="footer-brand-note">LEARN · PLAY · IMPROVE · TOGETHER</span>
+        <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home"><span class="footer-brand-mark" aria-hidden="true">♞</span><span>Chess <b>AnyTime</b></span></a>
+        <p>Play, learn and connect through chess.</p>
+        <a class="footer-community-link" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
       </div>
-
       <nav class="footer-nav" aria-label="Footer navigation">
-        <div class="footer-link-group">
-          <h2>Community</h2>
-          <a href="community.html">Meetups &amp; practice</a>
-          <a href="events.html">Events &amp; tournaments</a>
-          <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp community</a>
-          <a href="contact.html">Get in touch</a>
-        </div>
-        <div class="footer-link-group">
-          <h2>Learn &amp; play</h2>
-          <a href="puzzles.html">Chess puzzles</a>
-          <a href="videos.html">Video lessons</a>
-          <a href="blog.html">Chess articles</a>
-          <a href="academy.html">Chess AnyTime Academy</a>
-          <a href="curriculum.html">Curriculum</a>
-          <a href="demo.html">Book a demo class</a>
-        </div>
-        <div class="footer-link-group">
-          <h2>Get in touch</h2>
-          <a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a>
-          <a href="tel:+919911966706">+91 99119 66706</a>
-          <a href="contact.html">Contact</a>
-        </div>
+        <div class="footer-link-group"><h2>Explore</h2><a href="community.html">Community</a><a href="events.html">Events</a><a href="academy.html">Academy</a></div>
+        <div class="footer-link-group"><h2>Learn &amp; play</h2><a href="puzzles.html">Daily puzzle</a><a href="videos.html">Video lessons</a><a href="blog.html">Articles</a><a href="curriculum.html">Curriculum</a><a href="demo.html">Book a demo</a></div>
+        <div class="footer-link-group"><h2>Contact</h2><a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a><a href="tel:+919911966706">+91 99119 66706</a><a href="contact.html">Get in touch</a></div>
       </nav>
     </div>
-
     <div class="footer-bottom">
       <small>© 2026 Chess AnyTime</small>
-      <nav class="footer-socials" aria-label="Social media">
-        <a href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener noreferrer">YouTube</a>
-        <a href="https://instagram.com/chessanytime" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://lichess.org/@/Shubham-Singh" target="_blank" rel="noopener noreferrer">Lichess</a>
-        <a href="https://twitch.tv/chessanytime" target="_blank" rel="noopener noreferrer">Twitch</a>
-        <a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-        <a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a>
-      </nav>
-      <a class="footer-top-link" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      <nav class="footer-socials" aria-label="Social media"><a href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://instagram.com/chessanytime" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://lichess.org/@/Shubham-Singh" target="_blank" rel="noopener noreferrer">Lichess</a><a href="https://twitch.tv/chessanytime" target="_blank" rel="noopener noreferrer">Twitch</a><a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a></nav>
+      <a class="footer-top-link" href="#top">Back to top ↑</a>
     </div>
   </div>
 </footer>
 <script src="js/main.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/header.js"></script>
+<script src="js/academy-benefits.js"></script>
 <script src="js/init.js"></script>
+<a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)">
+<svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg>
+<span>Join WhatsApp</span></a>
 </body></html>
