@@ -1,19 +1,19 @@
 let g,cur,idx=0,sel,last,flip=false,done=false,failed=false,hintSq;
-let boardMarks=[],activeGesture=null,puzzleWaiting=false,puzzleReplyTimer=null,puzzleGeneration=0,dailyRequest=null;
+let boardMarks=[],userBoardMarks=[],activeGesture=null,puzzleWaiting=false,puzzleReplyTimer=null,puzzleGeneration=0,dailyRequest=null;
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
 function load(i){if(!PUZZLES[i])return;cur=PUZZLES[i];startPuzzle()}
 function cancelPuzzle(){
  clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleGeneration++;
  dailyRequest?.abort();dailyRequest=null;puzzleWaiting=false;done=false;
  document.getElementById('promotion-dialog')?.close();
- g=null;cur=null;sel=null;activeGesture=null;boardMarks=[];clearGhost();
+ g=null;cur=null;sel=null;activeGesture=null;boardMarks=[];userBoardMarks=[];clearGhost();
  $('#bd').replaceChildren();
 }
 function startPuzzle(){
  clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleGeneration++;
  document.getElementById('promotion-dialog')?.close();
  g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;
- boardMarks=[];activeGesture=null;puzzleWaiting=false;clearGhost();flip=g.turn()==='b';cur.side0=g.turn();
+ boardMarks=[];userBoardMarks=[];activeGesture=null;puzzleWaiting=false;clearGhost();flip=g.turn()==='b';cur.side0=g.turn();
  say('Your turn','','Find the best move for '+(g.turn()==='w'?'white':'black')+(cur.practice?'':' · Rating '+cur.rating+' · '+cur.theme));
  draw();
 }

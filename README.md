@@ -44,5 +44,23 @@ Board size adjusts the board from 80% to 200% of its fitted size, constrained
 by the panel width. Focus board provides more width. Oversized boards use
 page scrolling and automatically disable pinning; Fit screen restores the
 viewport-fitted size.
+On desktop, the side panels shrink as the board grows and expand as it shrinks.
+The workspace uses four-pixel gaps. Once games load, the game list stays above
+the import selector, moves stay above play controls, and both panels scroll
+within the board's visible height. The PGN page uses a compact one-line footer.
 Only the main line is used; variations stay in the source PGN and no chess
 engine evaluation is claimed. Imported games are cleared on leaving the page.
+
+## Board interactions
+
+Click or tap a piece to show its legal destinations: dots for quiet moves and
+rings for captures. Click the selected piece again to hide them. The Legal
+moves checkbox remembers your display choice in this browser; it never changes
+which moves are legal.
+
+Right-click a square to mark it, or right-drag between squares to draw an arrow.
+Repeat the same gesture to remove that mark, or left-click the board once to
+clear all arrows and square marks and select a piece's legal moves.
+Clear marks also removes all annotations. Replay and board flips retain manual
+marks; a new game or puzzle clears them. Recorded moves highlight their source
+and destination squares rather than adding automatic arrows.

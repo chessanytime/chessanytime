@@ -1,6 +1,12 @@
 // Board interactions: click-to-move, drag-and-drop, coloured arrows and square marks.
 const puzzleBoard=$('#bd');
 let dragGhost=null;
+let showLegalMoves=true;
+try{
+ const saved=localStorage.getItem('caShowLegalMoves');
+ if(saved==='true'||saved==='false')showLegalMoves=saved==='true';
+ else if(saved!==null)console.warn('Invalid saved legal-move display preference.');
+}catch(error){console.warn('Could not restore the legal-move display preference:',error)}
 const markColours={g:'rgba(72,142,55,.9)',r:'rgba(205,65,65,.92)',b:'rgba(55,125,220,.92)',y:'rgba(220,165,35,.95)'};
 function squareAtPoint(e){
  const r=puzzleBoard.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
@@ -32,11 +38,12 @@ function paintMarks(){
  });
  svg.appendChild(defs);
  const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
- boardMarks.forEach(m=>{
+ const marks=[...boardMarks.filter(mark=>!userBoardMarks.some(user=>user.from===mark.from&&user.to===mark.to&&user.col===mark.col)),...userBoardMarks];
+ marks.forEach(m=>{
   const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to),color=markColours[m.col]||markColours.g;
   if(m.from===m.to){
    const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');
-   c.setAttribute('fill',color.replace(/\.9[025]?\)/,',.28)'));c.setAttribute('stroke',color);svg.appendChild(c);
+   c.setAttribute('fill','none');c.setAttribute('stroke',color);svg.appendChild(c);
   }else{
    const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
    const l=document.createElementNS(svgNS,'line');
@@ -49,13 +56,15 @@ function paintMarks(){
 }
 function draw(){
  const bd=$('#bd');bd.innerHTML='';if(!g)return;const bo=g.board(),targets={};
- if(sel)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
+ if(sel&&showLegalMoves)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
  for(let v=0;v<64;v++){
   let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}
   const sq='abcdefgh'[f]+(8-r),pc=bo[r][f],d=document.createElement('div');
   d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
   d.setAttribute('role','button');d.tabIndex=v===0?0:-1;
   d.setAttribute('aria-label',sq+(pc?' '+(pc.color==='w'?'white':'black')+' '+({p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'}[pc.type]):' empty'));
+  d.setAttribute('aria-pressed',String(sel===sq));
+  if(targets[sq])d.setAttribute('aria-label',d.getAttribute('aria-label')+(targets[sq]==='cap'?', legal capture':', legal move'));
   if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');
   if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
   if(activeGesture&&activeGesture.mode==='piece'&&activeGesture.from===sq)d.classList.add('drag-source');
@@ -70,8 +79,15 @@ function draw(){
  paintMarks();
 }
 function toggleMark(from,to,col){
- const i=boardMarks.findIndex(m=>m.from===from&&m.to===to&&m.col===col);
- if(i>=0)boardMarks.splice(i,1);else boardMarks.push({from,to,col});
+ const same=m=>m.from===from&&m.to===to&&m.col===col;
+ const i=userBoardMarks.findIndex(same);
+ if(i>=0)userBoardMarks.splice(i,1);else userBoardMarks.push({from,to,col});
+ boardMarks=boardMarks.filter(m=>!same(m));
+}
+function clearBoardMarks(){
+ const hadMarks=boardMarks.length>0||userBoardMarks.length>0;
+ boardMarks=[];userBoardMarks=[];hintSq=null;
+ return hadMarks;
 }
 puzzleBoard.addEventListener('pointerdown',e=>{
  const sq=squareAtPoint(e);if(!sq||!g)return;
@@ -79,14 +95,19 @@ puzzleBoard.addEventListener('pointerdown',e=>{
  e.preventDefault();try{puzzleBoard.setPointerCapture(e.pointerId)}catch(_){}
  const colour=gestureColour(e);
  if(e.button===2){
+  sel=null;hintSq=null;boardMarks=[];
   activeGesture={mode:'mark',from:sq,to:sq,pointerId:e.pointerId,col:colour};
+  draw();
   return;
  }
- if(done||puzzleWaiting)return;
+ const hadMarks=clearBoardMarks();
+ if(hadMarks)sel=null;
+ if(done||puzzleWaiting){if(hadMarks)draw();return}
  const p=g.get(sq);
  if(p&&p.color===g.turn()&&p.color===cur.side0){
+  const wasSelected=sel===sq;
   sel=sq;hintSq=null;
-  activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false};
+  activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,wasSelected};
   draw();
   const im=puzzleBoard.querySelector('.sq[data-s="'+sq+'"] .pc');
   if(im){
@@ -117,8 +138,7 @@ puzzleBoard.addEventListener('pointerup',e=>{
    boardMarks=[];play(a.from,to);return;
   }
   if(a.moved){sel=null;draw();return}
-  // A simple tap selects the piece; a second tap on a legal destination moves it.
-  if(to===a.from){draw();return}
+  if(to===a.from){if(a.wasSelected)sel=null;draw();return}
   if(to&&sel===a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===to)){boardMarks=[];play(a.from,to);return}
  }
  if(a.mode==='click'&&to)click(to);
@@ -126,9 +146,12 @@ puzzleBoard.addEventListener('pointerup',e=>{
 puzzleBoard.addEventListener('pointercancel',()=>{activeGesture=null;clearGhost();draw()});
 puzzleBoard.addEventListener('contextmenu',e=>e.preventDefault());
 function click(sq){
- if(!g||done||puzzleWaiting)return;const p=g.get(sq);hintSq=null;
+ if(!g)return;
+ const hadMarks=clearBoardMarks();if(hadMarks)sel=null;
+ if(done||puzzleWaiting){if(hadMarks)draw();return}
+ const p=g.get(sq);
  if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){boardMarks=[];play(sel,sq);return}
- if(p&&p.color===g.turn()&&p.color===cur.side0){sel=sq;draw();return}
+ if(p&&p.color===g.turn()&&p.color===cur.side0){sel=sel===sq?null:sq;draw();return}
  sel=null;draw();
 }
 puzzleBoard.addEventListener('keydown',event=>{
@@ -142,4 +165,17 @@ puzzleBoard.addEventListener('keydown',event=>{
   event.preventDefault();const coordinate=square.dataset.s;click(coordinate);
   const target=puzzleBoard.querySelector('[data-s="'+coordinate+'"]');if(target){target.tabIndex=0;target.focus()}
  }
+});
+document.querySelectorAll('[data-board-legal-moves]').forEach(input=>{
+ input.checked=showLegalMoves;
+ input.addEventListener('change',()=>{
+  showLegalMoves=input.checked;
+  document.querySelectorAll('[data-board-legal-moves]').forEach(control=>control.checked=showLegalMoves);
+  try{localStorage.setItem('caShowLegalMoves',String(showLegalMoves))}
+  catch(error){console.warn('Could not save the legal-move display preference:',error)}
+  draw();
+ });
+});
+document.querySelectorAll('[data-board-clear-marks]').forEach(button=>{
+ button.addEventListener('click',()=>{clearBoardMarks();draw()});
 });

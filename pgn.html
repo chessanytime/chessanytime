@@ -37,18 +37,21 @@
   <div class="pgn-layout">
     <aside class="pgn-library" aria-labelledby="pgn-library-title">
       <div class="pgn-panel-heading"><h2 id="pgn-library-title">Your games</h2><span id="pgn-count">0 games</span></div>
-      <label class="pgn-upload" for="pgn-files">Choose PGN files<input id="pgn-files" type="file" accept=".pgn,application/x-chess-pgn,text/plain" multiple></label>
-      <p class="pgn-help">Select several files at once. Multiple games per file are supported. Files stay in your browser.</p>
-      <label class="pgn-search-label" for="pgn-search">Find a game</label><input id="pgn-search" type="search" placeholder="Player, event or file">
+      <div class="pgn-library-games"><label class="pgn-search-label" for="pgn-search">Find a game</label><input id="pgn-search" type="search" placeholder="Player, event or file">
+        <div id="pgn-game-list" tabindex="0" role="region" aria-label="Imported games"><div id="pgn-spacer"></div><div id="pgn-game-window"></div></div>
+      </div>
       <p id="pgn-status" role="status" aria-live="polite">Import a PGN to get started.</p>
-      <div id="pgn-game-list" tabindex="0" role="region" aria-label="Imported games"><div id="pgn-spacer"></div><div id="pgn-game-window"></div></div>
       <details id="pgn-import-errors" hidden><summary>Import details</summary><ul id="pgn-errors"></ul></details>
-      <button class="btn g" id="pgn-clear" type="button">Clear library</button>
+      <details id="pgn-import-panel" class="pgn-settings" open><summary>PGN files</summary>
+        <label class="pgn-upload" for="pgn-files">Choose PGN files<input id="pgn-files" type="file" accept=".pgn,application/x-chess-pgn,text/plain" multiple></label>
+        <p class="pgn-help">Select several files at once. Multiple games per file are supported. Files stay in your browser.</p>
+        <button class="btn g" id="pgn-clear" type="button">Clear library</button>
+      </details>
     </aside>
     <section class="pgn-board-panel" aria-labelledby="pgn-game-title">
       <h2 id="pgn-game-title">Your PGN workspace</h2><p id="pgn-game-detail">Choose files, then select a game.</p><p id="pgn-board-status" role="status" aria-live="polite"></p>
       <div class="board-frame"><div id="bd" aria-label="Chess board" tabindex="0"></div><div id="pgn-placeholder"><span aria-hidden="true">♞</span><p>Your next game starts here.</p></div></div>
-      <div class="pgn-board-tools"><span>Drag or tap · Right-drag for arrows · ←/→ moves</span><div class="pgn-toolbar">
+      <div class="pgn-board-tools"><span>Click a piece for moves · Right-drag for arrows</span><div class="pgn-toolbar">
         <button type="button" id="pgn-board-prev" aria-label="Previous move" disabled>←</button><button type="button" id="pgn-board-next" aria-label="Next move" disabled>→</button>
         <button type="button" id="pgn-flip">Flip board</button><button type="button" id="pgn-focus" aria-pressed="false" disabled>Focus board</button>
         <label class="pgn-pin-control"><input type="checkbox" id="pgn-sticky" checked> Pin board</label>
@@ -57,30 +60,19 @@
     </section>
     <aside class="pgn-play-panel" aria-labelledby="pgn-play-title">
       <h2 id="pgn-play-title">Study the game</h2>
-      <label for="pgn-mode">Mode</label><select id="pgn-mode"><option value="practice">Play with automatic replies</option><option value="replay">Replay move by move</option><option value="analysis">Free analysis</option></select>
-      <div id="pgn-size-control"><div class="pgn-size-header"><label for="pgn-size">Board size</label><output id="pgn-size-value" for="pgn-size">100%</output></div><div class="pgn-size-inputs"><input id="pgn-size" type="range" min="80" max="200" step="5" value="100"><button id="pgn-fit" type="button">Fit screen</button></div><p class="pgn-size-note">Use Focus board for more width. Larger sizes scroll; Fit keeps the full board visible.</p></div>
-      <label class="pgn-side-label" for="pgn-side">Play as</label><select id="pgn-side"><option value="auto">Side to move at the start</option><option value="w">White</option><option value="b">Black</option></select>
       <div class="pgn-turn"><div id="st">Ready when you are</div><p id="mt">Import your files and select any game from the left.</p></div>
-      <div class="pgn-controls"><button type="button" id="pgn-prev" disabled aria-label="Previous move">← Previous</button><button type="button" id="pgn-next" disabled>Next →</button><button type="button" id="pgn-hint" disabled>Show next move</button><button type="button" id="pgn-reset">Reset game</button></div>
       <div class="pgn-panel-heading"><h3>Main line</h3><span id="pgn-progress">No game selected</span></div><div id="pgn-moves" aria-label="PGN main-line moves"></div>
-      <p class="pgn-help">Arrow keys step one recorded move at a time. Play mode replies automatically when you play a piece or press Next. Analysis allows any legal move. Variations stay in the original file; no engine evaluation is provided.</p>
+      <div class="pgn-controls"><button type="button" id="pgn-prev" disabled aria-label="Previous move">← Previous</button><button type="button" id="pgn-next" disabled>Next →</button><button type="button" id="pgn-hint" disabled>Show next move</button><button type="button" id="pgn-reset">Reset game</button></div>
+      <div id="pgn-size-control"><div class="pgn-size-header"><label for="pgn-size">Board size</label><output id="pgn-size-value" for="pgn-size">100%</output></div><div class="pgn-size-inputs"><input id="pgn-size" type="range" min="80" max="200" step="5" value="100"><button id="pgn-fit" type="button">Fit screen</button></div><div class="board-options"><label><input type="checkbox" data-board-legal-moves checked> Legal moves</label><button type="button" data-board-clear-marks>Clear marks</button></div><p class="pgn-size-note">Bigger board, slimmer side panels. Fit keeps everything on screen.</p></div>
+      <details id="pgn-play-settings" class="pgn-settings" open><summary>Play settings</summary>
+        <div class="pgn-settings-fields"><div><label for="pgn-mode">Mode</label><select id="pgn-mode"><option value="practice">Play with automatic replies</option><option value="replay">Replay move by move</option><option value="analysis">Free analysis</option></select></div>
+          <div id="pgn-side-field"><label class="pgn-side-label" for="pgn-side">Play as</label><select id="pgn-side"><option value="auto">Side to move at the start</option><option value="w">White</option><option value="b">Black</option></select></div></div>
+        <p class="pgn-help">←/→ replay · Right-drag to mark · Left-click clears. Main line only; no engine evaluation.</p>
+      </details>
     </aside>
   </div>
 </div></main>
-<footer class="academy-footer" aria-label="Chess AnyTime site footer"><div class="w">
-  <div class="footer-main"><div class="footer-brand">
-    <a class="footer-brand-lockup" href="index.html" aria-label="Chess AnyTime home"><span class="footer-brand-mark" aria-hidden="true">♞</span><span>Chess <b>AnyTime</b></span></a><p>Play, learn and connect through chess.</p>
-    <a class="footer-community-link" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join our community ↗</a>
-  </div><nav class="footer-nav" aria-label="Footer navigation">
-    <div class="footer-link-group"><h2>Explore</h2><a href="community.html">Community</a><a href="events.html">Events</a><a href="academy.html">Academy</a></div>
-    <div class="footer-link-group"><h2>Learn &amp; play</h2><a href="puzzles.html">Daily puzzle</a><a href="videos.html">Video lessons</a><a href="blog.html">Articles</a><a href="curriculum.html">Curriculum</a><a href="demo.html">Book a demo</a></div>
-    <div class="footer-link-group"><h2>Contact</h2><a href="mailto:sos.shubham@gmail.com">sos.shubham@gmail.com</a><a href="tel:+919911966706">+91 99119 66706</a><a href="contact.html">Get in touch</a></div>
-  </nav></div><div class="footer-bottom"><small>© 2026 Chess AnyTime</small>
-    <nav class="footer-socials" aria-label="Social media"><a href="https://www.youtube.com/@ChessAnyTime" target="_blank" rel="noopener noreferrer">YouTube</a><a href="https://instagram.com/chessanytime" target="_blank" rel="noopener noreferrer">Instagram</a><a href="https://lichess.org/@/Shubham-Singh" target="_blank" rel="noopener noreferrer">Lichess</a><a href="https://twitch.tv/chessanytime" target="_blank" rel="noopener noreferrer">Twitch</a><a href="https://paypal.me/chessanytime" target="_blank" rel="noopener noreferrer">Support</a></nav>
-    <a class="footer-top-link" href="#top">Back to top ↑</a>
-  </div>
-</div></footer>
+<footer class="pgn-footer"><small>© 2026 <a href="index.html">Chess AnyTime</a></small><a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp ↗</a></footer>
 <script src="js/main.js"></script><script src="js/navigation.js"></script><script src="js/header.js"></script>
 <script src="js/puzzles.js"></script><script src="js/chessboard.js"></script><script src="js/pgn-study.js"></script>
-<a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)"><svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg><span>Join WhatsApp</span></a>
 </body></html>

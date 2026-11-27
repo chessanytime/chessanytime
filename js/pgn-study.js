@@ -3,18 +3,24 @@
   let worker=null,entries=[],filtered=[],active=null,request=0,mode="practice",player="w",branch=false;
   let importErrors=0,renderStart=-1;
   let pinPreference=true;
+  let sizeGesture=null;
   function sizeBoard(){
-    const root=element("pgn"),header=document.querySelector("header");
-    root.style.setProperty("--pgn-sticky-top",Math.ceil(header.getBoundingClientRect().height+12)+"px");
+    const root=element("pgn"),header=document.querySelector("header"),layout=document.querySelector(".pgn-layout");
+    root.style.setProperty("--pgn-sticky-top",Math.ceil(header.getBoundingClientRect().height+4)+"px");
     const frame=document.querySelector(".board-frame"),tools=document.querySelector(".pgn-board-tools");
-    const top=document.querySelector(".pgn-layout").getBoundingClientRect().top+scrollY+frame.offsetTop;
-    const available=Math.max(96,Math.floor(innerHeight-top-tools.getBoundingClientRect().height-24));
-    const fit=Math.min(document.querySelector(".pgn-board-panel").clientWidth,available);
+    const layoutTop=layout.getBoundingClientRect().top+scrollY,width=layout.clientWidth;
+    const available=Math.max(64,Math.floor(innerHeight-layoutTop-frame.offsetTop-tools.getBoundingClientRect().height-document.querySelector(".pgn-footer").getBoundingClientRect().height-8));
+    const focused=root.classList.contains("pgn-focused"),desktop=innerWidth>900&&!focused,tablet=innerWidth>700&&!desktop&&!focused;
+    const limit=Math.max(64,width-(desktop?328:tablet?174:0)),fit=Math.min(limit,available);
     const percent=Number(element("pgn-size").value);
-    const requested=Math.round(fit*percent/100),width=document.querySelector(".pgn-board-panel").clientWidth;
-    const actual=Math.min(width,requested),canPin=innerWidth>700&&actual<=available;
-    root.style.setProperty("--pgn-board-height",requested+"px");
-    element("pgn-size-value").textContent=percent+"%"+(requested>width?" · max width":"");
+    const requested=Math.round(fit*percent/100),actual=Math.min(limit,requested),canPin=innerWidth>700&&actual<=available;
+    const remaining=width-actual-(desktop?8:4);
+    const left=desktop?Math.max(150,Math.floor(remaining*.46)):tablet?remaining:0;
+    root.style.setProperty("--pgn-left-width",left+"px");
+    root.style.setProperty("--pgn-right-width",(desktop?remaining-left:0)+"px");
+    root.style.setProperty("--pgn-board-height",actual+"px");
+    root.style.setProperty("--pgn-panel-height",Math.max(96,Math.min(frame.offsetTop+actual,innerHeight-layoutTop-4))+"px");
+    element("pgn-size-value").textContent=percent+"%"+(requested>limit?" · max width":"");
     element("pgn-sticky").disabled=!canPin;
     element("pgn-sticky").checked=canPin&&pinPreference;
     element("pgn-sticky").title=canPin?"Keep the board visible while scrolling":"Use Fit screen to pin the full board.";
@@ -23,13 +29,20 @@
   function placeSizeControl(focus){
     const control=element("pgn-size-control");
     if(focus)document.querySelector(".pgn-board-panel").insertBefore(control,document.querySelector(".board-frame"));
-    else document.querySelector(".pgn-play-panel").insertBefore(control,document.querySelector(".pgn-side-label"));
+    else document.querySelector(".pgn-play-panel").insertBefore(control,element("pgn-play-settings"));
   }
-  const layoutObserver=new ResizeObserver(sizeBoard);
+  let sizeFrame=0;
+  const layoutObserver=new ResizeObserver(()=>{
+    if(sizeFrame)return;
+    sizeFrame=requestAnimationFrame(()=>{sizeFrame=0;sizeBoard()});
+  });
   ["header",".pgn-heading","#pgn-game-title","#pgn-game-detail",".pgn-board-tools"].forEach(selector=>{
     layoutObserver.observe(document.querySelector(selector));
   });
   addEventListener("resize",sizeBoard);
+  layoutObserver.observe(document.querySelector(".pgn-layout"));
+  const listObserver=new ResizeObserver(()=>renderList(true));
+  listObserver.observe(element("pgn-game-list"));
   document.fonts.ready.then(sizeBoard);
   function status(text,error=false){
     element("pgn-status").textContent=text;element("pgn-status").classList.toggle("is-error",error);
@@ -52,12 +65,14 @@
       }else if(message.type==="complete"){
         status(message.total.toLocaleString()+" games loaded"+(importErrors?" · "+importErrors+" invalid games excluded (see import details)":"")+" · Files stay in your browser.",importErrors>0);
       }else if(message.type==="selected"&&message.request===request){
+        const firstGame=!active;
         active=message.game;branch=false;player=element("pgn-side").value==="auto"?new Chess(active.start).turn():element("pgn-side").value;
         cur={fen:active.start,moves:active.moves.map(move=>move.uci),side0:player,pgn:true};
         element("pgn-game-title").textContent=active.title;
         element("pgn-game-detail").textContent=[active.event,active.date,active.result].filter(Boolean).join(" · ");
         element("pgn-placeholder").hidden=true;
         element("pgn").classList.add("pgn-has-game");
+        if(firstGame)element("pgn-import-panel").open=false;
         element("bd").classList.remove("is-empty");
         startPuzzle();flip=player==="b";renderMoves();seek(0);renderList(true);
         element("bd").focus({preventScroll:true});
@@ -119,6 +134,7 @@
     element("pgn-hint").disabled=puzzleWaiting||done||branch||!next;
     element("pgn-progress").textContent=branch?"Analysis branch":idx+" / "+active.moves.length+" half-moves";
     element("pgn-side").hidden=mode!=="practice";
+    element("pgn-side-field").hidden=mode!=="practice";
     document.querySelector(".pgn-side-label").hidden=mode!=="practice";
     element("pgn-moves").querySelectorAll("button").forEach(button=>{
       const ply=Number(button.dataset.ply);
@@ -138,7 +154,7 @@
       if(!g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]})){status("Could not replay this position.",true);return}
     }
     idx=ply;sel=null;hintSq=null;boardMarks=[];last=null;done=false;
-    if(ply){const uci=active.moves[ply-1].uci;last=[uci.slice(0,2),uci.slice(2,4)];boardMarks=[{from:last[0],to:last[1],col:"b"}]}
+    if(ply){const uci=active.moves[ply-1].uci;last=[uci.slice(0,2),uci.slice(2,4)]}
     update();
     if(automaticReply&&mode==="practice"&&g.turn()!==player&&!done)reply();
   }
@@ -147,7 +163,7 @@
     const uci=active.moves[idx].uci;
     if(!g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]})){status("The PGN contains an illegal move.",true);return}
     idx++;last=[uci.slice(0,2),uci.slice(2,4)];sel=null;
-    boardMarks=[{from:last[0],to:last[1],col:"b"}];update();
+    boardMarks=[];update();
   }
   function reply(){
     if(!active||done||g.turn()===player)return;
@@ -168,7 +184,7 @@
         g.undo();say("Try another move","no","Follow the PGN main line, or switch to Analysis to explore.");draw();return;
       }
       if(mode==="analysis"&&(branch||uci!==expected))branch=true;else idx++;
-      last=[from,to];boardMarks=[{from,to,col:"g"}];update();
+      last=[from,to];boardMarks=[];update();
       if(mode==="practice")reply();
     },
     hint(){
@@ -214,7 +230,28 @@
     sizeBoard();element("bd").focus({preventScroll:true});
   });
   element("pgn-size").addEventListener("input",sizeBoard);
-  element("pgn-size").addEventListener("pointerup",()=>element("bd").focus({preventScroll:true}));
+  // Keep the native slider under the pointer while its side panel resizes.
+  element("pgn-size").addEventListener("pointerdown",event=>{
+    if(event.button!==0||sizeGesture)return;
+    const input=event.currentTarget,rect=input.getBoundingClientRect(),placeholder=document.createElement("span");
+    placeholder.style.cssText="flex:1;min-width:0;height:24px";placeholder.setAttribute("aria-hidden","true");
+    input.before(placeholder);sizeGesture={input,placeholder,style:input.getAttribute("style"),pointerId:event.pointerId};
+    input.style.cssText="position:fixed;left:"+rect.left+"px;top:"+rect.top+"px;width:"+rect.width+"px;height:"+rect.height+"px;z-index:20;flex:none";
+  });
+  function finishSizeGesture(immediate=false){
+    const gesture=sizeGesture;if(!gesture)return;
+    const restore=()=>{
+      if(sizeGesture!==gesture)return;
+      if(gesture.style===null)gesture.input.removeAttribute("style");else gesture.input.setAttribute("style",gesture.style);
+      gesture.placeholder.remove();sizeGesture=null;
+      if(!immediate)element("bd").focus({preventScroll:true});
+    };
+    if(immediate)restore();else requestAnimationFrame(restore);
+  }
+  ["pointerup","pointercancel"].forEach(type=>addEventListener(type,event=>{
+    if(sizeGesture?.pointerId===event.pointerId)finishSizeGesture();
+  }));
+  addEventListener("blur",()=>finishSizeGesture(true));
   element("pgn-fit").addEventListener("click",()=>{element("pgn-size").value="100";sizeBoard();element("bd").focus({preventScroll:true})});
   window.addEventListener("keydown",event=>{
     if(!active||event.shiftKey||event.ctrlKey||event.altKey||event.metaKey||
@@ -230,6 +267,7 @@
     element("pgn-errors").replaceChildren();element("pgn-import-errors").hidden=true;
     element("pgn-placeholder").hidden=false;element("pgn-game-title").textContent="Your PGN workspace";
     element("pgn").classList.remove("pgn-has-game","pgn-focused");element("pgn-focus").setAttribute("aria-pressed","false");element("pgn-focus").textContent="Focus board";element("pgn-focus").disabled=true;
+    element("pgn-import-panel").open=true;element("pgn-play-settings").open=true;
     placeSizeControl(false);sizeBoard();
     element("pgn-game-detail").textContent="Choose files, then select a game.";
     element("pgn-moves").replaceChildren();filterGames();startWorker();
@@ -238,11 +276,12 @@
     say("Ready when you are","","Import your files and select any game from the left.");
     status("Library cleared. Original files are unchanged.");
   });
-  addEventListener("pagehide",()=>{worker.terminate();layoutObserver.disconnect();cancelPuzzle()});
+  addEventListener("pagehide",()=>{finishSizeGesture(true);cancelAnimationFrame(sizeFrame);sizeFrame=0;worker.terminate();layoutObserver.disconnect();listObserver.disconnect();cancelPuzzle()});
   addEventListener("pageshow",event=>{
     if(event.persisted){
-      entries=[];filtered=[];active=null;filterGames();startWorker();
+      element("pgn-clear").click();
       ["header",".pgn-heading","#pgn-game-title","#pgn-game-detail",".pgn-board-tools"].forEach(selector=>layoutObserver.observe(document.querySelector(selector)));
+      layoutObserver.observe(document.querySelector(".pgn-layout"));listObserver.observe(element("pgn-game-list"));
       sizeBoard();
       status("Choose your PGN files again to reopen the library.");
     }
