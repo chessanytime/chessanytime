@@ -32,6 +32,47 @@ header>.w{max-width:1440px}header nav,header.is-scrolled nav{gap:7px;min-height:
 @media(max-width:1000px){header nav,header.is-scrolled nav{min-height:0;padding:10px 0}header .brand{flex:1 1 48%}header .header-utility{order:4}header .ca-join-nav{order:0}header nav a.l,header .resources-menu{order:3}.hub-quick{grid-template-columns:repeat(2,minmax(0,1fr))}.hub-quick a:nth-child(2){border-right:0}.hub-quick a:nth-child(-n+2){border-bottom:1px solid var(--ln)}}
 @media(max-width:680px){.hub-hero-grid,.hub-activity,.hub-academy{grid-template-columns:1fr}.hub-heading{align-items:start;flex-direction:column;gap:12px}.hub-feature-grid,.hub-resource-grid,.hub-event-grid{grid-template-columns:1fr}.hub-feature img{aspect-ratio:16/10}.hub-quick a{padding:12px 10px;gap:8px}.hub-glyph{font-size:1.65rem}.hub-quick small{font-size:.75rem!important}.hub-quick i{display:none}.hub-academy-art{display:none}.hub-photo-note{padding:35px 18px 18px}header nav a.l,header .resources-menu summary{font-size:13px!important;padding:6px 8px}header .brand{font-size:1.15rem}header .brand img,header.is-scrolled .brand img{width:44px;height:44px;flex-basis:44px}header .header-utility{flex-basis:100%;justify-content:flex-end}header .ca-join-nav{padding:9px 11px;font-size:.83rem}}
 @media(prefers-reduced-motion:reduce){.hub-btn,.hub-feature,.hub-resource-grid a{transition:none}.hub-btn:hover,.hub-feature:hover,.hub-resource-grid a:hover{transform:none}}
+
+/* Wide-screen layout: use the available desktop canvas without sacrificing readability. */
+@media (min-width:1001px){
+  :root{--site-gutter:clamp(30px,3.3vw,72px);--site-max:1920px}
+  .hub-shell,header>.w,footer.academy-footer>.w,
+  #community>.w,#tournaments>.w,#blog>.w,#about>.w,#contact>.w,#portal>.w{
+    width:100%;max-width:var(--site-max);margin-inline:auto;padding-inline:var(--site-gutter);
+  }
+  .hub-hero-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(36px,5vw,100px)}
+  .hub-copy p{max-width:56ch;font-size:clamp(1.1rem,1.35vw,1.4rem)}
+  #home.ca-hub .hub-copy h1{font-size:clamp(3.2rem,5.1vw,6.4rem);line-height:1.02}
+  .hub-hero-photo img{aspect-ratio:3/2;max-height:580px;object-position:center}
+  .hub-hero{padding-block:clamp(42px,5vw,90px)}
+  .hub-quick a{padding:clamp(17px,1.6vw,28px) clamp(14px,1.7vw,30px)}
+  .hub-quick b{font-size:clamp(1rem,1.15vw,1.2rem)}
+  .hub-quick small{font-size:.94rem!important}
+  .hub-heading p{max-width:48ch;font-size:1.1rem}
+  .hub-feature-grid,.hub-resource-grid,.hub-event-grid{gap:clamp(20px,2vw,36px)}
+  .hub-feature img{aspect-ratio:16/10;max-height:370px}
+  .hub-feature>div,.hub-resource-grid>a,.hub-event-grid article{padding:clamp(22px,2.1vw,38px)}
+  .hub-feature p,.hub-resource-grid p,.hub-event-grid p{font-size:1.06rem;max-width:55ch}
+  .hub-activity,.hub-academy{gap:clamp(36px,5vw,100px)}
+  .hub-feed a{padding:20px 24px}
+  #community .community-intro{grid-template-columns:1.15fr .85fr;min-height:0}
+  #community .community-intro img{max-height:620px;object-fit:contain}
+  #community .community-intro>div{padding:clamp(32px,5vw,90px)}
+  #community .album-grid{gap:clamp(18px,2vw,32px)}
+  #tournaments .event-photos{grid-template-columns:repeat(4,minmax(0,1fr))}
+  #programs .cp-wrap{width:calc(100% - 2 * var(--site-gutter));max-width:calc(var(--site-max) - 2 * var(--site-gutter))}
+  #videos .academy-video-inner,#videos .academy-video-page-hero-inner,#videos .academy-video-page-more{max-width:var(--site-max)}
+  #about .cab-wrap{max-width:calc(var(--site-max) - 2 * var(--site-gutter))}
+  #puzzles>.w{max-width:1500px;width:100%;padding-inline:var(--site-gutter)}
+  #puzzles .pz{grid-template-columns:minmax(0, min(58vw,720px)) minmax(0,1fr)}
+  #contact .band{max-width:none}
+}
+@media(min-width:1450px){
+  #home.ca-hub .hub-copy h1{font-size:clamp(4rem,5.2vw,6.4rem)}
+  .hub-hero-grid{grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr)}
+  #community .album-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #blog .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+}
 </style>
 </head><body>
 <div id="ca-intro" role="status" aria-label="Welcome to Chess AnyTime"><div class="ca-intro-inner"><div class="ca-intro-knight" aria-hidden="true">♞</div><div class="ca-intro-name">Chess <span>AnyTime</span></div><div class="ca-intro-tag">Learn · Play · Improve</div><button class="ca-intro-skip" id="ca-intro-skip" type="button">Skip intro</button></div></div>
