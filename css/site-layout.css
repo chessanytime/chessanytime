@@ -96,15 +96,16 @@ header .nav-toggle{display:none;align-items:center;justify-content:center;gap:6p
 header .nav-toggle:focus-visible,header .header-utility a:focus-visible,header .resources-menu summary:focus-visible{outline:3px solid #74a6d8;outline-offset:3px}
 header.is-scrolled .header-utility a,header.is-scrolled .nav-toggle{color:#e5edf8;border-color:#64748b66;background:#ffffff09}
 header.is-scrolled .resources-menu.is-current>summary{color:#fff;background:#ffffff12}
-@media(max-width:760px){
+@media(max-width:820px){
   header> .w{padding-inline:18px}
   header> .w>nav,header.is-scrolled> .w>nav{min-height:66px;gap:8px;padding:9px 0}
-  header> .w>nav .brand{font-size:1rem;gap:8px}
+  header> .w>nav .brand{font-size:clamp(.78rem,3.55vw,.9rem)!important;gap:8px}
+  header> .w>nav .brand>span{white-space:nowrap}
   header> .w>nav .brand img{width:36px;height:36px;flex-basis:36px}
-  header .brand small{font-size:.52rem}
+  header .brand small{font-size:.46rem!important;letter-spacing:.08em!important;white-space:nowrap}
   header .nav-toggle{display:inline-flex}
   header .header-utility{margin-left:0}
-  header .header-utility a{padding:9px 12px}
+  header .header-utility a{padding:9px 10px;font-size:.8rem!important}
   header .primary-navigation{display:none;position:absolute;top:calc(100% + 1px);left:-18px;right:-18px;max-height:calc(100dvh - 84px);overflow:auto;padding:14px 18px 18px;border-bottom:1px solid #dce4ef;background:#fff;box-shadow:0 12px 20px #14263b12}
   header.is-menu-open .primary-navigation{display:flex;flex-direction:column;align-items:stretch;gap:4px}
   header .primary-navigation>a.l,header .primary-navigation .resources-menu summary{display:block;padding:11px 12px;font-size:.9rem!important}
@@ -114,7 +115,7 @@ header.is-scrolled .resources-menu.is-current>summary{color:#fff;background:#fff
   header.is-scrolled .primary-navigation .resources-dropdown a{color:#e5edf8}
   header.is-scrolled .primary-navigation .resources-dropdown a:hover,header.is-scrolled .primary-navigation .resources-dropdown a[aria-current="page"]{color:#fff;background:#ffffff12}
 }
-@media(max-width:370px){header .nav-toggle span{display:none}header .brand small{display:none}}
+@media(max-width:370px){header .nav-toggle span{display:none}header .brand small{display:none}header>.w>nav{gap:6px}header>.w>nav .brand img{width:30px;height:30px;flex-basis:30px}}
 
 .whatsapp-floater{position:fixed;right:24px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:40;display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:12px 18px;border:1px solid #ffffff66;border-radius:999px;background:#147f4b;color:#fff!important;font:600 .9rem Figtree,sans-serif;text-decoration:none!important;box-shadow:0 5px 20px #062c2440;transition:background .15s ease,box-shadow .15s ease}
 .whatsapp-floater:hover{background:#0c663c;box-shadow:0 7px 24px #062c2455}

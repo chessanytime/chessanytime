@@ -4,7 +4,7 @@
   const toggle = header?.querySelector(".nav-toggle");
   const primary = header?.querySelector(".primary-navigation");
   if (!header || !menu || !toggle || !primary) return;
-  const mobile = matchMedia("(max-width: 760px)");
+  const mobile = matchMedia("(max-width: 820px)");
   function closeNavigation() {
     menu.open = false;
     header.classList.remove("is-menu-open");

@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="referrer" content="no-referrer">
 <title>Your Lichess Account | Chess AnyTime</title>
-<meta name="description" content="View your Lichess username, ratings and recent public games without saving your account details.">
+<meta name="description" content="View your Lichess ratings, review recent games and practise chess puzzles.">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&amp;family=Figtree:wght@400;500;600&amp;family=Poppins:wght@500;600;700;800&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -17,10 +17,12 @@
 <div class="primary-navigation" id="primary-navigation">
   <a class="l" href="community.html" data-p="community">Community</a>
   <a class="l" href="academy.html" data-p="about">Academy</a>
+  <a class="l" href="puzzles.html?mode=practice" data-p="puzzles">Puzzles</a>
   <details class="resources-menu"><summary>Explore <span aria-hidden="true">▾</span></summary><div class="resources-dropdown">
     <span class="nav-group-label">Play &amp; discover</span>
     <a href="events.html" data-p="tournaments">Events &amp; tournaments</a>
     <a href="puzzles.html" data-p="puzzles">Daily puzzle</a>
+    <a href="pgn.html" data-p="pgn">PGN study</a>
     <a href="blog.html" data-p="blog">Chess articles</a>
     <a href="videos.html" data-p="videos">Video lessons</a>
     <span class="nav-group-label">Academy &amp; support</span>
@@ -35,10 +37,13 @@
   <div id="lichess-account-signin"><h2>Your Lichess account</h2><p class="sub">Log in to view your username, ratings and recent games.</p><a class="btn" href="login.html">Log in with Lichess</a></div>
   <p id="lichess-login-message" class="lichess-message" role="status" aria-live="polite"></p>
   <div id="lichess-account-content" hidden>
-  <div class="lichess-profile-heading"><div><h2 id="pw">Your Lichess account</h2><p class="sub">Your chess activity, directly from Lichess.</p></div><button class="btn g" id="lichess-logout" type="button">Log out</button></div>
-  <a id="lichess-profile" target="_blank" rel="noopener noreferrer">View profile on Lichess</a>
+  <section class="lichess-account-hero" aria-labelledby="pw">
+    <div class="lichess-profile-heading"><div class="lichess-identity"><span id="lichess-avatar" aria-hidden="true">♞</span><div><span class="lichess-eyebrow">YOUR CHESS DASHBOARD</span><h2 id="pw">Your Lichess account</h2><p>Your activity, directly from Lichess.</p></div></div><button class="btn g" id="lichess-logout" type="button">Log out</button></div>
+    <div class="lichess-account-actions"><a class="btn" href="puzzles.html?mode=practice">Practise puzzles →</a><a href="pgn.html">Study PGNs →</a><a id="lichess-profile" target="_blank" rel="noopener noreferrer">View profile on Lichess ↗</a></div>
+  </section>
+  <div class="lichess-section-heading"><h3>Your ratings</h3><span>Live from Lichess · ? means provisional</span></div>
   <div class="lichess-ratings" id="lichess-ratings"></div>
-  <div class="lichess-profile-heading"><h3>Recent games</h3><button class="btn g" id="lichess-refresh" type="button">Refresh games</button></div>
+  <div class="lichess-profile-heading"><div><h3>Recent games</h3><p id="lichess-recent-summary"></p></div><button class="btn g" id="lichess-refresh" type="button">Refresh games</button></div>
   <p id="lichess-games-message" class="lichess-message" role="status" aria-live="polite"></p>
   <div class="lichess-games" id="lichess-games"></div>
   </div>

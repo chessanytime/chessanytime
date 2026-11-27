@@ -68,7 +68,7 @@
 @keyframes ca-knight-float{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-10px) rotate(3deg)}}
 
 /* Puzzle page: Chessground-inspired visual clarity around the existing board engine. */
-main#puzzles{padding:24px 0 32px;--puzzle-board-size:min(58vw,900px,max(280px,calc(100svh - 160px)))}
+main#puzzles{padding:16px 0 24px;--puzzle-board-size:min(60vw,960px,max(220px,calc(100svh - 132px)))}
 #puzzles>.w{max-width:1240px}
 #puzzles .puzzle-heading{font-size:1.45rem!important;letter-spacing:-.025em;margin-bottom:8px}
 #puzzles .side>.sub{font-size:.95rem;line-height:1.6;margin-bottom:18px}
@@ -118,7 +118,7 @@ main#puzzles{padding:24px 0 32px;--puzzle-board-size:min(58vw,900px,max(280px,ca
 @media(max-width:900px){
   #puzzles .pz{grid-template-columns:minmax(0,1fr)}
   #puzzles .side{position:static;max-width:600px;justify-self:center}
-  #puzzles .board-frame{width:min(100%,900px,max(280px,calc(100svh - 160px)));margin-inline:auto}
+  #puzzles .board-frame{width:min(100%,960px,max(220px,calc(100svh - 132px)));margin-inline:auto}
 }
 @media(max-width:560px){
   #home.academy-home>.academy-hero-wrap{padding-top:44px}

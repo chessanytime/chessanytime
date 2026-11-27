@@ -12,15 +12,6 @@ function lichessMessage(id, text, isError = false) {
   element.classList.toggle("is-error", isError);
 }
 
-function renderMe() {
-  const header = document.getElementById("tl");
-  const link = document.createElement("a");
-  link.href = me ? "account.html" : "login.html";
-  link.textContent = me ? "My games" : "Log in";
-  link.setAttribute("aria-label", me ? me.username + ": view your games" : "Log in with Lichess");
-  header.replaceChildren(link);
-}
-
 function lichessBase64Url(bytes) {
   return btoa(String.fromCharCode(...bytes)).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
 }
@@ -35,6 +26,7 @@ function updateLichessView() {
   if (content) content.hidden = !me;
   if (signin) signin.hidden = !!me;
   renderMe();
+  document.dispatchEvent(new CustomEvent("lichess-session-change"));
 }
 
 async function lichessRequest(path, options = {}, token = lichessToken) {
@@ -62,6 +54,8 @@ async function lichessRequest(path, options = {}, token = lichessToken) {
 
 async function startLichessLogin() {
   const button = document.getElementById("lichess-login");
+  const next = new URLSearchParams(location.search).get("next") === "puzzles.html?mode=practice" ? "puzzles.html?mode=practice" : "account.html";
+  if (me && lichessToken) { location.assign(next); return; }
   button.disabled = true;
   lichessMessage("lichess-login-message", "");
   try {
@@ -73,8 +67,7 @@ async function startLichessLogin() {
     const state = lichessBase64Url(crypto.getRandomValues(new Uint8Array(32)));
     const challenge = lichessBase64Url(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier))));
     const redirectUri = lichessRedirectUri();
-    // Only the short-lived PKCE handshake is stored; account data and tokens stay in memory.
-    sessionStorage.setItem(LICHESS_PENDING_KEY, JSON.stringify({ verifier, state, redirectUri, createdAt: Date.now() }));
+    sessionStorage.setItem(LICHESS_PENDING_KEY, JSON.stringify({ verifier, state, redirectUri, next, createdAt: Date.now() }));
     const url = new URL("/oauth", LICHESS_ORIGIN);
     url.search = new URLSearchParams({
       response_type: "code",
@@ -94,7 +87,9 @@ async function startLichessLogin() {
 }
 
 function renderLichessProfile() {
-  document.getElementById("pw").textContent = "Welcome, " + me.username;
+  if (!document.getElementById("pw")) return;
+  document.getElementById("pw").textContent = me.username;
+  document.getElementById("lichess-avatar").textContent = me.username.slice(0,1).toUpperCase();
   document.getElementById("lichess-profile").href = LICHESS_ORIGIN + "/@/" + encodeURIComponent(me.username);
   const ratings = document.getElementById("lichess-ratings");
   ratings.replaceChildren();
@@ -102,9 +97,11 @@ function renderLichessProfile() {
     const perf = me.perfs?.[key];
     if (!perf || !perf.games || !Number.isFinite(perf.rating)) continue;
     const card = document.createElement("div");
+    card.dataset.perf = key;
     card.className = "lichess-rating";
     const rating = document.createElement("strong");
     rating.textContent = perf.rating + (perf.prov ? "?" : "");
+    if(perf.prov)rating.title = "Provisional Lichess rating";
     const title = document.createElement("span");
     title.textContent = label;
     card.append(rating, title);
@@ -115,6 +112,7 @@ function renderLichessProfile() {
 function renderLichessGames(games) {
   const container = document.getElementById("lichess-games");
   container.replaceChildren();
+  const totals = {Win:0,Loss:0,Draw:0};
   for (const game of games) {
     if (typeof game.id !== "string" || !/^[A-Za-z0-9]{8}$/.test(game.id) || !game.players?.white || !game.players?.black) {
       throw new Error("Lichess returned incomplete game details. Please try again.");
@@ -125,28 +123,41 @@ function renderLichessGames(games) {
     const playerName = player => player.user?.name || player.user?.id || (player.aiLevel ? "Stockfish level " + player.aiLevel : "Anonymous");
     heading.textContent = playerName(game.players.white) + " vs " + playerName(game.players.black);
     const details = document.createElement("p");
+    details.className = "lichess-game-meta";
     const whiteId = game.players.white.user?.id?.toLowerCase();
     const color = whiteId === me.id.toLowerCase() ? "white" : "black";
     const result = game.winner ? (game.winner === color ? "Win" : "Loss") :
       (["draw", "stalemate"].includes(game.status) ? "Draw" : game.status || "Finished");
+    if (Object.hasOwn(totals,result)) totals[result]++;
+    const badge = document.createElement("span");
+    badge.className = "lichess-result " + (result === "Win" ? "is-win" : result === "Loss" ? "is-loss" : "is-neutral");
+    badge.textContent = result;
     const clock = game.clock ? " \u00b7 " + game.clock.initial / 60 + "+" + game.clock.increment : "";
-    details.textContent = (game.speed || game.perf || game.variant || "Chess") + clock + " \u00b7 " + (game.rated ? "Rated" : "Casual") + " \u00b7 " + result;
-    const date = document.createElement("p");
+    details.textContent = (game.speed || game.perf || game.variant || "Chess") + clock + " \u00b7 " + (game.rated ? "Rated" : "Casual") + " \u00b7 As " + color;
+    const date = document.createElement("time");
     date.textContent = Number.isFinite(game.createdAt) ? new Date(game.createdAt).toLocaleString() : "";
+    if(Number.isFinite(game.createdAt))date.dateTime = new Date(game.createdAt).toISOString();
     const link = document.createElement("a");
     link.href = LICHESS_ORIGIN + "/" + game.id;
-    link.textContent = "View game and moves on Lichess";
+    link.textContent = "Review game on Lichess \u2197";
     link.target = "_blank";
     link.rel = "noopener noreferrer";
-    card.append(heading, details, date);
+    const top = document.createElement("div");
+    top.className = "lichess-game-top";
+    top.append(heading,badge);
+    card.append(top, details, date);
     if (game.opening?.name) {
       const opening = document.createElement("p");
+      opening.className = "lichess-game-opening";
       opening.textContent = game.opening.name;
       card.append(opening);
     }
     card.append(link);
     container.append(card);
   }
+  const count=(number,singular,plural)=>number+" "+(number===1?singular:plural);
+  document.getElementById("lichess-recent-summary").textContent = games.length ?
+    count(totals.Win,"win","wins")+" \u00b7 "+count(totals.Loss,"loss","losses")+" \u00b7 "+count(totals.Draw,"draw","draws")+" in the latest "+count(games.length,"game","games") : "";
 }
 
 async function loadLichessGames() {
@@ -167,7 +178,7 @@ async function loadLichessGames() {
     if (controller.signal.aborted || me !== account) return;
     const games = text.split(/\r?\n/).filter(line => line.trim()).map(line => JSON.parse(line));
     renderLichessGames(games);
-    lichessMessage("lichess-games-message", games.length ? "Your latest " + games.length + " games." : "No finished public games yet.");
+    lichessMessage("lichess-games-message", games.length ? "Your latest " + games.length + (games.length===1?" game.":" games.") : "No finished public games yet.");
   } catch (error) {
     if (!controller.signal.aborted && me === account) lichessMessage("lichess-games-message", error.message, true);
   } finally {
@@ -185,12 +196,17 @@ function clearLichessSession(keepAuthorization = false) {
   lichessBusy = false;
   lichessToken = null;
   me = null;
+  try{
+    sessionStorage.removeItem(LICHESS_SESSION_KEY);
+    sessionStorage.removeItem(LICHESS_ACCOUNT_KEY);
+  }catch(error){console.error("Could not clear tab storage:",error)}
   if (!keepAuthorization) sessionStorage.removeItem(LICHESS_PENDING_KEY);
   const title = document.getElementById("pw");
   if (title) title.textContent = "Your Lichess account";
   document.getElementById("lichess-profile")?.removeAttribute("href");
   document.getElementById("lichess-ratings")?.replaceChildren();
   document.getElementById("lichess-games")?.replaceChildren();
+  document.getElementById("lichess-recent-summary")?.replaceChildren();
   const refresh = document.getElementById("lichess-refresh");
   if (refresh) refresh.disabled = false;
   lichessMessage("lichess-games-message", "");
@@ -254,9 +270,14 @@ async function finishLichessLogin() {
       throw new Error("Lichess returned an incomplete profile. Please try again.");
     }
     me = account;
+    saveLichessSession();
     renderLichessProfile();
     updateLichessView();
     lichessMessage("lichess-login-message", "");
+    if(pending.next === "puzzles.html?mode=practice"){
+      location.replace(pending.next);
+      return;
+    }
     await loadLichessGames();
   } catch (error) {
     const token = lichessToken;
@@ -277,5 +298,34 @@ async function finishLichessLogin() {
 document.getElementById("lichess-login")?.addEventListener("click", startLichessLogin);
 document.getElementById("lichess-logout")?.addEventListener("click", logoutLichess);
 document.getElementById("lichess-refresh")?.addEventListener("click", loadLichessGames);
-addEventListener("pagehide", () => clearLichessSession(true));
-finishLichessLogin();
+function saveLichessSession(){
+  sessionStorage.setItem(LICHESS_SESSION_KEY,JSON.stringify({token:lichessToken,expiresAt:Date.now()+8*60*60*1000}));
+  sessionStorage.setItem(LICHESS_ACCOUNT_KEY,JSON.stringify({id:me.id,username:me.username,perfs:me.perfs}));
+}
+async function restoreLichessSession(){
+  try{
+    const session=JSON.parse(sessionStorage.getItem(LICHESS_SESSION_KEY)||"null");
+    if(!session||typeof session.token!=="string"||!session.token||!Number.isFinite(session.expiresAt)||session.expiresAt<=Date.now()){
+      clearLichessSession(true);
+      return;
+    }
+    lichessToken=session.token;
+    const response=await lichessRequest("/api/account",{headers:{Accept:"application/json"}});
+    const account=await response.json();
+    if(typeof account.id!=="string"||!account.id||typeof account.username!=="string"||!account.username){
+      throw new Error("Lichess returned an incomplete account. Please log in again.");
+    }
+    me=account;
+    sessionStorage.setItem(LICHESS_ACCOUNT_KEY,JSON.stringify({id:me.id,username:me.username,perfs:me.perfs}));
+    updateLichessView();
+    renderLichessProfile();
+    if(currentPage==="portal")await loadLichessGames();
+  }catch(error){
+    clearLichessSession(true);
+    lichessMessage("lichess-login-message",error.message,true);
+  }
+}
+const lichessReady=new URLSearchParams(location.search).has("code")||new URLSearchParams(location.search).has("error")?
+  finishLichessLogin():restoreLichessSession();
+addEventListener("pagehide",()=>{lichessGamesController?.abort()});
+addEventListener("pageshow",event=>{if(event.persisted)restoreLichessSession()});

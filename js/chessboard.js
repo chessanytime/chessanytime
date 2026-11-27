@@ -48,12 +48,14 @@ function paintMarks(){
  puzzleBoard.appendChild(svg);
 }
 function draw(){
- const bd=$('#bd');bd.innerHTML='';const bo=g.board(),targets={};
+ const bd=$('#bd');bd.innerHTML='';if(!g)return;const bo=g.board(),targets={};
  if(sel)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
  for(let v=0;v<64;v++){
   let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}
   const sq='abcdefgh'[f]+(8-r),pc=bo[r][f],d=document.createElement('div');
   d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
+  d.setAttribute('role','button');d.tabIndex=v===0?0:-1;
+  d.setAttribute('aria-label',sq+(pc?' '+(pc.color==='w'?'white':'black')+' '+({p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'}[pc.type]):' empty'));
   if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');
   if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
   if(activeGesture&&activeGesture.mode==='piece'&&activeGesture.from===sq)d.classList.add('drag-source');
@@ -80,7 +82,7 @@ puzzleBoard.addEventListener('pointerdown',e=>{
   activeGesture={mode:'mark',from:sq,to:sq,pointerId:e.pointerId,col:colour};
   return;
  }
- if(done)return;
+ if(done||puzzleWaiting)return;
  const p=g.get(sq);
  if(p&&p.color===g.turn()&&p.color===cur.side0){
   sel=sq;hintSq=null;
@@ -124,8 +126,20 @@ puzzleBoard.addEventListener('pointerup',e=>{
 puzzleBoard.addEventListener('pointercancel',()=>{activeGesture=null;clearGhost();draw()});
 puzzleBoard.addEventListener('contextmenu',e=>e.preventDefault());
 function click(sq){
- if(done)return;const p=g.get(sq);hintSq=null;
+ if(!g||done||puzzleWaiting)return;const p=g.get(sq);hintSq=null;
  if(sel&&sel!==sq&&g.moves({square:sel,verbose:true}).some(m=>m.to===sq)){boardMarks=[];play(sel,sq);return}
  if(p&&p.color===g.turn()&&p.color===cur.side0){sel=sq;draw();return}
  sel=null;draw();
 }
+puzzleBoard.addEventListener('keydown',event=>{
+ const square=event.target.closest('.sq');if(!square||!g)return;
+ const squares=[...puzzleBoard.querySelectorAll('.sq')],index=squares.indexOf(square);
+ const offsets={ArrowLeft:-1,ArrowRight:1,ArrowUp:-8,ArrowDown:8};
+ if(Object.hasOwn(offsets,event.key)){
+  event.preventDefault();const next=Math.max(0,Math.min(63,index+offsets[event.key]));
+  squares.forEach(item=>item.tabIndex=-1);squares[next].tabIndex=0;squares[next].focus();
+ }else if(event.key==='Enter'||event.key===' '){
+  event.preventDefault();const coordinate=square.dataset.s;click(coordinate);
+  const target=puzzleBoard.querySelector('[data-s="'+coordinate+'"]');if(target){target.tabIndex=0;target.focus()}
+ }
+});
