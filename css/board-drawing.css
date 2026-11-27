@@ -1,0 +1,16 @@
+/* Shared puzzle and PGN drawing controls */
+#bd .marks line{stroke-width:.115;stroke-linecap:round}
+#bd .marks circle{stroke-width:.085}
+#bd.drawing-mode,#bd.drawing-mode .sq{cursor:crosshair}
+.board-drawing-tools{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;margin:10px 0 3px}
+.board-drawing-tools button{border:1px solid #aebed0;border-radius:8px;background:#f5f8fc;color:#294d77;padding:7px 10px;min-height:36px;font:600 .78rem Figtree,sans-serif;cursor:pointer}
+.board-drawing-tools button[data-board-draw-mode][aria-pressed=true]{background:#294d77;color:white}
+.board-brushes{display:inline-flex;align-items:center;gap:6px}
+.board-drawing-tools [data-board-brush]{width:34px;height:34px;min-height:34px;padding:0;border:3px solid #fff;box-shadow:0 0 0 1px #aebed0;border-radius:50%}
+.board-drawing-tools [data-board-brush][aria-pressed=true]{box-shadow:0 0 0 2px #17243a}
+.board-drawing-tools [data-board-brush=g]{background:#15781b}
+.board-drawing-tools [data-board-brush=r]{background:#882020}
+.board-drawing-tools [data-board-brush=b]{background:#003088}
+.board-drawing-tools [data-board-brush=y]{background:#e68f00}
+.board-drawing-tools button:focus-visible{outline:3px solid #386db0;outline-offset:3px}
+.board-drawing-help{font-size:.72rem;line-height:1.5;color:inherit;opacity:.8;text-align:center;margin:4px 0 10px}
