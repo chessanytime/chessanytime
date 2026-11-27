@@ -66,6 +66,7 @@
         status(message.total.toLocaleString()+" games loaded"+(importErrors?" · "+importErrors+" invalid games excluded (see import details)":"")+" · Files stay in your browser.",importErrors>0);
       }else if(message.type==="selected"&&message.request===request){
         const firstGame=!active;
+        element("pgn-mode").disabled=false;
         active=message.game;branch=false;player=element("pgn-side").value==="auto"?new Chess(active.start).turn():element("pgn-side").value;
         cur={fen:active.start,moves:active.moves.map(move=>move.uci),side0:player,pgn:true};
         element("pgn-game-title").textContent=active.title;
@@ -111,9 +112,10 @@
   function renderMoves(){
     const moves=active.moves.map((move,index)=>{
       const button=document.createElement("button");
-      button.type="button";button.textContent=(index%2===0?Math.floor(index/2)+1+". ":"")+move.san;
+      const parts=active.start.split(" "),offset=(parts[1]==="b"?1:0)+index,number=Number(parts[5]||1)+Math.floor(offset/2);
+      button.type="button";button.textContent=(offset%2===0?number+". ":index===0?number+"... ":"")+move.san;
       button.dataset.ply=index;button.addEventListener("click",()=>{
-        mode="replay";element("pgn-mode").value=mode;seek(index+1);
+        if(!active.custom){mode="replay";element("pgn-mode").value=mode;}seek(index+1);
       });
       return button;
     });
@@ -125,7 +127,7 @@
     const next=active.moves[idx];
     say(done?"Main line complete":(g.turn()==="w"?"White":"Black")+" to move",done?"ok":"",
       branch?"Analysis branch · Reset to return to the PGN.":mode==="practice"?"Play the next move. The opponent replies automatically.":mode==="replay"?"Step through the game or enter its next move.":"Explore any legal move. No engine evaluation is running.");
-    element("pgn-next").disabled=puzzleWaiting||done||branch;
+    element("pgn-next").disabled=puzzleWaiting||done||branch||idx>=active.moves.length;
     element("pgn-prev").disabled=puzzleWaiting||idx===0;
     element("pgn-board-next").disabled=element("pgn-next").disabled;
     element("pgn-board-prev").disabled=element("pgn-prev").disabled;
@@ -133,6 +135,7 @@
     element("pgn-board-status").textContent=element("st").textContent+" · "+idx+" / "+active.moves.length+" half-moves";
     element("pgn-hint").disabled=puzzleWaiting||done||branch||!next;
     element("pgn-progress").textContent=branch?"Analysis branch":idx+" / "+active.moves.length+" half-moves";
+    element("pgn-current-fen").value=g.fen();
     element("pgn-side").hidden=mode!=="practice";
     element("pgn-side-field").hidden=mode!=="practice";
     document.querySelector(".pgn-side-label").hidden=mode!=="practice";
@@ -145,23 +148,27 @@
   }
   function seek(ply,automaticReply=true){
     if(!active)return;
+    const previousPly=idx,previousGame=g;
     clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleWaiting=false;puzzleGeneration++;branch=false;
     document.getElementById("promotion-dialog").close();
     const checkpoint=active.checkpoints[Math.floor(ply/16)]||active.checkpoints[0];
+    let replayed=null;
     g=new Chess(checkpoint.fen);
     for(let i=checkpoint.ply;i<ply;i++){
       const uci=active.moves[i].uci;
-      if(!g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]})){status("Could not replay this position.",true);return}
+      replayed=g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});if(!replayed){status("Could not replay this position.",true);return}
     }
     idx=ply;sel=null;hintSq=null;boardMarks=[];last=null;done=false;
     if(ply){const uci=active.moves[ply-1].uci;last=[uci.slice(0,2),uci.slice(2,4)]}
     update();
+    if(previousGame&&previousPly!==ply)window.boardSound?.(replayed||{});
     if(automaticReply&&mode==="practice"&&g.turn()!==player&&!done)reply();
   }
   function applyNext(){
     if(!active||puzzleWaiting||branch||idx>=active.moves.length)return;
     const uci=active.moves[idx].uci;
-    if(!g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]})){status("The PGN contains an illegal move.",true);return}
+    const move=g.move({from:uci.slice(0,2),to:uci.slice(2,4),promotion:uci[4]});if(!move){status("The PGN contains an illegal move.",true);return}
+    window.boardSound?.(move);
     idx++;last=[uci.slice(0,2),uci.slice(2,4)];sel=null;
     boardMarks=[];update();
   }
@@ -175,6 +182,19 @@
     },450);
   }
   window.pgnStudy={
+    getFen(){return g?.fen()||new Chess().fen();},
+    openPosition(fen){
+      const position=new Chess();if(!position.load(fen))throw Error("Invalid FEN.");
+      request++;clearTimeout(puzzleReplyTimer);puzzleGeneration++;
+      active={id:"custom-position",custom:true,title:"Custom position",start:position.fen(),moves:[],checkpoints:[{ply:0,fen:position.fen()}]};
+      mode="analysis";element("pgn-mode").value=mode;element("pgn-mode").disabled=true;player=position.turn();branch=false;
+      cur={fen:active.start,moves:[],side0:player,pgn:true};
+      element("pgn-game-title").textContent=active.title;element("pgn-game-detail").textContent="Free analysis · Play either side";
+      element("pgn-placeholder").hidden=true;element("pgn").classList.add("pgn-has-game");element("bd").classList.remove("is-empty");
+      startPuzzle();setDrawMode(false);renderMoves();seek(0,false);renderList(true);sizeBoard();
+      status("Custom position loaded. Imported PGNs are unchanged.");
+      element("bd").focus({preventScroll:true});
+    },
     play(from,to,promotion){
       if(!active||puzzleWaiting)return;
       const move=g.move({from,to,promotion});sel=null;
@@ -183,7 +203,11 @@
       if(mode!=="analysis"&&uci!==expected){
         g.undo();say("Try another move","no","Follow the PGN main line, or switch to Analysis to explore.");draw();return;
       }
-      if(mode==="analysis"&&(branch||uci!==expected))branch=true;else idx++;
+      if(active.custom){
+        if(uci!==expected){active.moves.splice(idx);active.moves.push({uci,san:move.san});cur.moves=active.moves.map(m=>m.uci);renderMoves();}
+        idx++;branch=false;
+      }else if(mode==="analysis"&&(branch||uci!==expected))branch=true;else idx++;
+      window.boardSound?.(move);
       last=[from,to];boardMarks=[];update();
       if(mode==="practice")reply();
     },
@@ -254,7 +278,7 @@
   addEventListener("blur",()=>finishSizeGesture(true));
   element("pgn-fit").addEventListener("click",()=>{element("pgn-size").value="100";sizeBoard();element("bd").focus({preventScroll:true})});
   window.addEventListener("keydown",event=>{
-    if(!active||event.shiftKey||event.ctrlKey||event.altKey||event.metaKey||
+    if(element("pgn-editor-dialog").open||!active||event.shiftKey||event.ctrlKey||event.altKey||event.metaKey||
        (event.target instanceof Element&&event.target.closest("input:not([type=file]):not([type=checkbox]),textarea,select,[contenteditable]"))||element("promotion-dialog").open)return;
     const keys=[event.key,event.code];
     const direction=keys.some(key=>key==="ArrowRight"||key==="Right")?1:keys.some(key=>key==="ArrowLeft"||key==="Left")?-1:0;
@@ -263,7 +287,7 @@
     seek(Math.max(0,Math.min(active.moves.length,idx+direction)),false);
   },true);
   element("pgn-clear").addEventListener("click",()=>{
-    worker.terminate();cancelPuzzle();entries=[];filtered=[];active=null;request++;importErrors=0;
+    element("pgn-mode").disabled=false;element("pgn-current-fen").value="";worker.terminate();cancelPuzzle();entries=[];filtered=[];active=null;request++;importErrors=0;
     element("pgn-errors").replaceChildren();element("pgn-import-errors").hidden=true;
     element("pgn-placeholder").hidden=false;element("pgn-game-title").textContent="Your PGN workspace";
     element("pgn").classList.remove("pgn-has-game","pgn-focused");element("pgn-focus").setAttribute("aria-pressed","false");element("pgn-focus").textContent="Focus board";element("pgn-focus").disabled=true;

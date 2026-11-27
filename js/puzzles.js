@@ -93,6 +93,7 @@ function play(from,to,promotion){
   $('#bd').classList.remove('shake');void $('#bd').offsetWidth;$('#bd').classList.add('shake');
   draw();return;
  }
+ window.boardSound?.(move);
  idx++;
  if(idx>=cur.moves.length||g.in_checkmate()){finishPuzzle(true);return}
  puzzleWaiting=true;
@@ -102,6 +103,7 @@ function play(from,to,promotion){
   if(generation!==puzzleGeneration||!cur)return;
   const reply=cur.moves[idx],result=g.move({from:reply.slice(0,2),to:reply.slice(2,4),promotion:reply[4]});
   if(!result){done=true;puzzleWaiting=false;say('Invalid puzzle','no','The stored reply is illegal. Please load another puzzle.');draw();return}
+  window.boardSound?.(result);
   idx++;last=[result.from,result.to];puzzleWaiting=false;
   if(idx>=cur.moves.length){finishPuzzle(true);return}
   say('Your turn','','Find the next best move');draw();
