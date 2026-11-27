@@ -1,26 +1,40 @@
-// Local, synthesized chess move sounds; no external audio assets.
+// Real chess-piece recording (CC0); see sounds/CREDITS.md.
 (()=>{
- let enabled=true,context;
+ let enabled=true,context,buffer;
  try{enabled=localStorage.getItem('caBoardSound')!=='false'}catch(_){}
- function unlock(){if(!enabled)return;try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;context??=new Audio();if(context.state==='suspended')context.resume().catch(()=>{});}catch(_){}}
+ const asset=new URL('sounds/chess-move.mp3',document.baseURI).href;
+ const bytes=fetch(asset).then(r=>{if(!r.ok)throw Error('Sound unavailable');return r.arrayBuffer()}).catch(()=>null);
+ let decoding;
+ function unlock(){
+  if(!enabled)return;
+  try{
+   const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)return;
+   context??=new Audio();
+   if(context.state==='suspended')context.resume().catch(()=>{});
+   decoding??=bytes.then(data=>data?context.decodeAudioData(data):null).then(b=>{buffer=b;return b}).catch(()=>null);
+  }catch(_){}
+ }
  document.addEventListener('pointerdown',unlock,{capture:true});
  document.addEventListener('keydown',unlock,{capture:true});
  const buttons=[...document.querySelectorAll('[data-board-sound]')];
  function update(){buttons.forEach(b=>{b.textContent=enabled?'Sound: on':'Sound: off';b.setAttribute('aria-pressed',String(enabled))})}
- buttons.forEach(b=>b.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('caBoardSound',String(enabled))}catch(_){}update();if(enabled){unlock();window.boardSound({})}}));
- window.boardSound=(move)=>{
-  if(!enabled||!context||context.state!=='running')return;
-  try{
-   const t=context.currentTime, capture=!!move?.captured,check=/[+#]$/.test(move?.san||'');
-   const duration=capture?.095:.055, length=Math.ceil(context.sampleRate*duration);
-   const buffer=context.createBuffer(1,length,context.sampleRate),data=buffer.getChannelData(0);
-   for(let i=0;i<length;i++){const x=i/context.sampleRate;data[i]=(Math.random()*2-1)*Math.exp(-x/(capture?.016:.009));}
-   const src=context.createBufferSource(),filter=context.createBiquadFilter(),gain=context.createGain();
-   src.buffer=buffer;filter.type='lowpass';filter.frequency.value=capture?1350:2200;gain.gain.value=.24;
-   src.connect(filter).connect(gain).connect(context.destination);src.start(t);
-   function knock(at,freq,volume){const osc=context.createOscillator(),amp=context.createGain();osc.type='sine';osc.frequency.setValueAtTime(freq,at);osc.frequency.exponentialRampToValueAtTime(freq*.62,at+.045);amp.gain.setValueAtTime(volume,at);amp.gain.exponentialRampToValueAtTime(.001,at+.065);osc.connect(amp).connect(context.destination);osc.start(at);osc.stop(at+.07);}
-   knock(t,capture?165:240,.13);if(check)knock(t+.085,440,.07);
-  }catch(_){}
+ function playBuffer(move){
+  if(!enabled||!context||context.state!=='running'||!buffer)return;
+  const t=context.currentTime;
+  function tap(at,volume,rate){
+   const source=context.createBufferSource(),gain=context.createGain();
+   source.buffer=buffer;source.playbackRate.value=rate;gain.gain.value=volume;
+   source.connect(gain).connect(context.destination);source.start(at);
+  }
+  // Standard-style: checks use normal move or capture sound, not a beep.
+  if(move?.captured){tap(t,.32,1.08);tap(t+.075,.56,.96)}
+  else tap(t,.62,1);
+ }
+ window.boardSound=move=>{
+  if(!enabled)return;unlock();
+  if(buffer&&context?.state==='running')playBuffer(move);
+  else if(decoding){const requested=performance.now();decoding.then(()=>{if(performance.now()-requested<350)playBuffer(move)})}
  };
+ buttons.forEach(b=>b.addEventListener('click',()=>{enabled=!enabled;try{localStorage.setItem('caBoardSound',String(enabled))}catch(_){}update();if(enabled)window.boardSound({})}));
  update();
 })();
