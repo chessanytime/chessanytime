@@ -52,3 +52,12 @@ body.ca-board-resizing,body.ca-board-resizing *{cursor:nwse-resize!important;use
 @media(min-width:901px){#puzzles .pz{grid-template-columns:minmax(0,min(var(--ca-user-board-width,var(--puzzle-board-size)),calc(100% - 334px))) minmax(0,1fr)}}
 @media(max-width:900px){#puzzles .board-frame.ca-resizable-board{width:min(100%,var(--ca-user-board-width,960px),max(240px,calc(100svh - 132px)));margin-inline:auto}}
 #pgn .board-frame.ca-resizable-board{width:min(100%,var(--ca-user-board-width,var(--pgn-board-height,calc(100svh - 200px))));padding:0!important}
+
+/* Explicit release 7 layout safeguards. */
+#puzzles .board-drawing-help,#puzzles .board-help,#puzzles .board-controls,#puzzles .practice-upcoming,#puzzles #practice-puzzle-info,#pgn .board-drawing-help{display:none!important}
+#puzzles .board-frame.ca-resizable-board,#pgn .board-frame.ca-resizable-board{position:relative!important;overflow:visible!important;padding:0!important}
+#puzzles .ca-board-resize,#pgn .ca-board-resize{position:absolute!important;display:block!important;right:0!important;bottom:0!important;width:24px!important;height:24px!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;z-index:30!important;border:0!important;border-radius:0!important;box-shadow:none!important;cursor:nwse-resize!important;background:linear-gradient(135deg,transparent 52%,#20170fa8 53%,#20170fa8 59%,transparent 60%,transparent 70%,#20170fa8 71%,#20170fa8 77%,transparent 78%)!important;touch-action:none}
+#pgn .pgn-layout:has(.ca-resizable-board){grid-template-columns:minmax(0,var(--pgn-left-width,1fr)) minmax(0,var(--ca-user-board-width,var(--pgn-board-height,2fr))) minmax(0,var(--pgn-right-width,1fr))}
+#pgn.pgn-focused .pgn-layout:has(.ca-resizable-board){grid-template-columns:minmax(0,1fr)}
+@media(max-width:900px){#pgn .pgn-layout:has(.ca-resizable-board){grid-template-columns:minmax(0,1fr)}}
+.ca-build-marker{font:600 11px/1.3 system-ui,sans-serif;color:inherit;opacity:.68;display:inline-block;white-space:nowrap;margin:5px 0}
