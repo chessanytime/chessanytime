@@ -57,3 +57,50 @@
 #login #lichess-login{background:#294d77;color:white;border:0;margin-top:14px;padding:14px;border-radius:8px}
 @media(max-width:900px){.dash-metrics,.dash-ratings{grid-template-columns:repeat(3,minmax(0,1fr))}.dash-game{grid-template-columns:55px 1fr 1fr}.dash-game-links{grid-column:2/-1}.dash-login-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.dash-metrics,.dash-ratings{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.dash-analysis-grid{grid-template-columns:1fr}.dash-metric,.dash-rating,.dash-panel{padding:12px}.dash-history-stats .dash-metric{padding:3px}.dash-history-stats .dash-metric strong{font-size:1.05rem}.dash-hero #lichess-avatar{width:46px;height:46px}.dash-hero-main{gap:10px}.dash-game{grid-template-columns:48px minmax(0,1fr) auto;gap:7px}.dash-game-opening{grid-row:2;grid-column:2/-1}.dash-game-links{grid-row:3;grid-column:2/-1}.dash-game>strong{grid-column:3;grid-row:1}.dash-game-links a{padding:6px 9px}.dash-login-grid{margin:10px auto}#login .dash-login-intro{min-height:auto}}
+
+/* Player hub v2 — responsive, editorial dashboard */
+#portal{background:#f4f5f3;color:#172b42;font-size:15px}
+#portal>.dashboard-shell{max-width:1580px;padding-inline:clamp(16px,3vw,48px)}
+#portal .dash-hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 88% 15%,#3e5664 0,transparent 46%),linear-gradient(120deg,#101f30,#22384a 80%);padding:clamp(24px,4vw,48px);border-radius:24px;box-shadow:0 12px 30px #172b4220}
+#portal .dash-hero:after{content:'♞';position:absolute;right:3%;top:-38%;font-size:clamp(140px,26vw,400px);line-height:1;color:#f5d2a5;opacity:.07;pointer-events:none}
+#portal .dash-hero-main,#portal .dash-quick{position:relative;z-index:1}
+#portal .dash-hero #lichess-avatar{border:1px solid #e9b77f80;background:#e9b77f22;color:#f3d2a7;font-weight:800}
+#portal .dash-nav{gap:6px;margin:16px 0 28px;background:#fff;border:1px solid #e0e5e7;border-radius:13px;padding:8px;scrollbar-width:thin}
+#portal .dash-nav a{border-radius:8px;font-size:.9rem;padding:11px 14px}
+#portal .dash-nav a:hover,#portal .dash-nav a:focus-visible{background:#f2e9dc;color:#754f2d}
+#portal .dash-section{margin:36px 0}
+#portal .dash-heading{margin-bottom:18px}
+#portal .dash-heading h2{font-size:clamp(1.5rem,2.4vw,2.15rem)!important}
+#portal .dash-kicker{font-size:.72rem;letter-spacing:.12em}
+#portal .dash-metric,#portal .dash-rating,#portal .dash-panel,#portal .dash-game{border:1px solid #dfe4e5;border-radius:15px;padding:20px;box-shadow:0 3px 12px #20364f06}
+#portal .dash-metric span,#portal .dash-metric small,#portal .dash-note,#portal .dash-rating-detail,#portal .dash-heading>span{font-size:.85rem}
+#portal .dash-metric strong,#portal .dash-rating>strong{font-variant-numeric:tabular-nums;font-size:clamp(1.55rem,2.5vw,2.2rem);margin:3px 0}
+#portal .dash-ratings{grid-template-columns:repeat(5,minmax(0,1fr))}
+#portal .dash-rating-top{font-size:.95rem}
+#portal .dash-panel h3{font-size:1.13rem!important;margin-bottom:15px!important}
+#portal .dash-filters{background:#fff;padding:12px 14px;border-radius:12px;border:1px solid #e0e5e7;gap:14px}
+#portal .dash-filters label{font-size:.82rem;flex:1;min-width:115px}
+#portal .dash-filters select{font-size:.92rem;min-height:42px}
+#portal .dash-history-stats .dash-metric{border:0;box-shadow:none;padding:8px 12px}
+#portal .dash-analysis-grid{gap:18px}
+#portal .dash-wide{grid-column:1/-1}
+.dash-rep-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.dash-rep-group{min-width:0}.dash-rep-group h4{margin:0 0 10px;font-size:1rem}
+.dash-table-wrap{overflow-x:auto;max-width:100%;margin:10px 0 0}
+#portal .dash-data-table{border-collapse:collapse;width:100%;font-size:.85rem;text-align:left;background:transparent}
+#portal .dash-data-table th{font-size:.74rem;font-weight:700;color:#536575;background:#f1f3f4;text-align:left;white-space:nowrap}
+#portal .dash-data-table th,#portal .dash-data-table td{padding:11px 9px;border-bottom:1px solid #e5e9eb;vertical-align:middle}
+#portal .dash-data-table td:not(:first-child){white-space:nowrap;font-variant-numeric:tabular-nums}
+#portal .dash-data-table tr:last-child td{border-bottom:0}
+#portal .dash-game-link{color:#28547b;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+#portal .dash-color-row{padding:12px 0}
+#portal .dash-result-bar{height:14px;border-radius:7px}
+#portal .dash-game{padding:15px 18px}
+#portal .dash-game-identity strong,#portal .dash-game-opening span,#portal .dash-opening-row strong{font-size:.95rem}
+#portal .dash-game small,#portal .dash-legend,#portal .dash-opening-row small{font-size:.82rem}
+#portal .dash-secondary{display:inline-block;min-height:38px;font-size:.84rem;margin:4px 0}
+#portal button:disabled{opacity:.55;cursor:wait}
+#portal a:focus-visible,#portal button:focus-visible,#portal select:focus-visible{outline:2px solid #a77340;outline-offset:3px}
+@media(max-width:1000px){#portal .dash-ratings{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:720px){.dash-rep-grid{grid-template-columns:1fr}.dash-rep-group+.dash-rep-group{border-top:1px solid #e0e5e7;padding-top:16px}#portal .dash-analysis-grid{grid-template-columns:1fr}#portal .dash-panel{padding:16px}}
+@media(max-width:560px){#portal .dash-ratings,#portal .dash-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}#portal .dash-metric,#portal .dash-rating{padding:13px}#portal .dash-history-stats .dash-metric{padding:4px}#portal .dash-history-stats .dash-metric strong{font-size:1.1rem}#portal .dash-game{padding:12px}#portal .dash-filters{gap:10px}#portal .dash-filters label{min-width:120px}#portal .dash-hero{padding:20px}#portal .dash-metric strong,#portal .dash-rating>strong{font-size:1.6rem}}
