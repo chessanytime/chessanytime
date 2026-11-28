@@ -6,12 +6,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&amp;family=Figtree:wght@400;500;600&amp;family=Poppins:wght@500;600;700;800&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/chess-experience.css">
-<link rel="stylesheet" href="css/puzzle-training.css?v=7">
+<link rel="stylesheet" href="css/chess-experience.css?v=8">
+<link rel="stylesheet" href="css/puzzle-training.css?v=8">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
 <script src="js/vendor/chess.min.js"></script>
-<link rel="stylesheet" href="css/board-drawing.css?v=7">
+<link rel="stylesheet" href="css/board-drawing.css?v=8">
 </head>
 <body id="top" data-page="puzzles">
 <header><div class="w"><nav aria-label="Main navigation">
@@ -39,7 +39,7 @@
 <main class="pg" id="puzzles"><div class="w"><div class="pz">
 <div class="puzzle-board-panel"><div class="board-frame ca-resizable-board"><div id="bd" aria-label="Chess board"></div><button type="button" class="ca-board-resize" aria-label="Resize chessboard" title="Drag to resize board"></button></div><div class="board-drawing-tools" role="group" aria-label="Board drawing tools"><button type="button" data-board-draw-mode aria-pressed="false">Draw: off</button><span class="board-brushes" role="group" aria-label="Drawing colour"><button type="button" data-board-brush="g" aria-label="Green" title="Green" aria-pressed="true"></button><button type="button" data-board-brush="r" aria-label="Red" title="Red" aria-pressed="false"></button><button type="button" data-board-brush="b" aria-label="Blue" title="Blue" aria-pressed="false"></button><button type="button" data-board-brush="y" aria-label="Yellow" title="Yellow" aria-pressed="false"></button></span><button type="button" data-board-clear-marks>Clear marks</button><button type="button" data-board-sound aria-pressed="true">Sound: on</button></div>
 <dialog id="promotion-dialog" class="promotion-dialog"><h3>Promote your pawn</h3><div class="promotion-options"><button type="button" data-promotion="q">Queen</button><button type="button" data-promotion="r">Rook</button><button type="button" data-promotion="b">Bishop</button><button type="button" data-promotion="n">Knight</button></div><button type="button" id="promotion-close">Cancel</button></dialog></div>
-<aside class="side" aria-labelledby="puzzle-title"><h2 class="puzzle-heading" id="puzzle-title">Chess puzzles</h2><small class="ca-build-marker">Puzzle workspace · v7</small><p class="sub" id="puzzle-intro">Solve today’s Lichess puzzle.</p>
+<aside class="side" aria-labelledby="puzzle-title"><h2 class="puzzle-heading" id="puzzle-title">Chess puzzles</h2><small class="ca-build-marker">Puzzle workspace · v8</small><p class="sub" id="puzzle-intro">Solve today’s Lichess puzzle.</p>
 <div class="puzzle-modes" role="group" aria-label="Puzzle mode"><button type="button" id="mode-practice" aria-pressed="false">Practice</button><button type="button" id="mode-daily" aria-pressed="true">Daily puzzle</button></div>
 <p id="lichess-login-message" class="training-message" role="status" aria-live="polite"></p>
 <section id="practice-signin" hidden><h3>Your next challenge</h3><p>Log in with Lichess to practise at your level. Your official rating stays unchanged.</p><a class="btn" href="login.html?next=puzzles.html%3Fmode%3Dpractice">Log in to practise</a></section>
@@ -50,7 +50,7 @@
 </section>
 <div class="daily-bar"><div><strong>Lichess Daily Puzzle</strong><div class="meta" id="daily-info">Loading today’s puzzle…</div></div><button class="btn" id="daily-load" type="button">Load daily puzzle</button></div>
 <div class="puzzle-status"><div id="st"></div><div class="meta" id="mt"></div>
-<div class="row"><button class="btn g" id="bh">Hint</button></div><p id="puzzle-themes" hidden></p><p id="puzzle-solution" hidden></p><a id="practice-source" target="_blank" rel="noopener noreferrer" hidden>Analyse on Lichess ↗</a><div class="meta puzzle-credit">Puzzles provided by <a href="https://lichess.org/training/daily" target="_blank" rel="noopener">Lichess</a> · <a href="pgn.html">Study your own PGNs</a></div></div></aside>
+<div class="row"><button class="btn g" id="bh" type="button">Hint</button><button class="btn g" id="daily-giveup" type="button" hidden>Give up</button></div><p id="puzzle-themes" hidden></p><p id="puzzle-solution" hidden></p><a id="practice-source" target="_blank" rel="noopener noreferrer" hidden>Analyse on Lichess ↗</a><div class="meta puzzle-credit">Puzzles provided by <a href="https://lichess.org/training/daily" target="_blank" rel="noopener">Lichess</a> · <a href="pgn.html">Study your own PGNs</a></div></div></aside>
 </div></div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
@@ -77,11 +77,11 @@
 <script src="js/navigation.js"></script>
 <script src="js/header.js"></script>
 <script src="js/puzzle-data.js"></script>
-<script src="js/board-sound.js?v=3"></script><script src="js/puzzles.js?v=7"></script>
-<script src="js/chessboard-v5.js?v=7"></script>
+<script src="js/board-sound.js?v=3"></script><script src="js/puzzles.js?v=8"></script>
+<script src="js/chessboard-v5.js?v=8"></script>
 <script src="js/lichess-login.js"></script>
 <script src="js/puzzle-library.js"></script>
-<script src="js/puzzle-training.js?v=7"></script>
+<script src="js/puzzle-training.js?v=8"></script>
 <script src="js/init.js"></script>
 <a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)">
 <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg>
