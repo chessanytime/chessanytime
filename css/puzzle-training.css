@@ -39,3 +39,10 @@
 #puzzles #puzzle-themes,#puzzles #puzzle-solution{font-size:.85rem;line-height:1.65;overflow-wrap:anywhere;margin:10px 0;color:inherit}
 #puzzles #puzzle-solution{padding:10px 12px;border:1px solid var(--ln);border-radius:8px}
 #puzzles #bh:disabled{opacity:.45;cursor:default}
+
+/* Guest access and optional rating-relative difficulty. */
+#puzzles .practice-login-cta{margin-top:16px;padding:15px;border:1px solid var(--ln);border-radius:18px;background:#ffffff06}
+#puzzles .practice-login-cta p{font-size:.87rem;line-height:1.5;margin:0 0 10px;color:inherit}
+#puzzles .practice-login-cta .btn{display:block;text-align:center;width:100%;box-sizing:border-box}
+#puzzles .practice-difficulty{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.83rem;margin:10px 0}
+#puzzles .practice-difficulty select{min-height:36px;min-width:120px;padding:6px 10px;background:#eef1f5;color:#20364f;border:1px solid #d6dfe7}
