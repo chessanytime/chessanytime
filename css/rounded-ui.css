@@ -1,0 +1,44 @@
+/* Chess AnyTime — rounded visual system, inspired by the user's Lichess reference.
+   Loaded last on every public page; only geometry changes, not content or colour. */
+:root{--ca-round-board:clamp(12px,2.1vw,23px);--ca-round-panel:20px;--ca-round-control:12px;--ca-round-small:9px}
+/* Controls and links styled as buttons. Keep native checkbox/radio shapes. */
+body button:not(.sq):not(.editor-square):not(.mind-square):not(.ca-board-resize):not([data-board-brush]),
+body input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=color]),
+body select,body textarea,body .btn,body .hub-btn,body .cp-btn,body .dash-primary,body .dash-secondary,body .footer-community-link,
+body .hub-event-links a,body .dash-game-links a,body #practice-source,body .pgn-upload,body .nav-toggle,body .header-utility>a{
+ border-radius:var(--ca-round-control)!important;
+}
+body .whatsapp-floater{border-radius:999px!important}
+body header .resources-dropdown,body header .primary-navigation:has(>a){/* navigation stays open and unclipped */}
+body header .resources-dropdown,body .resources-dropdown>a,body .resources-dropdown>div>a{border-radius:var(--ca-round-control)!important}
+body header .resources-dropdown{border-radius:var(--ca-round-panel)!important}
+body :is(.card,.hub-feature,.hub-quick,.hub-page-intro,.hub-activity,.hub-academy,.life-skill-card,.hub-resource-grid>a,.hub-event-grid article,.event-announcement,.meetup-event-card,.meetup-entry,.community-intro,.community-hero-photo,.meetup-intro,.hub-hero-photo,.hero-photo-frame,.moment-card,.academy-video-player-wrap,.academy-video-frame,.academy-video-card,.band,.level-card,.cp-level-detail,.cp-price-card,.cp-package-section,.cp-bottom-cta,.cp-journey-card,.cp-journey-facts>div,.cp-include-icon,.cp-cta-piece,.lichess-auth-card,.dash-hero,.dash-signin,.dash-login-grid,.dash-login-intro,.dash-nav,.dash-panel,.dash-metric,.dash-rating,.dash-game,.dash-filters,.pgn-library,.pgn-play-panel,.side,.daily-bar,.puzzle-modes,.practice-summary>div,.training-message.is-error,dialog,fieldset){
+ border-radius:var(--ca-round-panel)!important;
+}
+body :is(.hub-feed a,.dash-quick a,.dash-hero-actions a,.dash-hero-actions button,.dash-nav a,.dash-insight-note,.pgn-game,.mind-skill,.puzzle-modes button,.pgn-position-tools button){border-radius:var(--ca-round-control)!important}
+body :is(.hub-hero-photo,.hero-photo-frame,.community-hero-photo,.academy-video-frame,.academy-video-player-wrap,.moment-card,.hub-feature,.dash-login-grid){overflow:hidden}
+body main :is(figure img,.event-photos img,.meetup-photo-grid img,.hub-feature img,.hub-hero-photo img,.community-hero-photo img,.moment-photo-slot img,.academy-video-frame iframe){border-radius:var(--ca-round-panel)!important}
+body :is(.hub-feature,.moment-card) img{border-bottom-left-radius:0!important;border-bottom-right-radius:0!important}
+body main :is(form,.contact-form,.demo-form,.post-card,.blog-card,.post-cover,.article-cover,.event-card,.academy-card,.program-card,.course-card){border-radius:var(--ca-round-panel)!important}
+body :is(.dash-rating-icon,.dash-game-result,.pgn-status,.practice-summary,.pgn-settings-fields input){border-radius:var(--ca-round-small)}
+/* Round only the outer silhouette of chessboards. The sixty-four cells stay edge-to-edge.
+   Frame must remain overflow-visible for the resize handle and pointer capture. */
+body #puzzles .board-frame.ca-resizable-board,body #pgn .board-frame.ca-resizable-board,
+body .editor-board-frame,body #home .mind-board-frame,body #programs .cp-board{
+ border-radius:var(--ca-round-board)!important;
+}
+body #puzzles .board-frame.ca-resizable-board,body #pgn .board-frame.ca-resizable-board,body .editor-board-frame{overflow:visible!important}
+body #puzzles #bd,body #pgn #bd,body #pgn .pgn-editor-dialog #pgn-editor-board,body #home .mind-board,body #programs .cp-board{
+ border-radius:var(--ca-round-board)!important;overflow:hidden!important;
+}
+body #bd .sq,body #pgn-editor-board .editor-square,body #home .mind-square,body #programs .cp-board>div{border-radius:0!important}
+body #bd .pc,body .editor-square img,body #bd .drag-ghost img{border-radius:0!important}
+/* Inset the handle along the rounded silhouette rather than clipping it. */
+body #puzzles .ca-board-resize,body #pgn .ca-board-resize,body .pgn-editor-dialog .editor-board-frame .ca-board-resize{
+ right:3px!important;bottom:3px!important;width:24px!important;height:24px!important;border-radius:0 0 10px 0!important;
+}
+/* Keep circles, piece palette, and decorative dots intentional. */
+body .board-brushes [data-board-brush]{border-radius:50%!important}
+body .pgn-editor-dialog #pgn-editor-palette button[data-brush]:not([data-brush=move]):not([data-brush=erase]){border-radius:8px!important}
+body :is(.dash-history-stats,.dash-history-stats .dash-metric){border-radius:var(--ca-round-control)!important}
+@media(max-width:600px){:root{--ca-round-panel:17px;--ca-round-control:11px;--ca-round-board:15px}}
