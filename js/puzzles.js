@@ -1,4 +1,4 @@
-let g,cur,idx=0,sel,last,flip=false,done=false,failed=false,hintSq;
+let g,cur,idx=0,sel,last,flip=false,done=false,failed=false,hintSq,themeRevealed=false;
 let boardMarks=[],userBoardMarks=[],activeGesture=null,puzzleWaiting=false,puzzleReplyTimer=null,puzzleGeneration=0,dailyRequest=null;
 const today=()=>{const t=localDate();let l=0;PUZZLES.forEach((p,i)=>{if(p.date<=t)l=i});return l};
 function load(i){if(!PUZZLES[i])return;cur=PUZZLES[i];startPuzzle()}
@@ -6,15 +6,16 @@ function cancelPuzzle(){
  clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleGeneration++;
  dailyRequest?.abort();dailyRequest=null;puzzleWaiting=false;done=false;
  document.getElementById('promotion-dialog')?.close();
- g=null;cur=null;sel=null;activeGesture=null;boardMarks=[];userBoardMarks=[];clearGhost();
+ g=null;cur=null;sel=null;activeGesture=null;boardMarks=[];userBoardMarks=[];clearGhost();resetPuzzleFeedback();
  $('#bd').replaceChildren();
 }
 function startPuzzle(){
  clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleGeneration++;
  document.getElementById('promotion-dialog')?.close();
- g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;
+ g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;themeRevealed=false;
+ resetPuzzleFeedback();
  boardMarks=[];userBoardMarks=[];activeGesture=null;puzzleWaiting=false;clearGhost();flip=g.turn()==='b';cur.side0=g.turn();
- say('Your turn','','Find the best move for '+(g.turn()==='w'?'white':'black')+(cur.practice?'':' · Rating '+cur.rating+' · '+cur.theme));
+ say('Your turn','','Find the best move for '+(g.turn()==='w'?'white':'black')+(cur.practice?'':' · Rating '+cur.rating));
  draw();
 }
 async function loadDaily(){
@@ -43,9 +44,9 @@ async function loadDaily(){
   }
   if(request.signal.aborted||generation!==puzzleGeneration)return;
   dailyRequest=null;
-  cur={fen,moves:p.solution,rating:p.rating||'Daily',theme:(p.themes||[]).slice(0,3).join(', ')||'Daily challenge',daily:true,id:p.id};
+  cur={fen,moves:p.solution,rating:p.rating||'Daily',theme:(p.themes||[]).join(' ')||'Daily challenge',daily:true,id:p.id};
   startPuzzle();
-  if(info)info.textContent='Today’s puzzle · Rating '+cur.rating+' · '+cur.theme;
+  if(info)info.textContent='Today’s puzzle · Rating '+cur.rating;
  }catch(error){
   if(request.signal.aborted||generation!==puzzleGeneration)return;
   console.error('Lichess daily puzzle error:',error);
@@ -56,12 +57,34 @@ async function loadDaily(){
   if(dailyRequest===request)dailyRequest=null;
  }
 }
+function resetPuzzleFeedback(){
+ const themes=document.getElementById('puzzle-themes'),source=document.getElementById('practice-source'),solution=document.getElementById('puzzle-solution'),hint=document.getElementById('bh');
+ if(themes){themes.hidden=true;themes.textContent=''}if(source){source.hidden=true;source.removeAttribute('href')}if(solution){solution.hidden=true;solution.textContent=''}if(hint)hint.disabled=false;
+}
+function revealPuzzleThemes(){
+ themeRevealed=true;const el=document.getElementById('puzzle-themes');if(!el||!cur)return;
+ const themes=String(cur.theme||'').split(/[\s,]+/).filter(Boolean).map(x=>x.replace(/([a-z])([A-Z])/g,'$1 $2'));
+ el.textContent=themes.length?'Themes: '+themes.join(' · '):'Themes unavailable';el.hidden=false;
+}
+function revealPuzzleAnalysis(){
+ const a=document.getElementById('practice-source');if(!a||!cur||!g)return;
+ a.href='https://lichess.org/analysis/standard/'+g.fen().replace(/ /g,'_')+'?color='+(cur.side0==='w'?'white':'black');a.hidden=false;
+}
 function finishPuzzle(won){
- done=true;puzzleWaiting=false;
- say(won?'Puzzle complete!':'Not quite this time',won?'ok':'no',cur.practice?
-  (won?'Finding a slightly harder puzzle…':'Finding an easier puzzle…'):(failed?'Solved with help':'Well played!'));
+ if(done)return;
+ done=true;puzzleWaiting=false;sel=null;hintSq=null;boardMarks=[];
+ const hint=document.getElementById('bh');if(hint)hint.disabled=true;
+ say(won?'Puzzle complete!':'Solution revealed',won?'ok':'no',won?(failed?'Solved after a mistake. Review or continue when ready.':'Well played!'):'Review the solution before continuing.');
  draw();
- document.dispatchEvent(new CustomEvent('puzzle-result',{detail:{won,puzzle:cur}}));
+ document.dispatchEvent(new CustomEvent('puzzle-result',{detail:{won:won&&!failed,solved:won,puzzle:cur}}));
+}
+function giveUpPuzzle(){
+ if(!cur||!g||done)return;
+ clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleGeneration++;puzzleWaiting=false;failed=true;
+ revealPuzzleAnalysis();
+ const san=[];while(idx<cur.moves.length){const u=cur.moves[idx],m=g.move({from:u.slice(0,2),to:u.slice(2,4),promotion:u[4]});if(!m)break;san.push(m.san);last=[m.from,m.to];idx++}
+ const el=document.getElementById('puzzle-solution');if(el){el.textContent='Remaining solution: '+san.join(' ');el.hidden=false}
+ finishPuzzle(false);
 }
 function requestPromotion(from,to,moves){
  const dialog=document.getElementById('promotion-dialog');
@@ -82,13 +105,13 @@ function play(from,to,promotion){
  if(!legal.length)return;
  if(!promotion&&legal.some(move=>move.promotion)){requestPromotion(from,to,legal);return}
  if(window.pgnStudy){window.pgnStudy.play(from,to,promotion);return}
- const move=g.move({from,to,promotion});sel=null;
+ const previousLast=last;
+ const move=g.move({from,to,promotion});sel=null;hintSq=null;
  if(!move)return;
  last=[from,to];
  const uci=from+to+(move.promotion||''),expected=cur.moves[idx];
  if(uci!==expected&&!g.in_checkmate()){
-  g.undo();failed=true;last=null;
-  if(cur.practice){finishPuzzle(false);return}
+  g.undo();failed=true;last=previousLast;revealPuzzleAnalysis();
   say('That’s not the move!','no','Try something else');
   $('#bd').classList.remove('shake');void $('#bd').offsetWidth;$('#bd').classList.add('shake');
   draw();return;
@@ -114,8 +137,8 @@ function showPuzzleHint(){
  if(window.pgnStudy){window.pgnStudy.hint();return}
  const expected=cur.moves[idx];
  if(!expected)return;
- hintSq=expected.slice(0,2);boardMarks=[{from:expected.slice(0,2),to:expected.slice(2,4),col:'b'}];
- say('Move hint','','The arrow shows the next move.');draw();
+ sel=null;hintSq=expected.slice(0,2);boardMarks=[];revealPuzzleThemes();
+ say('Hint','','Find the best move with the highlighted piece.');draw();
 }
 function say(text,className,message){
  $('#st').textContent=text;$('#st').className=className;$('#mt').textContent=message;
