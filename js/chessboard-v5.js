@@ -163,7 +163,7 @@ function toggleMark(from,to,col){
  boardMarks=boardMarks.filter(m=>!same(m));
 }
 function clearBoardMarks(){
- const hadMarks=boardMarks.length>0||userBoardMarks.length>0;
+ const hadMarks=boardMarks.length>0||userBoardMarks.length>0||!!hintSq;
  boardMarks=[];userBoardMarks=[];hintSq=null;
  return hadMarks;
 }
@@ -188,7 +188,7 @@ puzzleBoard.addEventListener('pointerdown',e=>{
   activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,wasSelected};
   draw();
   // Show the held piece immediately; retain the movement threshold for click vs drag.
-  if(e.pointerType!=='touch')createDragGhost(sq,e);
+  createDragGhost(sq,e);
  }else{
   activeGesture={mode:'click',from:sq,to:sq,pointerId:e.pointerId};
  }
@@ -276,8 +276,6 @@ document.querySelectorAll('[data-board-brush]').forEach(button=>button.addEventL
 }));
 syncDrawingControls();
 
-// Only the active annotation script can set this indicator.
-document.querySelectorAll('[data-arrow-revision]').forEach(el=>{el.textContent='Arrows v5 · Snap on';el.dataset.loaded='5';});
 
 // Square board resize handle: independent of move/draw gestures.
 (()=>{
@@ -286,14 +284,15 @@ document.querySelectorAll('[data-arrow-revision]').forEach(el=>{el.textContent='
  const handle=frame.querySelector('.ca-board-resize')||document.createElement('button');handle.type='button';handle.className='ca-board-resize';handle.setAttribute('aria-label','Resize chessboard with arrow keys or drag');handle.title='Resize board';if(!handle.parentElement)frame.append(handle);handle.dataset.ready='true';
  const root=main.querySelector('.pz')||frame.parentElement;
  const clamp=n=>Math.max(Math.min(240,max()),Math.min(max(),n));
- function max(){if(main.id==='puzzles'&&innerWidth>900)return Math.max(1,root.clientWidth-300-34);if(main.id==='pgn'){const layout=main.querySelector('.pgn-layout');return Math.max(1,main.classList.contains('pgn-focused')?layout.clientWidth:layout.clientWidth-320)}return Math.max(1,root.clientWidth)}
- function setWidth(n){const width=Math.round(clamp(n));main.style.setProperty('--ca-user-board-width',width+'px');return width}
+ function max(){if(main.id==='puzzles'&&innerWidth>900)return Math.max(1,root.clientWidth-300-34);if(main.id==='pgn'){const layout=main.querySelector('.pgn-layout'),focused=main.classList.contains('pgn-focused');return Math.max(1,layout.clientWidth-(focused?0:innerWidth>900?328:innerWidth>700?174:0))}return Math.max(1,root.clientWidth)}
+ function setWidth(n){const width=Math.round(clamp(n));if(main.id==='pgn'){main.dispatchEvent(new CustomEvent('ca-board-resize',{detail:{width}}));}else main.style.setProperty('--ca-user-board-width',width+'px');return width}
  let resize=null;
  handle.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();e.stopPropagation();resize={x:e.clientX,y:e.clientY,size:puzzleBoard.getBoundingClientRect().width,id:e.pointerId};handle.setPointerCapture(e.pointerId);document.body.classList.add('ca-board-resizing')});
  handle.addEventListener('pointermove',e=>{if(!resize||resize.id!==e.pointerId)return;setWidth(resize.size+((e.clientX-resize.x)+(e.clientY-resize.y))/2)});
  function stop(e){if(resize&&resize.id===e.pointerId){resize=null;document.body.classList.remove('ca-board-resizing')}}
  handle.addEventListener('pointerup',stop);handle.addEventListener('pointercancel',stop);handle.addEventListener('lostpointercapture',stop);
- handle.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowUp','ArrowRight','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home')main.style.removeProperty('--ca-user-board-width');else setWidth(puzzleBoard.getBoundingClientRect().width+(['ArrowRight','ArrowDown'].includes(e.key)?24:-24))});
- handle.addEventListener('dblclick',()=>main.style.removeProperty('--ca-user-board-width'));
+ handle.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowUp','ArrowRight','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home')reset();else setWidth(puzzleBoard.getBoundingClientRect().width+(['ArrowRight','ArrowDown'].includes(e.key)?24:-24))});
+ function reset(){main.style.removeProperty('--ca-user-board-width');if(main.id==='pgn')main.dispatchEvent(new CustomEvent('ca-board-resize',{detail:{reset:true}}))}
+ handle.addEventListener('dblclick',reset);
  addEventListener('resize',()=>{const n=parseFloat(main.style.getPropertyValue('--ca-user-board-width'));if(Number.isFinite(n))setWidth(n)});
 })();
