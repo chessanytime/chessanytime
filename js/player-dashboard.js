@@ -3,11 +3,12 @@
  const $=id=>document.getElementById(id),fmt=n=>Number.isFinite(n)?n.toLocaleString():'—',node=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e};
  const labels={bullet:'Bullet',blitz:'Blitz',rapid:'Rapid',classical:'Classical',correspondence:'Correspondence',puzzle:'Puzzles',ultraBullet:'UltraBullet',chess960:'Chess960',crazyhouse:'Crazyhouse',atomic:'Atomic',antichess:'Antichess',horde:'Horde',kingOfTheHill:'King of the Hill',racingKings:'Racing Kings',threeCheck:'Three-check'};
  const icons={bullet:'◷',blitz:'ϟ',rapid:'◴',classical:'♜',correspondence:'✉',puzzle:'♞'};
- let records=[],series=[],limit=12,account=null;
+ let records=[],series=[],limit=12,account=null,arenaController=null;
  const number=n=>Number.isFinite(n)?n:null,pct=(n,d)=>d?Math.round(n/d*100)+'%':'—',signed=n=>Number.isFinite(n)?(n>0?'+':'')+n:'—';
  function metric(label,value,detail){const e=node('article',undefined,'dash-metric');e.append(node('span',label),node('strong',value),node('small',detail));return e}
  function profile(user){
   account=user;$('pw').textContent=(user.title?user.title+' ':'')+user.username;$('lichess-avatar').textContent=user.username[0].toUpperCase();$('lichess-profile').href='https://lichess.org/@/'+encodeURIComponent(user.username);
+  if($('dash-full-archive'))$('dash-full-archive').href='https://lichess.org/@/'+encodeURIComponent(user.username)+'/all';
   const since=Number.isFinite(user.createdAt)?'Member since '+new Date(user.createdAt).toLocaleDateString(undefined,{month:'long',year:'numeric'}):'Connected account';
   $('dash-profile-meta').textContent=[since,user.profile?.fideRating?'FIDE '+user.profile.fideRating:''].filter(Boolean).join(' · ');
   const c=user.count||{},all=number(c.all),win=number(c.win),loss=number(c.loss),draw=number(c.draw),decided=[win,loss,draw].every(x=>x!==null)?win+loss+draw:null;
@@ -22,7 +23,7 @@
    if(Number.isFinite(p.prog))detail.append(node('b',signed(p.prog),p.prog>0?'dash-positive':p.prog<0?'dash-negative':''));
    card.append(top,node('strong',String(p.rating)+(p.prov?'?':'')),detail);ratings.append(card);
   }
-  if(!ratings.children.length)ratings.append(node('p','No ratings available yet.','dash-note'));
+  if(!ratings.children.length)ratings.append(node('p','No ratings available yet.','dash-note')); renderMilestones();
  }
  function normalized(g,user){
   if(!/^[A-Za-z0-9]{8}$/.test(g.id||'')||!g.players?.white||!g.players?.black)return null;
@@ -58,14 +59,14 @@
    card.append(result,identity,meta,delta,links);archive.append(card);
   }
   if(!list.length)archive.append(node('p','No games match this selection.','dash-note'));
-  $('dash-more').hidden=list.length<=limit;
+  $('dash-more').hidden=list.length<=limit; renderExtra(list);
  }
  async function history(user,signal){
   $('dash-history-message').textContent='Loading rating history…';
   try{const r=await lichessRequest('/api/user/'+encodeURIComponent(user.username)+'/rating-history',{headers:{Accept:'application/json'},signal:AbortSignal.any([signal,AbortSignal.timeout(30000)])});const data=await r.json();if(signal.aborted||account?.id!==user.id)return;
    series=Array.isArray(data)?data.filter(s=>typeof s.name==='string'&&Array.isArray(s.points)&&s.points.length):[];
    const sel=$('dash-history-format'),prior=sel.value;sel.replaceChildren(...series.map((s,i)=>{const e=node('option',s.name);e.value=String(i);return e}));
-   const preferred=series.findIndex(s=>s.name.toLowerCase()==='blitz');sel.value=prior&&series[Number(prior)]?prior:String(preferred>=0?preferred:0);chart();
+   const preferred=series.findIndex(s=>s.name.toLowerCase()==='blitz');sel.value=prior&&series[Number(prior)]?prior:String(preferred>=0?preferred:0);chart();renderMilestones();
   }catch(e){if(!signal.aborted&&account?.id===user.id){$('dash-history-message').textContent=e.message;}}
  }
  function chart(){
@@ -88,9 +89,52 @@
   svg.addEventListener('pointermove',event=>{const r=svg.getBoundingClientRect(),px=(event.clientX-r.left)*700/r.width;const p=points.reduce((a,b)=>Math.abs(x(b[0])-px)<Math.abs(x(a[0])-px)?b:a);marker.setAttribute('cx',x(p[0]));marker.setAttribute('cy',y(p[1]));marker.setAttribute('visibility','visible');guide.setAttribute('x1',x(p[0]));guide.setAttribute('x2',x(p[0]));guide.setAttribute('visibility','visible');msg.textContent=new Date(p[0]).toLocaleDateString()+' · Rating '+p[1]});svg.addEventListener('pointerleave',reset);
   container.append(svg);reset();
  }
- function clear(){records=[];series=[];account=null;for(const id of ['dash-lifetime','dash-chart','dash-history-stats','dash-history-format','dash-results','dash-colors','dash-openings','dash-insights'])$(id)?.replaceChildren();$('dash-history-message').textContent='Rating history loads after your recent games.'}
+ function clear(){arenaController?.abort();arenaController=null;records=[];series=[];account=null;for(const id of ['dash-milestones','dash-strength','dash-repertoire','dash-best-wins','dash-tournament-games','dash-arenas'])$(id)?.replaceChildren();if($('dash-arena-message'))$('dash-arena-message').textContent='Load recent Arena results on demand.';if($('dash-arena-load'))$('dash-arena-load').disabled=false;for(const id of ['dash-lifetime','dash-chart','dash-history-stats','dash-history-format','dash-results','dash-colors','dash-openings','dash-insights'])$(id)?.replaceChildren();$('dash-history-message').textContent='Rating history loads after your recent games.'}
  for(const id of ['dash-filter-format','dash-filter-color','dash-filter-result'])$(id).addEventListener('change',()=>{limit=12;render()});
  for(const id of ['dash-history-format','dash-history-period'])$(id).addEventListener('change',chart);
  $('dash-more').addEventListener('click',()=>{limit+=12;render()});
+
+ function message(id,txt){const el=$(id);if(el)el.replaceChildren(node('p',txt,'dash-note'))}
+ function renderMilestones(){
+  const el=$('dash-milestones');if(!el)return;el.replaceChildren();
+  for(const s of series){const pts=s.points.filter(p=>Number.isFinite(p[3]));if(!pts.length)continue;const best=pts.reduce((a,b)=>b[3]>a[3]?b:a);el.append(metric(s.name,fmt(best[3]),'Recorded peak · '+new Date(Date.UTC(best[0],best[1],best[2])).toLocaleDateString()));}
+  if(!el.children.length)message('dash-milestones','Rating milestones will appear when history loads.');
+ }
+ function makeTable(headers,rows){
+  const wrap=node('div',undefined,'dash-table-wrap'),table=node('table',undefined,'dash-data-table'),head=node('thead'),tr=node('tr');
+  for(const h of headers){const th=node('th',h);th.scope='col';tr.append(th)}head.append(tr);table.append(head);
+  const body=node('tbody');for(const row of rows){const tr=node('tr');for(const cell of row){const td=node('td');if(typeof cell==='string'||typeof cell==='number')td.textContent=String(cell);else td.append(cell);tr.append(td)}body.append(tr)}table.append(body);wrap.append(table);return wrap;
+ }
+ function renderExtra(list){
+  const strength=$('dash-strength'),rep=$('dash-repertoire'),best=$('dash-best-wins'),tourney=$('dash-tournament-games');if(!strength||!rep||!best||!tourney)return;
+  const rated=list.filter(x=>x.g.rated&&Number.isFinite(x.self.rating)&&Number.isFinite(x.opp.rating));
+  const bins=[['Stronger (+100 or more)',rated.filter(x=>x.opp.rating-x.self.rating>=100)],['Similar (within 99)',rated.filter(x=>Math.abs(x.opp.rating-x.self.rating)<100)],['Lower-rated (−100 or more)',rated.filter(x=>x.opp.rating-x.self.rating<=-100)]];
+  strength.replaceChildren(...bins.map(([name,rows])=>{const div=node('div',undefined,'dash-color-row');div.append(node('h4',name),resultBlock(rows));return div}));
+  rep.replaceChildren();
+  for(const color of ['white','black']){
+   const group=node('div',undefined,'dash-rep-group');group.append(node('h4',color==='white'?'♔ White':'♚ Black'));const map=new Map();
+   for(const x of list.filter(x=>x.color===color&&x.opening!=='Unclassified')){const name=x.opening.split(':')[0],rows=map.get(name)||[];rows.push(x);map.set(name,rows)}
+   const rows=[...map].sort((a,b)=>b[1].length-a[1].length).slice(0,8).map(([name,games])=>{const t=totals(games);return [name,games.length,t.win+' / '+t.draw+' / '+t.loss,pct(t.win,t.win+t.loss+t.draw)]});
+   if(rows.length)group.append(makeTable(['Opening family','Games','W / D / L','Win %'],rows));else group.append(node('p','No classified openings in this selection.','dash-note'));rep.append(group);
+  }
+  const link=(label,url)=>{const a=node('a',label,'dash-game-link');a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a};
+  const wins=rated.filter(x=>x.result==='Win').sort((a,b)=>b.opp.rating-a.opp.rating).slice(0,5);
+  best.replaceChildren();if(wins.length)best.append(makeTable(['Opponent','Rating','Difference','Format','Game'],wins.map(x=>[x.opp.user?.name||x.opp.user?.id||'Opponent',x.opp.rating,signed(x.opp.rating-x.self.rating),labels[x.format]||x.format,link('Review','https://lichess.org/'+x.g.id+'/'+x.color)])));else best.append(node('p','No rated wins with opponent ratings in this selection.','dash-note'));
+  const events=new Map();for(const x of list){const type=x.g.swiss?'swiss':'tournament',id=x.g.swiss||x.g.tournament;if(typeof id!=='string'||!/^[A-Za-z0-9]{8}$/.test(id))continue;const key=type+'/'+id,rows=events.get(key)||[];rows.push(x);events.set(key,rows)}
+  tourney.replaceChildren();if(events.size)tourney.append(makeTable(['Event','Games','W / D / L'],[...events].slice(0,20).map(([key,rows])=>{const t=totals(rows);return [link(key.startsWith('swiss')?'Swiss '+key.split('/')[1]:'Arena '+key.split('/')[1],'https://lichess.org/'+key),rows.length,t.win+' / '+t.draw+' / '+t.loss]})));else tourney.append(node('p','No identifiable tournament games in the selected sample.','dash-note'));
+ }
+ async function loadArenas(){
+  if(!account||arenaController||lichessBusy)return;const user=account,controller=new AbortController();arenaController=controller;const btn=$('dash-arena-load');btn.disabled=true;$('dash-arena-message').textContent='Loading Arena results…';
+  try{
+   const res=await lichessRequest('/api/user/'+encodeURIComponent(user.username)+'/tournament/played?max=20',{headers:{Accept:'application/x-ndjson'},signal:AbortSignal.any([controller.signal,AbortSignal.timeout(30000)])},null);
+   const raw=await res.text();if(controller.signal.aborted||account!==user)return;const data=raw.split(/\r?\n/).filter(s=>s.trim()).map(s=>JSON.parse(s));const rows=[];
+   for(const item of data){const t=item.tournament||item,player=item.player||item;const id=t.id||item.id;if(typeof id!=='string'||!/^[A-Za-z0-9]{8}$/.test(id))continue;const a=node('a',t.fullName||t.name||'Arena '+id,'dash-game-link');a.href='https://lichess.org/tournament/'+id;a.target='_blank';a.rel='noopener noreferrer';rows.push([a,fmt(player.rank),fmt(player.score),fmt(player.performance)]);}
+   $('dash-arenas').replaceChildren();if(rows.length)$('dash-arenas').append(makeTable(['Arena','Rank','Score','Performance'],rows));$('dash-arena-message').textContent=rows.length?rows.length+' recent Arena entries returned by Lichess.':'No Arena results returned.';
+  }catch(e){if(!controller.signal.aborted&&account===user)$('dash-arena-message').textContent=e.message;}
+  finally{if(arenaController===controller){arenaController=null;btn.disabled=false}}
+ }
+ $('dash-arena-load')?.addEventListener('click',loadArenas);
+ $('dash-sample')?.addEventListener('change',()=>{if(account&&!lichessBusy)loadLichessGames()});
+
  window.caPlayerDashboard={profile,games,history,clear};
 })();
