@@ -1,6 +1,6 @@
 // Board interactions: click-to-move, drag-and-drop, coloured arrows and square marks.
 const puzzleBoard=$('#bd');
-let dragGhost=null;
+let dragGhost=null, previousBoard=null, boardOrientation=null, skipMoveAnimation=false;
 let showLegalMoves=true;
 try{
  const saved=localStorage.getItem('caShowLegalMoves');
@@ -47,9 +47,9 @@ function paintMarks(){
  const defs=document.createElementNS(svgNS,'defs');
  Object.entries(markColours).forEach(([key,color])=>{
   const marker=document.createElementNS(svgNS,'marker');
-  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','.38');marker.setAttribute('markerHeight','.38');
-  marker.setAttribute('refX','.36');marker.setAttribute('refY','.19');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
-  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L.38 .19 L0 .38 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
+  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','.44');marker.setAttribute('markerHeight','.44');
+  marker.setAttribute('refX','.42');marker.setAttribute('refY','.22');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
+  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L.44 .22 L0 .44 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
  });
  svg.appendChild(defs);
  const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
@@ -60,7 +60,7 @@ function paintMarks(){
  marks.forEach(m=>{
   if(!/^[a-h][1-8]$/.test(m.from)||!/^[a-h][1-8]$/.test(m.to))return;
   const group=document.createElementNS(svgNS,'g');
-  group.setAttribute('opacity',m.preview?'.45':'.85');
+  group.setAttribute('opacity',m.preview?'.85':'1');
   svg.appendChild(group);
   const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to),color=markColours[m.col]||markColours.g;
   if(m.from===m.to){
@@ -70,35 +70,63 @@ function paintMarks(){
    const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
    const l=document.createElementNS(svgNS,'line');
    l.setAttribute('x1',x1);l.setAttribute('y1',y1);
-   l.setAttribute('x2',x2-ux*.22);l.setAttribute('y2',y2-uy*.22);
+   l.setAttribute('x2',x2-ux*.16);l.setAttribute('y2',y2-uy*.16);
    l.setAttribute('stroke',color);l.setAttribute('marker-end','url(#puzzle-arrow-'+(markColours[m.col]?m.col:'g')+')');group.appendChild(l);
   }
  });
  puzzleBoard.appendChild(svg);
 }
+function createDragGhost(sq,e){
+ const im=puzzleBoard.querySelector('.sq[data-s="'+sq+'"] .pc');
+ if(!im||dragGhost)return;
+ dragGhost=document.createElement('div');dragGhost.className='drag-ghost';
+ const clone=document.createElement('img');clone.src=im.src;clone.alt='';dragGhost.appendChild(clone);puzzleBoard.appendChild(dragGhost);
+ im.parentElement.classList.add('drag-source');moveGhost(e);
+}
 function draw(){
- const bd=$('#bd');bd.innerHTML='';if(!g)return;const bo=g.board(),targets={};
+ const bd=puzzleBoard;
+ if(!g){bd.replaceChildren();previousBoard=null;boardOrientation=null;return}
+ const bo=g.board(),targets={},position={};
  if(sel&&showLegalMoves)g.moves({square:sel,verbose:true}).forEach(m=>targets[m.to]=m.captured?'cap':'dot');
+ for(let r=0;r<8;r++)for(let f=0;f<8;f++){const p=bo[r][f];if(p)position['abcdefgh'[f]+(8-r)]=p.color+p.type;}
+ const sameOrientation=boardOrientation===flip,existing=[...bd.querySelectorAll(':scope > .sq')],old=sameOrientation&&existing.length===64?previousBoard:null;
+ if(!sameOrientation||existing.length!==64){
+  bd.replaceChildren();for(let i=0;i<64;i++){const d=document.createElement('div');d.setAttribute('role','button');d.tabIndex=i===0?0:-1;bd.append(d);}
+ }
+ const squares=[...bd.children].slice(0,64);
+ const coords=sq=>{let f='abcdefgh'.indexOf(sq[0]),r=8-Number(sq[1]);return flip?[7-f,7-r]:[f,r]};
+ const changed=old?Array.from(new Set([...Object.keys(old),...Object.keys(position)])).filter(s=>old[s]!==position[s]):[];
+ const departures=changed.filter(s=>old[s]),used=new Set(),animate=!!old&&changed.length<=6&&!skipMoveAnimation&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+ skipMoveAnimation=false;
+ let checkSquare=null;if(g.in_check())checkSquare=Object.keys(position).find(s=>position[s]===g.turn()+'k');
  for(let v=0;v<64;v++){
   let r=Math.floor(v/8),f=v%8;if(flip){r=7-r;f=7-f}
-  const sq='abcdefgh'[f]+(8-r),pc=bo[r][f],d=document.createElement('div');
+  const sq='abcdefgh'[f]+(8-r),pc=bo[r][f],d=squares[v],sameSquare=d.dataset.s===sq;
   d.className='sq '+((r+f)%2?'d':'l');d.dataset.s=sq;
-  d.setAttribute('role','button');d.tabIndex=v===0?0:-1;
-  d.setAttribute('aria-label',sq+(pc?' '+(pc.color==='w'?'white':'black')+' '+({p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'}[pc.type]):' empty'));
+  if(!sameSquare){d.replaceChildren();d.tabIndex=v===0?0:-1;}
+  d.setAttribute('aria-label',sq+(pc?' '+(pc.color==='w'?'white':'black')+' '+({p:'pawn',n:'knight',b:'bishop',r:'rook',q:'queen',k:'king'}[pc.type]):' empty')+(targets[sq]?(targets[sq]==='cap'?', legal capture':', legal move'):''));
   d.setAttribute('aria-pressed',String(sel===sq));
-  if(targets[sq])d.setAttribute('aria-label',d.getAttribute('aria-label')+(targets[sq]==='cap'?', legal capture':', legal move'));
-  if(last&&(last[0]===sq||last[1]===sq))d.classList.add('last');
+  if(last?.includes(sq))d.classList.add('last');
   if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
-  if(activeGesture&&activeGesture.mode==='piece'&&activeGesture.from===sq)d.classList.add('drag-source');
-  if(pc){
-   const im=document.createElement('img');im.className='pc';im.alt='';im.draggable=false;
-   im.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+(pc.color==='w'?'w':'b')+pc.type.toUpperCase()+'.svg';d.appendChild(im);
+  if(checkSquare===sq)d.classList.add('in-check');
+  if(activeGesture?.mode==='piece'&&activeGesture.moved&&activeGesture.from===sq)d.classList.add('drag-source');
+  let im=d.querySelector('.pc');
+  if(im&&(!pc||im.dataset.piece!==position[sq])){im.remove();im=null}
+  if(pc&&!im){
+   im=document.createElement('img');im.className='pc';im.alt='';im.draggable=false;im.dataset.piece=position[sq];
+   im.src='https://raw.githubusercontent.com/lichess-org/lila/master/public/piece/cburnett/'+pc.color+pc.type.toUpperCase()+'.svg';d.prepend(im);
+   if(animate&&old[sq]!==position[sq]){
+    const [x,y]=coords(sq);const candidates=departures.filter(s=>!used.has(s)&&old[s]===position[sq]&&s!==sq);
+    candidates.sort((a,b)=>{const [ax,ay]=coords(a),[bx,by]=coords(b);return Math.hypot(ax-x,ay-y)-Math.hypot(bx-x,by-y)});
+    if(candidates.length){const from=candidates[0];used.add(from);const [fx,fy]=coords(from);im.animate?.([{transform:'translate('+((fx-x)*100)+'%,'+((fy-y)*100)+'%)',zIndex:6},{transform:'translate(0,0)',zIndex:6}],{duration:200,easing:'cubic-bezier(.2,.7,.25,1)'});}
+   }
   }
-  if(v%8===7){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
-  if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
-  bd.appendChild(d);
+  if(!sameSquare){
+   if(v%8===0){const c=document.createElement('i');c.className='co r';c.textContent=8-r;d.appendChild(c)}
+   if(v>55){const c=document.createElement('i');c.className='co f';c.textContent='abcdefgh'[f];d.appendChild(c)}
+  }
  }
- paintMarks();
+ previousBoard=position;boardOrientation=flip;paintMarks();
 }
 function toggleMark(from,to,col){
  const same=m=>m.from===from&&m.to===to;
@@ -124,7 +152,7 @@ puzzleBoard.addEventListener('pointerdown',e=>{
   return;
  }
  const hadMarks=clearBoardMarks();
- if(hadMarks)sel=null;
+ if(hadMarks)paintMarks();
  if(done||puzzleWaiting){if(hadMarks)draw();return}
  const p=g.get(sq);
  if(p&&p.color===g.turn()&&p.color===cur.side0){
@@ -132,11 +160,7 @@ puzzleBoard.addEventListener('pointerdown',e=>{
   sel=sq;hintSq=null;
   activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,wasSelected};
   draw();
-  const im=puzzleBoard.querySelector('.sq[data-s="'+sq+'"] .pc');
-  if(im){
-   dragGhost=document.createElement('div');dragGhost.className='drag-ghost';
-   const clone=document.createElement('img');clone.src=im.src;clone.alt='';dragGhost.appendChild(clone);puzzleBoard.appendChild(dragGhost);moveGhost(e);
-  }
+  // Start preview only after the drag threshold.
  }else{
   activeGesture={mode:'click',from:sq,to:sq,pointerId:e.pointerId};
  }
@@ -151,7 +175,7 @@ puzzleBoard.addEventListener('pointermove',e=>{
  if(to)activeGesture.to=to;
  if(activeGesture.mode==='piece'){
   if(Math.hypot(e.clientX-activeGesture.startX,e.clientY-activeGesture.startY)>5)activeGesture.moved=true;
-  if(activeGesture.moved)moveGhost(e);
+  if(activeGesture.moved){createDragGhost(activeGesture.from,e);moveGhost(e);}
  }
 });
 puzzleBoard.addEventListener('pointerup',e=>{
@@ -163,8 +187,8 @@ puzzleBoard.addEventListener('pointerup',e=>{
   paintMarks();return;
  }
  if(a.mode==='piece'){
-  if(a.moved&&to&&to!==a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===to)){
-   boardMarks=[];play(a.from,to);return;
+  if(a.moved&&end&&end!==a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===end)){
+   boardMarks=[];skipMoveAnimation=true;play(a.from,end);skipMoveAnimation=false;return;
   }
   if(a.moved){sel=null;draw();return}
   if(to===a.from){if(a.wasSelected)sel=null;draw();return}

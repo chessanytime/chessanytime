@@ -14,3 +14,25 @@
 .board-drawing-tools [data-board-brush=y]{background:#e68f00}
 .board-drawing-tools button:focus-visible{outline:3px solid #386db0;outline-offset:3px}
 .board-drawing-help{font-size:.72rem;line-height:1.5;color:inherit;opacity:.8;text-align:center;margin:4px 0 10px}
+
+/* Independently implemented Standard-style board. */
+#bd{border-radius:2px;grid-template-rows:repeat(8,minmax(0,1fr));isolation:isolate}
+#bd .sq{min-width:0;min-height:0;container-type:normal;cursor:default}
+#bd .sq.l{background:#f0d9b5}#bd .sq.d{background:#b58863}
+#bd .sq.last::before{background:rgba(155,199,0,.41)}
+#bd .sq.sel::before{background:rgba(20,85,30,.5)}
+#bd .sq.in-check::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse,rgba(235,0,0,.95) 10%,rgba(231,0,0,.85) 26%,transparent 72%);pointer-events:none}
+#bd .sq.dot::after{width:31%;height:31%;background:rgba(20,85,30,.5);pointer-events:none}
+#bd .sq.cap::after{inset:0;border:0;border-radius:0;background:radial-gradient(circle,transparent 58%,rgba(20,85,0,.3) 59%);pointer-events:none}
+#bd .sq.dot:hover::after,#bd .sq.cap:hover::after{inset:0;width:100%;height:100%;border-radius:0;background:rgba(20,85,30,.27)}
+#bd .pc{width:100%;height:100%;z-index:3;object-fit:contain}
+#bd .sq.drag-source .pc{opacity:.28}
+#bd .co{font:700 clamp(9px,1.6vw,14px)/1 sans-serif;z-index:4}
+#bd .co.r{top:3px;left:3px;right:auto}#bd .co.f{bottom:3px;right:3px;left:auto}
+#bd .sq.l .co{color:#946e4e}#bd .sq.d .co{color:#f0d9b5}
+#bd .marks line{stroke-width:.156;stroke-linecap:round}
+#bd .marks circle{stroke-width:.09}
+#bd .drag-ghost{filter:none}
+#bd.drawing-mode .sq{cursor:crosshair}
+#pgn .board-frame,#puzzles .board-frame{padding:0;border-radius:3px;background:transparent;box-shadow:none}
+#pgn #bd{border-radius:2px}
