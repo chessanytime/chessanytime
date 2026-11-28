@@ -4,6 +4,7 @@
   let importErrors=0,renderStart=-1;
   let pinPreference=true;
   let sizeGesture=null;
+  let cornerBoardWidth=null;
   function sizeBoard(){
     const root=element("pgn"),header=document.querySelector("header"),layout=document.querySelector(".pgn-layout");
     root.style.setProperty("--pgn-sticky-top",Math.ceil(header.getBoundingClientRect().height+4)+"px");
@@ -13,14 +14,14 @@
     const focused=root.classList.contains("pgn-focused"),desktop=innerWidth>900&&!focused,tablet=innerWidth>700&&!desktop&&!focused;
     const limit=Math.max(64,width-(desktop?328:tablet?174:0)),fit=Math.min(limit,available);
     const percent=Number(element("pgn-size").value);
-    const requested=Math.round(fit*percent/100),actual=Math.min(limit,requested),canPin=innerWidth>700&&actual<=available;
+    const requested=cornerBoardWidth===null?Math.round(fit*percent/100):Math.max(64,cornerBoardWidth),actual=Math.min(limit,requested),canPin=innerWidth>700&&actual<=available;
     const remaining=width-actual-(desktop?8:4);
     const left=desktop?Math.max(150,Math.floor(remaining*.46)):tablet?remaining:0;
     root.style.setProperty("--pgn-left-width",left+"px");
     root.style.setProperty("--pgn-right-width",(desktop?remaining-left:0)+"px");
     root.style.setProperty("--pgn-board-height",actual+"px");
     root.style.setProperty("--pgn-panel-height",Math.max(96,Math.min(frame.offsetTop+actual,innerHeight-layoutTop-4))+"px");
-    element("pgn-size-value").textContent=percent+"%"+(requested>limit?" · max width":"");
+    element("pgn-size-value").textContent=(cornerBoardWidth===null?percent+"%":actual+" px")+(requested>limit?" · max width":"");
     element("pgn-sticky").disabled=!canPin;
     element("pgn-sticky").checked=canPin&&pinPreference;
     element("pgn-sticky").title=canPin?"Keep the board visible while scrolling":"Use Fit screen to pin the full board.";
@@ -253,7 +254,8 @@
     placeSizeControl(focus);
     sizeBoard();element("bd").focus({preventScroll:true});
   });
-  element("pgn-size").addEventListener("input",sizeBoard);
+  element("pgn").addEventListener("ca-board-resize",event=>{cornerBoardWidth=event.detail.reset?null:event.detail.width;if(event.detail.reset)element("pgn-size").value="100";sizeBoard()});
+  element("pgn-size").addEventListener("input",()=>{cornerBoardWidth=null;sizeBoard()});
   // Keep the native slider under the pointer while its side panel resizes.
   element("pgn-size").addEventListener("pointerdown",event=>{
     if(event.button!==0||sizeGesture)return;
@@ -276,10 +278,10 @@
     if(sizeGesture?.pointerId===event.pointerId)finishSizeGesture();
   }));
   addEventListener("blur",()=>finishSizeGesture(true));
-  element("pgn-fit").addEventListener("click",()=>{element("pgn-size").value="100";sizeBoard();element("bd").focus({preventScroll:true})});
+  element("pgn-fit").addEventListener("click",()=>{cornerBoardWidth=null;element("pgn-size").value="100";sizeBoard();element("bd").focus({preventScroll:true})});
   window.addEventListener("keydown",event=>{
     if(element("pgn-editor-dialog").open||!active||event.shiftKey||event.ctrlKey||event.altKey||event.metaKey||
-       (event.target instanceof Element&&event.target.closest("input:not([type=file]):not([type=checkbox]),textarea,select,[contenteditable]"))||element("promotion-dialog").open)return;
+       (event.target instanceof Element&&event.target.closest("input:not([type=file]):not([type=checkbox]),textarea,select,[contenteditable],.ca-board-resize"))||element("promotion-dialog").open)return;
     const keys=[event.key,event.code];
     const direction=keys.some(key=>key==="ArrowRight"||key==="Right")?1:keys.some(key=>key==="ArrowLeft"||key==="Left")?-1:0;
     if(!direction)return;
