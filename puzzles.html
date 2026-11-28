@@ -12,7 +12,7 @@
 
 <script src="js/vendor/chess.min.js"></script>
 <link rel="stylesheet" href="css/board-drawing.css?v=8">
-<link rel="stylesheet" href="css/rounded-ui.css?v=9">
+<link rel="stylesheet" href="css/rounded-ui.css?v=10">
 </head>
 <body id="top" data-page="puzzles">
 <header><div class="w"><nav aria-label="Main navigation">
@@ -40,7 +40,7 @@
 <main class="pg" id="puzzles"><div class="w"><div class="pz">
 <div class="puzzle-board-panel"><div class="board-frame ca-resizable-board"><div id="bd" aria-label="Chess board"></div><button type="button" class="ca-board-resize" aria-label="Resize chessboard" title="Drag to resize board"></button></div><div class="board-drawing-tools" role="group" aria-label="Board drawing tools"><button type="button" data-board-draw-mode aria-pressed="false">Draw: off</button><span class="board-brushes" role="group" aria-label="Drawing colour"><button type="button" data-board-brush="g" aria-label="Green" title="Green" aria-pressed="true"></button><button type="button" data-board-brush="r" aria-label="Red" title="Red" aria-pressed="false"></button><button type="button" data-board-brush="b" aria-label="Blue" title="Blue" aria-pressed="false"></button><button type="button" data-board-brush="y" aria-label="Yellow" title="Yellow" aria-pressed="false"></button></span><button type="button" data-board-clear-marks>Clear marks</button><button type="button" data-board-sound aria-pressed="true">Sound: on</button></div>
 <dialog id="promotion-dialog" class="promotion-dialog"><h3>Promote your pawn</h3><div class="promotion-options"><button type="button" data-promotion="q">Queen</button><button type="button" data-promotion="r">Rook</button><button type="button" data-promotion="b">Bishop</button><button type="button" data-promotion="n">Knight</button></div><button type="button" id="promotion-close">Cancel</button></dialog></div>
-<aside class="side" aria-labelledby="puzzle-title"><h2 class="puzzle-heading" id="puzzle-title">Chess puzzles</h2><small class="ca-build-marker">Puzzle workspace · v9</small><p class="sub" id="puzzle-intro">Solve today’s Lichess puzzle.</p>
+<aside class="side" aria-labelledby="puzzle-title"><h2 class="puzzle-heading" id="puzzle-title">Chess puzzles</h2><small class="ca-build-marker">Puzzle workspace · v10</small><p class="sub" id="puzzle-intro">Solve today’s Lichess puzzle.</p>
 <div class="puzzle-modes" role="group" aria-label="Puzzle mode"><button type="button" id="mode-practice" aria-pressed="false">Practice</button><button type="button" id="mode-daily" aria-pressed="true">Daily puzzle</button></div>
 <p id="lichess-login-message" class="training-message" role="status" aria-live="polite"></p>
 <section id="practice-signin" hidden><h3>Your next challenge</h3><p>Log in with Lichess to practise at your level. Your official rating stays unchanged.</p><a class="btn" href="login.html?next=puzzles.html%3Fmode%3Dpractice">Log in to practise</a></section>
