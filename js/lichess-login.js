@@ -171,7 +171,10 @@ async function loadLichessGames() {
   document.getElementById("lichess-refresh").disabled = true;
   lichessMessage("lichess-games-message", "Loading recent games...");
   try {
-    const params = new URLSearchParams({ max: "50", opening: "true", moves: "false", ongoing: "false" });
+    const sample = document.getElementById("dash-sample");
+    const size = ["50","200","500","1000"].includes(sample?.value) ? sample.value : "50";
+    if(sample) sample.disabled=true;
+    const params = new URLSearchParams({ max: size, opening: "true", moves: "false", ongoing: "false" });
     const response = await lichessRequest("/api/games/user/" + encodeURIComponent(account.username) + "?" + params, {
       headers: { Accept: "application/x-ndjson" },
       signal: AbortSignal.any([controller.signal, AbortSignal.timeout(30000)])
@@ -189,6 +192,7 @@ async function loadLichessGames() {
       lichessGamesController = null;
       lichessBusy = false;
       document.getElementById("lichess-refresh").disabled = false;
+      const sample = document.getElementById("dash-sample"); if(sample) sample.disabled=false;
     }
   }
 }
@@ -213,6 +217,7 @@ function clearLichessSession(keepAuthorization = false) {
   document.getElementById("lichess-recent-summary")?.replaceChildren();
   const refresh = document.getElementById("lichess-refresh");
   if (refresh) refresh.disabled = false;
+  const sample = document.getElementById("dash-sample"); if(sample) sample.disabled=false;
   lichessMessage("lichess-games-message", "");
   updateLichessView();
 }
