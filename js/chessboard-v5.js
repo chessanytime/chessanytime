@@ -283,10 +283,10 @@ document.querySelectorAll('[data-arrow-revision]').forEach(el=>{el.textContent='
 (()=>{
  const frame=puzzleBoard.closest('.board-frame'),main=puzzleBoard.closest('main');if(!frame||!main)return;
  frame.classList.add('ca-resizable-board');
- const handle=document.createElement('button');handle.type='button';handle.className='ca-board-resize';handle.setAttribute('aria-label','Resize chessboard with arrow keys or drag');handle.title='Resize board';frame.append(handle);
+ const handle=frame.querySelector('.ca-board-resize')||document.createElement('button');handle.type='button';handle.className='ca-board-resize';handle.setAttribute('aria-label','Resize chessboard with arrow keys or drag');handle.title='Resize board';if(!handle.parentElement)frame.append(handle);handle.dataset.ready='true';
  const root=main.querySelector('.pz')||frame.parentElement;
  const clamp=n=>Math.max(Math.min(240,max()),Math.min(max(),n));
- function max(){if(main.id==='puzzles'&&innerWidth>900)return Math.max(1,root.clientWidth-300-34);if(main.id==='pgn')return Math.max(1,frame.parentElement.clientWidth);return Math.max(1,root.clientWidth)}
+ function max(){if(main.id==='puzzles'&&innerWidth>900)return Math.max(1,root.clientWidth-300-34);if(main.id==='pgn'){const layout=main.querySelector('.pgn-layout');return Math.max(1,main.classList.contains('pgn-focused')?layout.clientWidth:layout.clientWidth-320)}return Math.max(1,root.clientWidth)}
  function setWidth(n){const width=Math.round(clamp(n));main.style.setProperty('--ca-user-board-width',width+'px');return width}
  let resize=null;
  handle.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();e.stopPropagation();resize={x:e.clientX,y:e.clientY,size:puzzleBoard.getBoundingClientRect().width,id:e.pointerId};handle.setPointerCapture(e.pointerId);document.body.classList.add('ca-board-resizing')});
