@@ -36,3 +36,19 @@
 #bd.drawing-mode .sq{cursor:crosshair}
 #pgn .board-frame,#puzzles .board-frame{padding:0;border-radius:3px;background:transparent;box-shadow:none}
 #pgn #bd{border-radius:2px}
+
+/* Lichess-inspired held-piece feedback and corner resize handle. */
+#bd:not(.drawing-mode) .sq.can-grab{cursor:grab}
+#bd.is-grabbing,#bd.is-grabbing .sq,body.ca-board-grabbing,body.ca-board-grabbing *{cursor:grabbing!important}
+#bd .sq.drag-source .pc{opacity:.3}
+#bd .drag-ghost{filter:none;z-index:12}
+#bd .sq.hint::before{content:"";position:absolute;inset:0;background:rgba(20,85,30,.42)}
+#bd .sq.hint .pc{filter:drop-shadow(0 0 2px #173d16)}
+.board-frame.ca-resizable-board{position:relative;overflow:visible}
+.ca-board-resize{position:absolute;right:0;bottom:0;width:22px;height:22px;z-index:15;border:0;padding:0;cursor:nwse-resize;background:linear-gradient(135deg,transparent 56%,#202020a8 57%,#202020a8 63%,transparent 64%,transparent 72%,#202020a8 73%,#202020a8 79%,transparent 80%);touch-action:none}
+.ca-board-resize:focus-visible{outline:2px solid #386db0;outline-offset:2px}
+body.ca-board-resizing,body.ca-board-resizing *{cursor:nwse-resize!important;user-select:none!important}
+#puzzles .board-frame.ca-resizable-board{width:100%;max-width:100%;padding:0!important}
+@media(min-width:901px){#puzzles .pz{grid-template-columns:minmax(0,min(var(--ca-user-board-width,var(--puzzle-board-size)),calc(100% - 334px))) minmax(0,1fr)}}
+@media(max-width:900px){#puzzles .board-frame.ca-resizable-board{width:min(100%,var(--ca-user-board-width,960px),max(240px,calc(100svh - 132px)));margin-inline:auto}}
+#pgn .board-frame.ca-resizable-board{width:min(100%,var(--ca-user-board-width,var(--pgn-board-height,calc(100svh - 200px))));padding:0!important}
