@@ -10,14 +10,7 @@
     const board=element("bd"),copy=document.createElement("p");
     copy.textContent=text;board.classList.add("is-empty");board.replaceChildren(copy);
   }
-  function renderQueue(){
-    const items=queue.map(puzzle=>{
-      const item=document.createElement("li"),rating=document.createElement("strong"),theme=document.createElement("span");
-      rating.textContent=puzzle.rating;theme.textContent=puzzle.theme.split(" ").slice(0,3).join(" · ");
-      item.append(rating,theme);return item;
-    });
-    element("practice-queue").replaceChildren(...items);
-  }
+  function renderQueue(){ /* Prefetch is deliberately invisible. */ }
   function prepare(puzzle){
     const position=new Chess(puzzle.fen),moves=[...puzzle.moves];
     if(puzzle.setup){
@@ -37,11 +30,9 @@
     element("bd").classList.remove("is-empty");
     startPuzzle();
     element("practice-level").textContent=puzzle.rating;
-    element("practice-puzzle-info").textContent="#"+puzzle.id+" · "+puzzle.rating+" · "+puzzle.theme.split(" ").join(" · ");
-    element("practice-source").href="https://lichess.org/training/"+encodeURIComponent(puzzle.id);
     element("practice-giveup").disabled=false;
-    if(puzzle.boundary)message("At the library boundary: showing the closest available puzzle.");
-    else message(library.manifest.total.toLocaleString()+" puzzles · "+library.manifest.sources.length+" CSV file(s) · Your Lichess rating is unchanged");
+    element("practice-next").hidden=true;element("practice-next").disabled=false;
+    message("");
   }
   async function prefetch(token){
     try{
@@ -82,6 +73,7 @@
     operation++;clearTimeout(nextTimer);nextTimer=null;pendingResult=null;
     library?.close();library=null;queue=[];active=null;loading=false;
     element("practice-giveup").disabled=true;
+    element("practice-next").hidden=true;element("practice-next").disabled=false;
     renderQueue();cancelPuzzle();
   }
   function setMode(next){
@@ -103,7 +95,8 @@
     else{placeholder("Log in with Lichess to practise.");say("Log in to practise","","The daily puzzle is available without logging in.")}
   }
   async function advance(token){
-      if(token!==operation||!library||!pendingResult||document.hidden)return;
+      if(token!==operation||!library||!pendingResult||document.hidden||loading)return;
+      loading=true;element("practice-next").disabled=true;
       const {won,previous}=pendingResult;
       try{
         const eligible=queue.filter(puzzle=>won?puzzle.rating>=previous+25&&puzzle.rating<=previous+150:puzzle.rating>=previous-150&&puzzle.rating<=previous-25);
@@ -111,21 +104,20 @@
         if(token!==operation)return;
         queue=[];renderQueue();activate(puzzle);pendingResult=null;void prefetch(token);
       }catch(error){
-        if(token===operation&&error.name!=="AbortError"){message(error.message,true);element("practice-retry").hidden=false}
-      }
+        if(token===operation&&error.name!=="AbortError"){message(error.message,true);element("practice-next").disabled=false}
+      }finally{if(token===operation)loading=false}
   }
   document.addEventListener("puzzle-result",event=>{
-    if(mode!=="practice"||!library||event.detail.puzzle!==active)return;
-    const token=++operation,won=event.detail.won;
+    if(mode!=="practice"||!library||event.detail.puzzle!==active||pendingResult)return;
+    ++operation;const won=event.detail.won;
     pendingResult={won,previous:active.rating};
     if(won)wins++;else losses++;
     element("practice-score").textContent=wins+" solved · "+losses+" missed";
     element("practice-giveup").disabled=true;
-    nextTimer=setTimeout(()=>void advance(token),1400);
+    element("practice-next").hidden=false;element("practice-next").disabled=false;
   });
-  element("practice-giveup").addEventListener("click",()=>{
-    if(active&&!done){clearTimeout(puzzleReplyTimer);puzzleReplyTimer=null;puzzleWaiting=false;finishPuzzle(false)}
-  });
+  element("practice-giveup").addEventListener("click",()=>{if(active&&!done)giveUpPuzzle()});
+  element("practice-next").addEventListener("click",()=>void advance(operation));
   element("practice-retry").addEventListener("click",()=>{stop();void begin()});
   element("mode-practice").addEventListener("click",()=>setMode("practice"));
   element("mode-daily").addEventListener("click",()=>setMode("daily"));
@@ -135,11 +127,11 @@
   });
   document.addEventListener("visibilitychange",()=>{
     if(document.hidden&&mode==="practice"){
-      operation++;clearTimeout(nextTimer);library?.close();
+      operation++;clearTimeout(nextTimer);library?.close();loading=false;element("practice-next").disabled=false;
     }else if(mode==="practice"&&library){
       library.controller=new AbortController();
       if(active&&!done)void prefetch(operation);
-      else if(pendingResult)void advance(operation);
+      else if(pendingResult){element("practice-next").hidden=false;element("practice-next").disabled=false;}
       else{stop();void begin()}
     }
   });
