@@ -88,6 +88,7 @@ async function startLichessLogin() {
 
 function renderLichessProfile() {
   if (!document.getElementById("pw")) return;
+  if(window.caPlayerDashboard){window.caPlayerDashboard.profile(me);return;}
   document.getElementById("pw").textContent = me.username;
   document.getElementById("lichess-avatar").textContent = me.username.slice(0,1).toUpperCase();
   document.getElementById("lichess-profile").href = LICHESS_ORIGIN + "/@/" + encodeURIComponent(me.username);
@@ -110,6 +111,7 @@ function renderLichessProfile() {
 }
 
 function renderLichessGames(games) {
+  if(window.caPlayerDashboard){window.caPlayerDashboard.games(games,me);return;}
   const container = document.getElementById("lichess-games");
   container.replaceChildren();
   const totals = {Win:0,Loss:0,Draw:0};
@@ -169,7 +171,7 @@ async function loadLichessGames() {
   document.getElementById("lichess-refresh").disabled = true;
   lichessMessage("lichess-games-message", "Loading recent games...");
   try {
-    const params = new URLSearchParams({ max: "10", opening: "true", moves: "false", ongoing: "false" });
+    const params = new URLSearchParams({ max: "50", opening: "true", moves: "false", ongoing: "false" });
     const response = await lichessRequest("/api/games/user/" + encodeURIComponent(account.username) + "?" + params, {
       headers: { Accept: "application/x-ndjson" },
       signal: AbortSignal.any([controller.signal, AbortSignal.timeout(30000)])
@@ -179,6 +181,7 @@ async function loadLichessGames() {
     const games = text.split(/\r?\n/).filter(line => line.trim()).map(line => JSON.parse(line));
     renderLichessGames(games);
     lichessMessage("lichess-games-message", games.length ? "Your latest " + games.length + (games.length===1?" game.":" games.") : "No finished public games yet.");
+    if(window.caPlayerDashboard)await window.caPlayerDashboard.history(account,controller.signal);
   } catch (error) {
     if (!controller.signal.aborted && me === account) lichessMessage("lichess-games-message", error.message, true);
   } finally {
@@ -192,6 +195,7 @@ async function loadLichessGames() {
 
 function clearLichessSession(keepAuthorization = false) {
   lichessGamesController?.abort();
+  window.caPlayerDashboard?.clear();
   lichessGamesController = null;
   lichessBusy = false;
   lichessToken = null;

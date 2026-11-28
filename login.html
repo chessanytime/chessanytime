@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/lichess-login.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
+<link rel="stylesheet" href="css/player-dashboard.css?v=1">
 </head>
 <body id="top" data-page="login">
 <header><div class="w"><nav aria-label="Main navigation">
@@ -34,13 +35,13 @@
 <div class="header-utility" id="tl"><a href="login.html" aria-label="Log in with Lichess">Log in</a></div>
 </nav></div></header>
 <main class="pg" id="login"><div class="w">
-  <div class="lichess-auth-card">
+  <div class="dash-login-grid"><section class="dash-login-intro"><span class="dash-kicker">CHESS ANYTIME · PLAYER HUB</span><h1>Every move tells a story.</h1><p>Discover your chess journey with a personal dashboard connected to Lichess.</p><div class="dash-login-features"><span>♞ Track ratings and progress</span><span>♜ Review games and openings</span><span>♛ Practise and improve</span></div><div class="dash-login-board" aria-hidden="true">♜ ♞ ♝ ♛ ♚ ♝ ♞ ♜</div></section><div class="lichess-auth-card"><span class="dash-kicker">SECURE SIGN-IN</span>
     <h2>Log in with Lichess</h2>
     <p class="sub">One login for everyone. Continue to Lichess to sign in with your existing account.</p>
     <button class="btn" id="lichess-login" type="button">Continue with Lichess</button>
     <p class="meta">Your password is entered only on lichess.org. Your login token and basic profile stay in this tab’s session storage so you can move between your profile and puzzles. Log out to clear them. Practice does not change your Lichess rating.</p>
     <p id="lichess-login-message" class="lichess-message" role="status" aria-live="polite"></p>
-  </div>
+  </div></div>
 </div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
@@ -66,7 +67,7 @@
 <script src="js/main.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/header.js"></script>
-<script src="js/lichess-login.js"></script>
+<script src="js/lichess-login.js?v=2"></script>
 <script src="js/init.js"></script>
 <a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)">
 <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg>

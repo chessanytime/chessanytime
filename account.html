@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/lichess-login.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><link rel="apple-touch-icon" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238"><link rel="stylesheet" href="css/site-layout.css">
 
+<link rel="stylesheet" href="css/player-dashboard.css?v=1">
 </head>
 <body id="top" data-page="portal">
 <header><div class="w"><nav aria-label="Main navigation">
@@ -33,21 +34,18 @@
 </div>
 <div class="header-utility" id="tl"><a href="login.html" aria-label="Log in with Lichess">Log in</a></div>
 </nav></div></header>
-<main class="pg" id="portal"><div class="w">
-  <div id="lichess-account-signin"><h2>Your Lichess account</h2><p class="sub">Log in to view your username, ratings and recent games.</p><a class="btn" href="login.html">Log in with Lichess</a></div>
-  <p id="lichess-login-message" class="lichess-message" role="status" aria-live="polite"></p>
-  <div id="lichess-account-content" hidden>
-  <section class="lichess-account-hero" aria-labelledby="pw">
-    <div class="lichess-profile-heading"><div class="lichess-identity"><span id="lichess-avatar" aria-hidden="true">♞</span><div><span class="lichess-eyebrow">YOUR CHESS DASHBOARD</span><h2 id="pw">Your Lichess account</h2><p>Your activity, directly from Lichess.</p></div></div><button class="btn g" id="lichess-logout" type="button">Log out</button></div>
-    <div class="lichess-account-actions"><a class="btn" href="puzzles.html?mode=practice">Practise puzzles →</a><a href="pgn.html">Study PGNs →</a><a id="lichess-profile" target="_blank" rel="noopener noreferrer">View profile on Lichess ↗</a></div>
-  </section>
-  <div class="lichess-section-heading"><h3>Your ratings</h3><span>Live from Lichess · ? means provisional</span></div>
-  <div class="lichess-ratings" id="lichess-ratings"></div>
-  <div class="lichess-profile-heading"><div><h3>Recent games</h3><p id="lichess-recent-summary"></p></div><button class="btn g" id="lichess-refresh" type="button">Refresh games</button></div>
-  <p id="lichess-games-message" class="lichess-message" role="status" aria-live="polite"></p>
-  <div class="lichess-games" id="lichess-games"></div>
-  </div>
-</div></main>
+<main class="pg" id="portal"><div class="w dashboard-shell">
+<div id="lichess-account-signin" class="dash-signin"><span class="dash-kicker">PLAYER HUB</span><h1>Your chess journey starts here.</h1><p>Connect your Lichess account to explore your ratings, games and progress.</p><a class="dash-primary" href="login.html">Continue with Lichess →</a></div>
+<p id="lichess-login-message" class="lichess-message" role="status" aria-live="polite"></p>
+<div id="lichess-account-content" hidden>
+<section class="dash-hero"><div class="dash-hero-main"><div class="lichess-identity"><span id="lichess-avatar" aria-hidden="true">♞</span><div><span class="dash-kicker">PLAYER DASHBOARD · CONNECTED TO LICHESS</span><h1 id="pw">Your Lichess account</h1><p id="dash-profile-meta">Your chess journey, all in one place.</p></div></div><div class="dash-hero-actions"><a id="lichess-profile" target="_blank" rel="noopener noreferrer">Lichess profile ↗</a><button id="lichess-logout" type="button">Log out</button></div></div><div class="dash-quick"><a href="puzzles.html?mode=practice">♞ <span>Train puzzles</span> →</a><a href="pgn.html">♜ <span>Study games</span> →</a><a href="events.html">♛ <span>Join events</span> →</a></div></section>
+<nav class="dash-nav" aria-label="Dashboard sections"><a href="#dash-overview">Overview</a><a href="#dash-history">Rating history</a><a href="#dash-performance">Performance</a><a href="#dash-recent">Recent games</a></nav>
+<section id="dash-overview" class="dash-section"><div class="dash-heading"><div><span class="dash-kicker">01 / OVERVIEW</span><h2>Your chess numbers</h2></div><span>Lifetime figures supplied by Lichess</span></div><div id="dash-lifetime" class="dash-metrics"></div><div class="dash-heading dash-subhead"><h3>Ratings by format</h3><span>? = provisional rating</span></div><div id="lichess-ratings" class="dash-ratings"></div></section>
+<section id="dash-history" class="dash-section"><div class="dash-heading"><div><span class="dash-kicker">02 / PROGRESS</span><h2>Rating history</h2></div><div class="dash-filters"><label>Format<select id="dash-history-format" aria-label="Rating history format"></select></label><label>Period<select id="dash-history-period"><option value="90">Last 90 days</option><option value="365">Last year</option><option value="30">Last 30 days</option><option value="0">All time</option></select></label></div></div><div class="dash-panel"><div id="dash-history-stats" class="dash-history-stats"></div><div id="dash-chart" role="region" aria-label="Rating history graph"></div><p id="dash-history-message" class="dash-note" role="status">Rating history loads after your recent games.</p></div></section>
+<section id="dash-performance" class="dash-section"><div class="dash-heading"><div><span class="dash-kicker">03 / PERFORMANCE</span><h2>Analyse your games</h2></div><span>Based on the latest 50 finished games, not lifetime data</span></div><div class="dash-filters"><label>Time control<select id="dash-filter-format"><option value="all">All formats</option><option value="bullet">Bullet</option><option value="blitz">Blitz</option><option value="rapid">Rapid</option><option value="classical">Classical</option><option value="correspondence">Correspondence</option></select></label><label>Colour<select id="dash-filter-color"><option value="all">Both colours</option><option value="white">White</option><option value="black">Black</option></select></label><label>Result<select id="dash-filter-result"><option value="all">All results</option><option value="Win">Wins</option><option value="Loss">Losses</option><option value="Draw">Draws</option></select></label></div><div class="dash-analysis-grid"><article class="dash-panel"><h3>Results breakdown</h3><div id="dash-results"></div></article><article class="dash-panel"><h3>Performance by colour</h3><div id="dash-colors"></div></article><article class="dash-panel"><h3>Most played openings</h3><div id="dash-openings"></div></article><article class="dash-panel"><h3>Rating change &amp; insights</h3><div id="dash-insights"></div></article></div></section>
+<section id="dash-recent" class="dash-section"><div class="dash-heading"><div><span class="dash-kicker">04 / GAME ARCHIVE</span><h2>Recent games</h2><p id="lichess-recent-summary"></p></div><button class="dash-secondary" id="lichess-refresh" type="button">Refresh data ↻</button></div><p id="lichess-games-message" class="lichess-message" role="status" aria-live="polite"></p><div class="lichess-games" id="lichess-games"></div><button type="button" id="dash-more" class="dash-secondary" hidden>Show more games</button></section>
+<p class="dash-note">Data source: <a href="https://lichess.org/api" target="_blank" rel="noopener noreferrer">Lichess API</a>. Your password stays with Lichess. Chess AnyTime practice does not modify your official Lichess ratings. Analysis here is statistical, not engine evaluation.</p>
+</div></div></main>
 <footer class="academy-footer" aria-label="Chess AnyTime site footer">
   <div class="w">
     <div class="footer-main">
@@ -72,7 +70,7 @@
 <script src="js/main.js"></script>
 <script src="js/navigation.js"></script>
 <script src="js/header.js"></script>
-<script src="js/lichess-login.js"></script>
+<script src="js/player-dashboard.js?v=1"></script><script src="js/lichess-login.js?v=2"></script>
 <script src="js/init.js"></script>
 <a class="whatsapp-floater" href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer" aria-label="Join the Chess AnyTime WhatsApp community (opens in a new tab)">
 <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M27 15a11 11 0 0 1-16 9.8L5 27l2-6A11 11 0 1 1 27 15Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 9c-1 0-2 2-1 4 1 4 4 7 8 8 2 0 4-2 3-3l-3-2-2 2c-2-1-4-3-5-5l2-1-2-3Z" fill="currentColor"/></svg>
