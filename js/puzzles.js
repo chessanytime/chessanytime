@@ -14,6 +14,7 @@ function startPuzzle(){
  document.getElementById('promotion-dialog')?.close();
  g=new Chess(cur.fen);idx=0;sel=null;last=null;done=false;failed=false;hintSq=null;themeRevealed=false;
  resetPuzzleFeedback();
+ const dailyGiveup=document.getElementById('daily-giveup');if(dailyGiveup)dailyGiveup.hidden=!cur.daily;
  boardMarks=[];userBoardMarks=[];activeGesture=null;puzzleWaiting=false;clearGhost();flip=g.turn()==='b';cur.side0=g.turn();
  say('Your turn','','Find the best move for '+(g.turn()==='w'?'white':'black')+(cur.practice?'':' · Rating '+cur.rating));
  draw();
@@ -59,7 +60,7 @@ async function loadDaily(){
 }
 function resetPuzzleFeedback(){
  const themes=document.getElementById('puzzle-themes'),source=document.getElementById('practice-source'),solution=document.getElementById('puzzle-solution'),hint=document.getElementById('bh');
- if(themes){themes.hidden=true;themes.textContent=''}if(source){source.hidden=true;source.removeAttribute('href')}if(solution){solution.hidden=true;solution.textContent=''}if(hint)hint.disabled=false;
+ if(themes){themes.hidden=true;themes.textContent=''}if(source){source.hidden=true;source.removeAttribute('href')}if(solution){solution.hidden=true;solution.textContent=''}if(hint)hint.disabled=false;const dailyGiveup=document.getElementById('daily-giveup');if(dailyGiveup){dailyGiveup.hidden=true;dailyGiveup.disabled=false;}
 }
 function revealPuzzleThemes(){
  themeRevealed=true;const el=document.getElementById('puzzle-themes');if(!el||!cur)return;
@@ -73,7 +74,7 @@ function revealPuzzleAnalysis(){
 function finishPuzzle(won){
  if(done)return;
  done=true;puzzleWaiting=false;sel=null;hintSq=null;boardMarks=[];
- const hint=document.getElementById('bh');if(hint)hint.disabled=true;
+ const hint=document.getElementById('bh');if(hint)hint.disabled=true;const dailyGiveup=document.getElementById('daily-giveup');if(dailyGiveup)dailyGiveup.disabled=true;
  say(won?'Puzzle complete!':'Solution revealed',won?'ok':'no',won?(failed?'Solved after a mistake. Review or continue when ready.':'Well played!'):'Review the solution before continuing.');
  draw();
  document.dispatchEvent(new CustomEvent('puzzle-result',{detail:{won:won&&!failed,solved:won,puzzle:cur}}));
@@ -144,5 +145,6 @@ function say(text,className,message){
  $('#st').textContent=text;$('#st').className=className;$('#mt').textContent=message;
 }
 document.getElementById('bh')?.addEventListener('click',showPuzzleHint);
+document.getElementById('daily-giveup')?.addEventListener('click',giveUpPuzzle);
 document.getElementById('daily-load')?.addEventListener('click',loadDaily);
 document.getElementById('promotion-close')?.addEventListener('click',()=>document.getElementById('promotion-dialog').close());
