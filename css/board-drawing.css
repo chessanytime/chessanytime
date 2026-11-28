@@ -38,8 +38,8 @@
 #pgn #bd{border-radius:2px}
 
 /* Lichess-inspired held-piece feedback and corner resize handle. */
-#bd:not(.drawing-mode) .sq.can-grab{cursor:grab}
-#bd.is-grabbing,#bd.is-grabbing .sq,body.ca-board-grabbing,body.ca-board-grabbing *{cursor:grabbing!important}
+#bd:not(.drawing-mode) .sq.can-grab,#bd:not(.drawing-mode) .sq.dot,#bd:not(.drawing-mode) .sq.cap{cursor:pointer}
+#bd.is-grabbing,#bd.is-grabbing .sq,body.ca-board-grabbing,body.ca-board-grabbing *{cursor:move!important}
 #bd .sq.drag-source .pc{opacity:.3}
 #bd .drag-ghost{filter:none;z-index:12}
 #bd .sq.hint::before{content:"";position:absolute;inset:0;background:rgba(20,85,30,.42)}
