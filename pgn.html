@@ -7,10 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&amp;family=Figtree:wght@400;500;600&amp;family=Roboto:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css"><link rel="stylesheet" href="css/site-layout.css">
-<link rel="stylesheet" href="css/puzzle-training.css"><link rel="stylesheet" href="css/pgn-study.css">
+<link rel="stylesheet" href="css/puzzle-training.css?v=6"><link rel="stylesheet" href="css/pgn-study.css">
 <link rel="icon" type="image/svg+xml" href="header-logo-favicon.svg"><meta name="theme-color" content="#142238">
 <script src="js/vendor/chess.min.js"></script>
-<link rel="stylesheet" href="css/board-drawing.css?v=3"><link rel="stylesheet" href="css/pgn-editor.css?v=1">
+<link rel="stylesheet" href="css/board-drawing.css?v=6"><link rel="stylesheet" href="css/pgn-editor.css?v=1">
 </head><body id="top" data-page="pgn">
 <header><div class="w"><nav aria-label="Main navigation">
 <a class="brand" href="index.html" aria-label="Chess AnyTime home"><img src="images/brand-logo.png" width="44" height="44" alt="" decoding="async"><span>Chess AnyTime<small>Chess community</small></span></a>
@@ -52,7 +52,7 @@
     <section class="pgn-board-panel" aria-labelledby="pgn-game-title">
       <h2 id="pgn-game-title">Your PGN workspace</h2><p id="pgn-game-detail">Choose files, then select a game.</p><p id="pgn-board-status" role="status" aria-live="polite"></p>
       <div class="board-frame"><div id="bd" aria-label="Chess board" tabindex="0"></div><div id="pgn-placeholder"><span aria-hidden="true">♞</span><p>Your next game starts here.</p></div></div>
-      <div class="board-drawing-tools" role="group" aria-label="Board drawing tools"><button type="button" data-board-draw-mode aria-pressed="false">Draw: off</button><span class="board-brushes" role="group" aria-label="Drawing colour"><button type="button" data-board-brush="g" aria-label="Green" title="Green" aria-pressed="true"></button><button type="button" data-board-brush="r" aria-label="Red" title="Red" aria-pressed="false"></button><button type="button" data-board-brush="b" aria-label="Blue" title="Blue" aria-pressed="false"></button><button type="button" data-board-brush="y" aria-label="Yellow" title="Yellow" aria-pressed="false"></button></span><button type="button" data-board-clear-marks>Clear marks</button><button type="button" data-board-sound aria-pressed="true">Sound: on</button></div><p class="board-drawing-help"><strong data-arrow-revision>Loading arrow controls…</strong> · Right-click: circle · Right-drag: snapped arrow · Left-click: clear (Draw off). Shift/Ctrl: red · Alt: blue · Shift/Ctrl + Alt: yellow. On touchscreens, select a colour, tap or drag, then turn Draw off to play.</p><div class="pgn-board-tools"><div class="pgn-position-tools"><button type="button" id="pgn-open-editor">Board editor / FEN</button><input id="pgn-current-fen" aria-label="Current position FEN" readonly placeholder="Current FEN"><button type="button" id="pgn-copy-fen">Copy FEN</button></div><div class="pgn-toolbar">
+      <div class="board-drawing-tools" role="group" aria-label="Board drawing tools"><button type="button" data-board-draw-mode aria-pressed="false">Draw: off</button><span class="board-brushes" role="group" aria-label="Drawing colour"><button type="button" data-board-brush="g" aria-label="Green" title="Green" aria-pressed="true"></button><button type="button" data-board-brush="r" aria-label="Red" title="Red" aria-pressed="false"></button><button type="button" data-board-brush="b" aria-label="Blue" title="Blue" aria-pressed="false"></button><button type="button" data-board-brush="y" aria-label="Yellow" title="Yellow" aria-pressed="false"></button></span><button type="button" data-board-clear-marks>Clear marks</button><button type="button" data-board-sound aria-pressed="true">Sound: on</button></div><div class="pgn-board-tools"><div class="pgn-position-tools"><button type="button" id="pgn-open-editor">Board editor / FEN</button><input id="pgn-current-fen" aria-label="Current position FEN" readonly placeholder="Current FEN"><button type="button" id="pgn-copy-fen">Copy FEN</button></div><div class="pgn-toolbar">
         <button type="button" id="pgn-board-prev" aria-label="Previous move" disabled>←</button><button type="button" id="pgn-board-next" aria-label="Next move" disabled>→</button>
         <button type="button" id="pgn-flip">Flip board</button><button type="button" id="pgn-focus" aria-pressed="false" disabled>Focus board</button>
         <label class="pgn-pin-control"><input type="checkbox" id="pgn-sticky" checked> Pin board</label>
@@ -85,5 +85,5 @@
 </div></main>
 <footer class="pgn-footer"><small>© 2026 <a href="index.html">Chess AnyTime</a></small><a href="https://chat.whatsapp.com/EEiO2B6orPa53V6WeOKmdm" target="_blank" rel="noopener noreferrer">Join WhatsApp ↗</a></footer>
 <script src="js/main.js"></script><script src="js/navigation.js"></script><script src="js/header.js"></script>
-<script src="js/board-sound.js?v=3"></script><script src="js/puzzles.js?v=2"></script><script src="js/chessboard-v5.js"></script><script src="js/pgn-study.js?v=2"></script><script src="js/pgn-editor.js?v=1"></script>
+<script src="js/board-sound.js?v=3"></script><script src="js/puzzles.js?v=6"></script><script src="js/chessboard-v5.js?v=6"></script><script src="js/pgn-study.js?v=2"></script><script src="js/pgn-editor.js?v=1"></script>
 </body></html>
