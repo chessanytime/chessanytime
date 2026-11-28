@@ -53,6 +53,7 @@ function gestureColour(e){
 }
 function clearGhost(){
  if(dragGhost){dragGhost.remove();dragGhost=null}
+ puzzleBoard.classList.remove('is-grabbing');document.body.classList.remove('ca-board-grabbing');
  puzzleBoard.querySelectorAll('.drag-source').forEach(x=>x.classList.remove('drag-source'));
 }
 function moveGhost(e){
@@ -105,7 +106,7 @@ function createDragGhost(sq,e){
  if(!im||dragGhost)return;
  dragGhost=document.createElement('div');dragGhost.className='drag-ghost';
  const clone=document.createElement('img');clone.src=im.src;clone.alt='';dragGhost.appendChild(clone);puzzleBoard.appendChild(dragGhost);
- im.parentElement.classList.add('drag-source');moveGhost(e);
+ im.parentElement.classList.add('drag-source');puzzleBoard.classList.add('is-grabbing');document.body.classList.add('ca-board-grabbing');moveGhost(e);
 }
 function draw(){
  const bd=puzzleBoard;
@@ -133,6 +134,7 @@ function draw(){
   if(last?.includes(sq))d.classList.add('last');
   if(sel===sq)d.classList.add('sel');if(hintSq===sq)d.classList.add('hint');if(targets[sq])d.classList.add(targets[sq]);
   if(checkSquare===sq)d.classList.add('in-check');
+  if(pc&&!done&&!puzzleWaiting&&pc.color===g.turn()&&pc.color===cur?.side0)d.classList.add('can-grab');
   if(activeGesture?.mode==='piece'&&activeGesture.moved&&activeGesture.from===sq)d.classList.add('drag-source');
   let im=d.querySelector('.pc');
   if(im&&(!pc||im.dataset.piece!==position[sq])){im.remove();im=null}
@@ -161,7 +163,7 @@ function toggleMark(from,to,col){
  boardMarks=boardMarks.filter(m=>!same(m));
 }
 function clearBoardMarks(){
- const hadMarks=boardMarks.length>0||userBoardMarks.length>0;
+ const hadMarks=boardMarks.length>0||userBoardMarks.length>0||!!hintSq;
  boardMarks=[];userBoardMarks=[];hintSq=null;
  return hadMarks;
 }
@@ -185,7 +187,8 @@ puzzleBoard.addEventListener('pointerdown',e=>{
   sel=sq;hintSq=null;
   activeGesture={mode:'piece',from:sq,to:sq,pointerId:e.pointerId,startX:e.clientX,startY:e.clientY,moved:false,wasSelected};
   draw();
-  // Start preview only after the drag threshold.
+  // Show the held piece immediately; retain the movement threshold for click vs drag.
+  createDragGhost(sq,e);
  }else{
   activeGesture={mode:'click',from:sq,to:sq,pointerId:e.pointerId};
  }
@@ -214,6 +217,7 @@ puzzleBoard.addEventListener('pointerup',e=>{
   paintMarks();return;
  }
  if(a.mode==='piece'){
+  if(!g||done||puzzleWaiting){draw();return}
   if(a.moved&&end&&end!==a.from&&g.moves({square:a.from,verbose:true}).some(m=>m.to===end)){
    boardMarks=[];skipMoveAnimation=true;play(a.from,end);skipMoveAnimation=false;return;
   }
@@ -272,5 +276,23 @@ document.querySelectorAll('[data-board-brush]').forEach(button=>button.addEventL
 }));
 syncDrawingControls();
 
-// Only the active annotation script can set this indicator.
-document.querySelectorAll('[data-arrow-revision]').forEach(el=>{el.textContent='Arrows v5 · Snap on';el.dataset.loaded='5';});
+
+// Square board resize handle: independent of move/draw gestures.
+(()=>{
+ const frame=puzzleBoard.closest('.board-frame'),main=puzzleBoard.closest('main');if(!frame||!main)return;
+ frame.classList.add('ca-resizable-board');
+ const handle=frame.querySelector('.ca-board-resize')||document.createElement('button');handle.type='button';handle.className='ca-board-resize';handle.setAttribute('aria-label','Resize chessboard with arrow keys or drag');handle.title='Resize board';if(!handle.parentElement)frame.append(handle);handle.dataset.ready='true';
+ const root=main.querySelector('.pz')||frame.parentElement;
+ const clamp=n=>Math.max(Math.min(240,max()),Math.min(max(),n));
+ function max(){if(main.id==='puzzles'&&innerWidth>900)return Math.max(1,root.clientWidth-300-34);if(main.id==='pgn'){const layout=main.querySelector('.pgn-layout'),focused=main.classList.contains('pgn-focused');return Math.max(1,layout.clientWidth-(focused?0:innerWidth>900?328:innerWidth>700?174:0))}return Math.max(1,root.clientWidth)}
+ function setWidth(n){const width=Math.round(clamp(n));if(main.id==='pgn'){main.dispatchEvent(new CustomEvent('ca-board-resize',{detail:{width}}));}else main.style.setProperty('--ca-user-board-width',width+'px');return width}
+ let resize=null;
+ handle.addEventListener('pointerdown',e=>{if(e.button!==0)return;e.preventDefault();e.stopPropagation();resize={x:e.clientX,y:e.clientY,size:puzzleBoard.getBoundingClientRect().width,id:e.pointerId};handle.setPointerCapture(e.pointerId);document.body.classList.add('ca-board-resizing')});
+ handle.addEventListener('pointermove',e=>{if(!resize||resize.id!==e.pointerId)return;setWidth(resize.size+((e.clientX-resize.x)+(e.clientY-resize.y))/2)});
+ function stop(e){if(resize&&resize.id===e.pointerId){resize=null;document.body.classList.remove('ca-board-resizing')}}
+ handle.addEventListener('pointerup',stop);handle.addEventListener('pointercancel',stop);handle.addEventListener('lostpointercapture',stop);
+ handle.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowUp','ArrowRight','ArrowDown','Home'].includes(e.key))return;e.preventDefault();if(e.key==='Home')reset();else setWidth(puzzleBoard.getBoundingClientRect().width+(['ArrowRight','ArrowDown'].includes(e.key)?24:-24))});
+ function reset(){main.style.removeProperty('--ca-user-board-width');if(main.id==='pgn')main.dispatchEvent(new CustomEvent('ca-board-resize',{detail:{reset:true}}))}
+ handle.addEventListener('dblclick',reset);
+ addEventListener('resize',()=>{const n=parseFloat(main.style.getPropertyValue('--ca-user-board-width'));if(Number.isFinite(n))setWidth(n)});
+})();
