@@ -42,3 +42,19 @@ body .board-brushes [data-board-brush]{border-radius:50%!important}
 body .pgn-editor-dialog #pgn-editor-palette button[data-brush]:not([data-brush=move]):not([data-brush=erase]){border-radius:8px!important}
 body :is(.dash-history-stats,.dash-history-stats .dash-metric){border-radius:var(--ca-round-control)!important}
 @media(max-width:600px){:root{--ca-round-panel:17px;--ca-round-control:11px;--ca-round-board:15px}}
+
+/* Board sizing v10: match the 526px board in the desktop reference.
+   Manual resize values take precedence; narrow screens fit the available space. */
+:root{--ca-default-board-size:526px}
+body #puzzles .pz{--puzzle-board-size:min(var(--ca-default-board-size),max(240px,calc(100svh - 132px)))}
+body #puzzles .board-frame.ca-resizable-board{border:0!important}
+@media(min-width:901px){
+ body #puzzles .pz{grid-template-columns:minmax(0,min(var(--ca-user-board-width,var(--puzzle-board-size)),calc(100% - 334px))) minmax(0,1fr)!important}
+}
+@media(max-width:900px){
+ body #puzzles .board-frame.ca-resizable-board{width:min(100%,var(--ca-user-board-width,var(--ca-default-board-size)))!important}
+}
+body #pgn .board-frame.ca-resizable-board{border:0!important;width:min(100%,var(--pgn-board-height,var(--ca-default-board-size)))!important}
+body #pgn .pgn-editor-dialog{width:min(1120px,95vw)}
+body #pgn .pgn-editor-dialog .editor-board-frame{width:min(100%,var(--ca-default-board-size));margin-inline:auto}
+body #home .mind-board-frame{width:min(100%,calc(var(--ca-default-board-size) + 20px))}
