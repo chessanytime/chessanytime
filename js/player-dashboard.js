@@ -126,10 +126,10 @@
  async function loadArenas(){
   if(!account||arenaController||lichessBusy)return;const user=account,controller=new AbortController();arenaController=controller;const btn=$('dash-arena-load');btn.disabled=true;$('dash-arena-message').textContent='Loading Arena results…';
   try{
-   const res=await lichessRequest('/api/user/'+encodeURIComponent(user.username)+'/tournament/played?max=20',{headers:{Accept:'application/x-ndjson'},signal:AbortSignal.any([controller.signal,AbortSignal.timeout(30000)])},null);
+   const res=await lichessRequest('/api/user/'+encodeURIComponent(user.username)+'/tournament/played?nb=20&performance=true',{headers:{Accept:'application/x-ndjson'},signal:AbortSignal.any([controller.signal,AbortSignal.timeout(30000)])},null);
    const raw=await res.text();if(controller.signal.aborted||account!==user)return;const data=raw.split(/\r?\n/).filter(s=>s.trim()).map(s=>JSON.parse(s));const rows=[];
-   for(const item of data){const t=item.tournament||item,player=item.player||item;const id=t.id||item.id;if(typeof id!=='string'||!/^[A-Za-z0-9]{8}$/.test(id))continue;const a=node('a',t.fullName||t.name||'Arena '+id,'dash-game-link');a.href='https://lichess.org/tournament/'+id;a.target='_blank';a.rel='noopener noreferrer';rows.push([a,fmt(player.rank),fmt(player.score),fmt(player.performance)]);}
-   $('dash-arenas').replaceChildren();if(rows.length)$('dash-arenas').append(makeTable(['Arena','Rank','Score','Performance'],rows));$('dash-arena-message').textContent=rows.length?rows.length+' recent Arena entries returned by Lichess.':'No Arena results returned.';
+   for(const item of data){const t=item.tournament||item,player=item.player||item;const id=t.id||item.id;if(typeof id!=='string'||!/^[A-Za-z0-9]{8}$/.test(id))continue;const a=node('a',t.fullName||t.name||'Arena '+id,'dash-game-link');a.href='https://lichess.org/tournament/'+id;a.target='_blank';a.rel='noopener noreferrer';rows.push([a,fmt(player.rank),fmt(player.games),fmt(player.score),fmt(player.performance)]);}
+   $('dash-arenas').replaceChildren();if(rows.length)$('dash-arenas').append(makeTable(['Arena','Rank','Games','Score','Performance'],rows));$('dash-arena-message').textContent=rows.length?rows.length+' recent Arena entries returned by Lichess.':'No Arena results returned.';
   }catch(e){if(!controller.signal.aborted&&account===user)$('dash-arena-message').textContent=e.message;}
   finally{if(arenaController===controller){arenaController=null;btn.disabled=false}}
  }
