@@ -57,7 +57,7 @@ body.ca-board-resizing,body.ca-board-resizing *{cursor:nwse-resize!important;use
 #puzzles .board-drawing-help,#puzzles .board-help,#puzzles .board-controls,#puzzles .practice-upcoming,#puzzles #practice-puzzle-info,#pgn .board-drawing-help{display:none!important}
 #puzzles .board-frame.ca-resizable-board,#pgn .board-frame.ca-resizable-board{position:relative!important;overflow:visible!important;padding:0!important}
 #puzzles .ca-board-resize,#pgn .ca-board-resize{position:absolute!important;display:block!important;right:0!important;bottom:0!important;width:24px!important;height:24px!important;min-width:0!important;min-height:0!important;margin:0!important;padding:0!important;z-index:30!important;border:0!important;border-radius:0!important;box-shadow:none!important;cursor:nwse-resize!important;background:linear-gradient(135deg,transparent 52%,#20170fa8 53%,#20170fa8 59%,transparent 60%,transparent 70%,#20170fa8 71%,#20170fa8 77%,transparent 78%)!important;touch-action:none}
-@media(max-width:900px){#pgn .pgn-layout:has(.ca-resizable-board){grid-template-columns:minmax(0,1fr)}}
+
 .ca-build-marker{font:600 11px/1.3 system-ui,sans-serif;color:inherit;opacity:.68;display:inline-block;white-space:nowrap;margin:5px 0}
 
 /* All playable boards use one resize implementation. */
