@@ -89,7 +89,7 @@
     side.insertBefore(status,practice?element("practice-panel"):document.querySelector(".daily-bar").nextSibling);
     status.hidden=practice&&!me;
     element("puzzle-intro").textContent=practice?"A fresh challenge, adapted to your level.":"Solve today’s Lichess puzzle.";
-    history.replaceState(null,"","puzzles.html?mode="+mode);updateNavigation();
+    const url=new URL(location.href);url.searchParams.set("mode",mode);history.replaceState(null,"",url);updateNavigation();
     if(!practice){element("bd").classList.remove("is-empty");loadDaily()}
     else if(me)void begin();
     else{placeholder("Log in with Lichess to practise.");say("Log in to practise","","The daily puzzle is available without logging in.")}
