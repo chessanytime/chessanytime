@@ -26,16 +26,21 @@ function squareAtPoint(e){
  if(flip){file=7-file;rank=7-rank}
  return 'abcdefgh'[file]+(8-rank);
 }
+// Annotation revision 5: independent geometry and render validation.
+function isArrowGeometry(from,to){
+ if(!/^[a-h][1-8]$/.test(from)||!/^[a-h][1-8]$/.test(to))return false;
+ const dx=Math.abs(from.charCodeAt(0)-to.charCodeAt(0)),dy=Math.abs(Number(from[1])-Number(to[1]));
+ return dx===0||dy===0||dx===dy||(dx===1&&dy===2)||(dx===2&&dy===1);
+}
 // Snap drawings to the closest rank, file, diagonal or knight-jump square.
 function snappedArrowSquare(from,e){
  const r=puzzleBoard.getBoundingClientRect();
  const x=(e.clientX-r.left)*8/r.width,y=(e.clientY-r.top)*8/r.height;
  if(!Number.isFinite(x)||!Number.isFinite(y)||x<0||y<0||x>=8||y>=8)return null;
- const f0='abcdefgh'.indexOf(from[0]),r0=Number(from[1])-1;
+ if(!/^[a-h][1-8]$/.test(from))return null;
  let best=from,dist=Infinity;
  for(let f=0;f<8;f++)for(let rank=0;rank<8;rank++){
-  const a=Math.abs(f-f0),b=Math.abs(rank-r0);
-  if(!(a===0||b===0||a===b||a*b===2))continue;
+  if(!isArrowGeometry(from,'abcdefgh'[f]+(rank+1)))continue;
   const cx=(flip?7-f:f)+.5,cy=(flip?rank:7-rank)+.5;
   const d=(cx-x)**2+(cy-y)**2;
   if(d<dist){dist=d;best='abcdefgh'[f]+(rank+1)}
@@ -66,9 +71,9 @@ function paintMarks(){
  const marks=[...boardMarks.filter(mark=>!userBoardMarks.some(user=>matches(user,mark))),...userBoardMarks].filter(m=>!preview||!matches(m,preview));
  if(preview)marks.push(preview);
  marks.forEach(m=>{
-  if(!/^[a-h][1-8]$/.test(m.from)||!/^[a-h][1-8]$/.test(m.to))return;
+  if(!isArrowGeometry(m.from,m.to))return;
   const group=document.createElementNS(svgNS,'g');
-  group.setAttribute('opacity',m.preview?'.50':'.60');
+  group.setAttribute('opacity',m.preview?'.54':'.60');
   svg.appendChild(group);
   const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to),color=markColours[m.col]||markColours.g;
   if(m.from===m.to){
@@ -79,7 +84,7 @@ function paintMarks(){
    // between the shaft and the arrowhead. Dimensions are in square units.
    const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,nx=-uy,ny=ux;
    const width=m.preview?.1328:.15625,half=width/2;
-   const headHalf=width*2,headLength=width*3;
+   const headHalf=width*1.85,headLength=width*2.9;
    const crowded=marks.some(other=>{
     if(other===m||other.from===other.to||other.to!==m.to)return false;
     const [ox,oy]=xy(other.from),vx=x2-ox,vy=y2-oy;
@@ -148,6 +153,7 @@ function draw(){
  previousBoard=position;boardOrientation=flip;paintMarks();
 }
 function toggleMark(from,to,col){
+ if(!isArrowGeometry(from,to))return;
  const same=m=>m.from===from&&m.to===to;
  const existing=userBoardMarks.find(same);
  userBoardMarks=userBoardMarks.filter(m=>!same(m));
@@ -265,3 +271,6 @@ document.querySelectorAll('[data-board-brush]').forEach(button=>button.addEventL
  selectedBrush=button.dataset.boardBrush;setDrawMode(true);
 }));
 syncDrawingControls();
+
+// Only the active annotation script can set this indicator.
+document.querySelectorAll('[data-arrow-revision]').forEach(el=>{el.textContent='Arrows v5 · Snap on';el.dataset.loaded='5';});
