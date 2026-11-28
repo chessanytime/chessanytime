@@ -26,6 +26,22 @@ function squareAtPoint(e){
  if(flip){file=7-file;rank=7-rank}
  return 'abcdefgh'[file]+(8-rank);
 }
+// Snap drawings to the closest rank, file, diagonal or knight-jump square.
+function snappedArrowSquare(from,e){
+ const r=puzzleBoard.getBoundingClientRect();
+ const x=(e.clientX-r.left)*8/r.width,y=(e.clientY-r.top)*8/r.height;
+ if(!Number.isFinite(x)||!Number.isFinite(y)||x<0||y<0||x>=8||y>=8)return null;
+ const f0='abcdefgh'.indexOf(from[0]),r0=Number(from[1])-1;
+ let best=from,dist=Infinity;
+ for(let f=0;f<8;f++)for(let rank=0;rank<8;rank++){
+  const a=Math.abs(f-f0),b=Math.abs(rank-r0);
+  if(!(a===0||b===0||a===b||a*b===2))continue;
+  const cx=(flip?7-f:f)+.5,cy=(flip?rank:7-rank)+.5;
+  const d=(cx-x)**2+(cy-y)**2;
+  if(d<dist){dist=d;best='abcdefgh'[f]+(rank+1)}
+ }
+ return best;
+}
 function gestureColour(e){
  const blue=e.altKey||e.metaKey,red=e.ctrlKey||(e.button===2&&e.shiftKey);
  return red&&blue?'y':red?'r':blue?'b':drawMode?selectedBrush:'g';
@@ -44,14 +60,6 @@ function paintMarks(){
  puzzleBoard.querySelector('.marks')?.remove();
  const svgNS='http://www.w3.org/2000/svg',svg=document.createElementNS(svgNS,'svg');
  svg.setAttribute('class','marks');svg.setAttribute('viewBox','0 0 8 8');svg.setAttribute('aria-hidden','true');
- const defs=document.createElementNS(svgNS,'defs');
- Object.entries(markColours).forEach(([key,color])=>{
-  const marker=document.createElementNS(svgNS,'marker');
-  marker.setAttribute('id','puzzle-arrow-'+key);marker.setAttribute('markerWidth','.44');marker.setAttribute('markerHeight','.44');
-  marker.setAttribute('refX','.42');marker.setAttribute('refY','.22');marker.setAttribute('orient','auto');marker.setAttribute('markerUnits','userSpaceOnUse');
-  const path=document.createElementNS(svgNS,'path');path.setAttribute('d','M0 0 L.44 .22 L0 .44 Z');path.setAttribute('fill',color);marker.appendChild(path);defs.appendChild(marker);
- });
- svg.appendChild(defs);
  const xy=sq=>{let x='abcdefgh'.indexOf(sq[0]),y=8-Number(sq[1]);if(flip){x=7-x;y=7-y}return [x+.5,y+.5]};
  const preview=activeGesture?.mode==='mark'&&activeGesture.to?{from:activeGesture.from,to:activeGesture.to,col:activeGesture.col,preview:true}:null;
  const matches=(a,b)=>a.from===b.from&&a.to===b.to;
@@ -60,18 +68,29 @@ function paintMarks(){
  marks.forEach(m=>{
   if(!/^[a-h][1-8]$/.test(m.from)||!/^[a-h][1-8]$/.test(m.to))return;
   const group=document.createElementNS(svgNS,'g');
-  group.setAttribute('opacity',m.preview?'.85':'1');
+  group.setAttribute('opacity',m.preview?'.50':'.60');
   svg.appendChild(group);
   const [x1,y1]=xy(m.from),[x2,y2]=xy(m.to),color=markColours[m.col]||markColours.g;
   if(m.from===m.to){
    const c=document.createElementNS(svgNS,'circle');c.setAttribute('cx',x1);c.setAttribute('cy',y1);c.setAttribute('r','.43');
    c.setAttribute('fill','none');c.setAttribute('stroke',color);group.appendChild(c);
   }else{
-   const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len;
-   const l=document.createElementNS(svgNS,'line');
-   l.setAttribute('x1',x1);l.setAttribute('y1',y1);
-   l.setAttribute('x2',x2-ux*.16);l.setAttribute('y2',y2-uy*.16);
-   l.setAttribute('stroke',color);l.setAttribute('marker-end','url(#puzzle-arrow-'+(markColours[m.col]?m.col:'g')+')');group.appendChild(l);
+   // One continuous silhouette avoids a visible seam or doubled opacity
+   // between the shaft and the arrowhead. Dimensions are in square units.
+   const dx=x2-x1,dy=y2-y1,len=Math.hypot(dx,dy),ux=dx/len,uy=dy/len,nx=-uy,ny=ux;
+   const width=m.preview?.1328:.15625,half=width/2;
+   const headHalf=width*2,headLength=width*3;
+   const crowded=marks.some(other=>{
+    if(other===m||other.from===other.to||other.to!==m.to)return false;
+    const [ox,oy]=xy(other.from),vx=x2-ox,vy=y2-oy;
+    return (vx*ux+vy*uy)/Math.hypot(vx,vy)>.707;
+   });
+   const tipDistance=len-(crowded&&!m.preview?.15625:0);
+   const neck=tipDistance-headLength;
+   const point=(along,across)=>[x1+ux*along+nx*across,y1+uy*along+ny*across].map(v=>v.toFixed(5)).join(' ');
+   const p=document.createElementNS(svgNS,'path');
+   p.setAttribute('d','M '+point(0,-half)+' L '+point(neck,-half)+' L '+point(neck,-headHalf)+' L '+point(tipDistance,0)+' L '+point(neck,headHalf)+' L '+point(neck,half)+' L '+point(0,half)+' A '+half+' '+half+' 0 0 1 '+point(0,-half)+' Z');
+   p.setAttribute('fill',color);group.appendChild(p);
   }
  });
  puzzleBoard.appendChild(svg);
@@ -169,7 +188,8 @@ puzzleBoard.addEventListener('pointermove',e=>{
  if(!activeGesture||activeGesture.pointerId!==e.pointerId)return;
  const to=squareAtPoint(e);
  if(activeGesture.mode==='mark'){
-  if(activeGesture.to!==to){activeGesture.to=to;paintMarks();}
+  const snapped=snappedArrowSquare(activeGesture.from,e);
+  if(activeGesture.to!==snapped){activeGesture.to=snapped;paintMarks();}
   return;
  }
  if(to)activeGesture.to=to;
@@ -183,7 +203,8 @@ puzzleBoard.addEventListener('pointerup',e=>{
  e.preventDefault();const a=activeGesture;activeGesture=null;
  const end=squareAtPoint(e),to=end||a.to;clearGhost();
  if(a.mode==='mark'){
-  if(end)toggleMark(a.from,end,a.col);
+  const snapped=snappedArrowSquare(a.from,e);
+  if(snapped)toggleMark(a.from,snapped,a.col);
   paintMarks();return;
  }
  if(a.mode==='piece'){
