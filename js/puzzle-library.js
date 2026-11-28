@@ -58,6 +58,15 @@ class PuzzleLibrary {
     }
     return null;
   }
+  async guest(min,max,excluded){
+    const puzzle=await this.choose(min,max,excluded);
+    if(puzzle)return puzzle;
+    throw new Error("You have completed the available easy guest puzzles. Log in for personalised training, or start a new guest session.");
+  }
+  async near(rating,excluded){
+    for(const width of [125,250,450]){const p=await this.choose(Math.max(0,rating-width),Math.min(4000,rating+width),excluded);if(p)return p;}
+    return this.next(rating,0,excluded);
+  }
   async next(rating, direction, excluded) {
     const ranges = direction > 0 ? [[rating+25,rating+150],[rating+1,Math.min(4000,rating+400)]] :
       direction < 0 ? [[rating-150,rating-25],[Math.max(0,rating-400),rating-1]] :
