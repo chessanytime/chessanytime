@@ -32,3 +32,10 @@
 .promotion-dialog button{min-height:44px;padding:8px 14px;border:1px solid #d8e1ed;border-radius:8px;background:#f5f8fc;color:#20364f;font:600 .9rem Figtree,sans-serif;cursor:pointer}
 .puzzle-modes button:focus-visible,.promotion-dialog button:focus-visible{outline:3px solid #386db0;outline-offset:3px}
 .promotion-dialog button:disabled{opacity:.45;cursor:not-allowed}
+
+#puzzles .practice-actions{gap:10px;align-items:center}
+#puzzles #practice-next{background:#3c7d42;color:white;border-color:#3c7d42}
+#puzzles #practice-source{display:inline-flex;align-items:center;color:inherit;text-decoration:none;border:1px solid currentColor;border-radius:8px;padding:9px 13px;font-size:.85rem;font-weight:600;margin:6px 0}
+#puzzles #puzzle-themes,#puzzles #puzzle-solution{font-size:.85rem;line-height:1.65;overflow-wrap:anywhere;margin:10px 0;color:inherit}
+#puzzles #puzzle-solution{padding:10px 12px;border:1px solid var(--ln);border-radius:8px}
+#puzzles #bh:disabled{opacity:.45;cursor:default}
